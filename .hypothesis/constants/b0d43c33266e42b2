@@ -1,0 +1,4 @@
+# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\platform\baseplatform.py
+# hypothesis_version: 6.151.12
+
+['FunctionType', 'GLUT_GUARD_CALLBACKS', 'GetCurrentContext', 'OpenGL.errors', 'PLATFORM', 'VERSION', '_', '__doc__', '__name__', 'ccisvalid', 'copyBaseFunction', 'createBaseFunction', 'deprecated', 'extensions', 'final', 'func', 'getGLUTFontPointer', 'glGetIntegerv', 'glGetString', 'glGetStringi', 'glX', 'nullFunction', 'originalFunction']

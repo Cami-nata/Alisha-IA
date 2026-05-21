@@ -1,0 +1,4 @@
+# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\wrapper.py
+# hypothesis_version: 6.151.12
+
+['%s_FROM_%s', '%s_LOOKUP_%s', ', ', 'OpenGL.wrapper', '__call__', '__doc__', '__file__', '__module__', '__slots__', '_finalCall', '_type_', 'args', 'asArray', 'cConverters', 'cResolvers', 'finalise', 'optional', 'pyConverterNames', 'pyConverters', 'returnValues', 'storeValues', 'wrappedOperation']

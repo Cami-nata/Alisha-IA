@@ -1,0 +1,4 @@
+# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\arrays\vbo.py
+# hypothesis_version: 6.151.12
+
+[35002, 'ARB', 'B', 'GL_', 'GL_ARRAY_BUFFER', 'GL_DYNAMIC_DRAW', 'OpenGL.arrays.vbo', 'VBO', 'VBOHandler', '_ARB', '_I_', '_copy_segments', 'buffers', 'copied', 'data', 'gl', 'implementation', 'mapVBO', 'offset', 'target', 'usage', 'vbo']

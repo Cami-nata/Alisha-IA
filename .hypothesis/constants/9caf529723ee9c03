@@ -1,0 +1,4 @@
+# file: C:\users\user\Downloads\Juego\config.py
+# hypothesis_version: 6.151.12
+
+[500, 'APPDATA', 'C:\\Windows', 'ELEVENLABS_API_KEY', 'Elena', 'LIVE2D_MODEL_PATH', 'LOCALAPPDATA', 'MONGO_URI', 'Microsoft', 'Programs', 'Start Menu', 'Startup', 'System32', 'WINDIR', 'Windows', 'abrir_app', 'abrir_web', 'apagar', 'brillo', 'buscar_archivo', 'buscar_web', 'calc', 'calc.exe', 'cerrar_navegador', 'chrome', 'click', 'click_web', 'crear_word', 'data', 'diagnosticar', 'doble_click', 'edge', 'ejecutar_codigo', 'es-ES', 'escribir_texto', 'escribir_web', 'explorador', 'hotkey', 'ia_acciones.log', 'ia_asistente', 'ia_identidad.json', 'ia_memoria.json', 'leer_web', 'llama3.1', 'musica', 'nada', 'navegar_web', 'notepad', 'notepad.exe', 'power', 'recordatorio', 'reiniciar', 'screenshot', 'shutdown /r /t 0', 'shutdown /s /t 0', 'suspender', 'tomar_nota', 'ventana', 'volumen', 'word']

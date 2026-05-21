@@ -1,0 +1,31 @@
+# Credenciales — nunca subir al repositorio
+.env
+vtube_token.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Archivos generados
+ia_acciones.log
+ia_memoria.json
+ia_identidad.json
+ia_recuerdos.json
+productividad.json
+cradle_state.json
+chibi_state.json
+app_cache.json
+*.png
+*.mp3
+
+# Modelos RL
+pygame-rl-simulacion/models/*.json
+pygame-rl-simulacion/models/*.pt
+pygame-rl-simulacion/models/*.csv
+
+# Entorno virtual
+venv/
+.venv/

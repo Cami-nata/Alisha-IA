@@ -1,0 +1,159 @@
+{
+  "nivel": 3,
+  "xp": 321,
+  "tareas_completadas": 30,
+  "tiempo_uso_min": 465,
+  "nivel_3_celebrado": true,
+  "historial": [
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T19:31:35"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T19:32:18"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T19:32:58"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T19:34:57"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T19:35:47"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T19:37:12"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T19:38:09"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T19:39:33"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:19:15"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:24:31"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:26:25"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:27:02"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:35:15"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:36:23"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:36:55"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:37:33"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:38:11"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T21:38:52"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-15T23:07:45"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-16T15:07:25"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-17T07:18:15"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-20T16:46:27"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-20T17:14:53"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-20T17:16:28"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-20T17:17:09"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-20T17:18:53"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-20T17:25:00"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-20T17:25:51"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-20T17:26:04"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-04-20T17:26:49"
+    }
+  ]
+}

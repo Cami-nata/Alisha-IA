@@ -1,0 +1,4 @@
+# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\GL\KHR\debug.py
+# hypothesis_version: 6.151.12
+
+['buf', 'bufSize', 'count', 'ids', 'label', 'length', 'lengths', 'message', 'messageLog', 'params', 'severities', 'sources', 'types']

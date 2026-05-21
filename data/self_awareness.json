@@ -1,0 +1,11 @@
+{
+  "total_episodios": 300,
+  "tasa_exito_global": 0.29,
+  "recompensa_promedio_reciente": 50.76,
+  "habilidades_aprendidas": [],
+  "limitaciones_conocidas": [
+    "situación 'contacto con enemigo' (fallé 155 veces)",
+    "situación 'colisiones repetidas contra obstáculos' (fallé 63 veces)"
+  ],
+  "fecha_actualizacion": "2026-04-14T22:59:12.414242"
+}

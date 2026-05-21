@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎭 Alisha - Asistente IA</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <!-- Socket.IO — local (sin internet) -->
+  <script src="/static/js/socket.io.min.js"></script>
+  <!-- Markdown rendering — local -->
+  <script src="/static/js/marked.min.js"></script>
+  <!-- KaTeX para ecuaciones matemáticas — local -->
+  <link rel="stylesheet" href="/static/css/katex.min.css">
+  <script src="/static/js/katex.min.js"></script>
+  <script src="/static/js/katex-auto-render.min.js"></script>
+  <!-- highlight.js para código — local -->
+  <link rel="stylesheet" href="/static/css/highlight-github-dark.min.css">
+  <script src="/static/js/highlight.min.js"></script>
+</head>
+<body>
+
+<div class="app-wrapper">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="logo">🎭</span>
+      <span class="logo-text">Alisha IA</span>
+    </div>
+
+    <button class="btn-nuevo-chat" onclick="nuevoChat()">
+      <span>✨</span> Nueva conversación
+    </button>
+
+    <!-- Media Sync — "Escuchando ahora" -->
+    <div id="media-sync-bar">
+      <span id="media-sync-icon">🎵</span>
+      <span id="media-sync-text">Cargando...</span>
+    </div>
+
+    <div class="sidebar-section-title">💬 Historial</div>
+    <div id="historial-lista" class="historial-lista"></div>
+
+    <div class="sidebar-footer">
+      <div class="perfil-usuario">
+        <span id="nombre-usuario-sidebar">Cami</span>
+      </div>
+
+      <!-- Widget de Confianza -->
+      <div id="trust-widget" style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.04); border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span id="trust-label" style="font-size:0.78rem; font-weight:600; color:#e8e8f0;">🌱 Aprendiz</span>
+          <span id="trust-xp" style="font-size:0.72rem; color:#8888aa;">XP: 0</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.06); border-radius:999px; height:5px; overflow:hidden;">
+          <div id="trust-bar" style="height:100%; border-radius:999px; background:linear-gradient(90deg,#ff66a5,#00e5ff); width:0%; transition:width 0.8s ease;"></div>
+        </div>
+        <div id="trust-tasks" style="font-size:0.7rem; color:#555; margin-top:4px;">0 tareas completadas</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Panel principal ── -->
+  <main class="main-panel">
+
+    <!-- Header con estado de Alisha -->
+    <header class="chat-header">
+      <div class="header-info">
+        <div class="ia-nombre-row">
+          <h1 id="nombre-ia" class="ia-nombre">Alisha</h1>
+          <span id="estado-badge" class="estado-badge neutral">IDLE</span>
+        </div>
+        <div id="estado-panel" class="estado-panel">
+          <div class="estado-stat">
+            <span class="stat-label">ÁNIMO</span>
+            <div class="barra-estado"><div id="barra-dopamina" class="barra-llena"></div></div>
+          </div>
+          <div class="estado-stat">
+            <span class="stat-label">ENERGÍA</span>
+            <div class="barra-estado"><div id="barra-energia" class="barra-llena"></div></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Área de mensajes -->
+    <div class="mensajes-area" id="mensajes-area">
+      <div class="bienvenida" id="bienvenida">
+        <div class="bienvenida-emoji">🌸</div>
+        <h2>¡Hola! Soy Alisha</h2>
+        <p>Tu asistente IA con personalidad. Escribime algo para empezar a conversar.</p>
+        <div class="sugerencias">
+          <button class="sugerencia" onclick="enviarSugerencia('¿Cómo estás hoy?')">¿Cómo estás?</button>
+          <button class="sugerencia" onclick="enviarSugerencia('Cuéntame algo interesante')">Cuéntame algo</button>
+          <button class="sugerencia" onclick="enviarSugerencia('¿Qué puedes hacer?')">¿Qué puedes hacer?</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner "Despertar a Alisha" — visible si el servidor no responde -->
+    <div id="banner-despertar" style="display:none; background:#1a0a12; border:1px solid #f48fb155;
+         border-radius:12px; padding:16px; margin:12px 28px; text-align:center;">
+      <p style="color:#f9d4e2; margin-bottom:10px">⚠️ Alisha no está corriendo. ¿Querés despertarla?</p>
+      <button onclick="despertarAlisha()" style="background:#c2185b; color:white; border:none;
+              border-radius:8px; padding:10px 24px; cursor:pointer; font-size:0.9em;">
+        🌸 Despertar a Alisha
+      </button>
+    </div>
+
+    <!-- Archivos adjuntos pendientes -->
+    <div id="chips-archivos" class="chips-archivos"></div>
+
+    <!-- Barra de entrada -->
+    <div class="entrada-wrapper">
+      <div class="entrada-bar">
+        <button class="btn-icono" title="Adjuntar archivo" type="button" onclick="document.getElementById('file-input').click()">📎</button>
+        <input type="file" id="file-input" multiple accept=".png,.jpg,.jpeg,.gif,.bmp,.webp,.pdf,.docx,.txt,.md,.csv" style="display:none" onchange="adjuntarArchivos(this)" />
+        <button class="btn-icono" title="Imagen" type="button" onclick="document.getElementById('img-input').click()">🖼️</button>
+        <input type="file" id="img-input" multiple accept=".png,.jpg,.jpeg,.gif,.bmp,.webp" style="display:none" onchange="adjuntarArchivos(this)" />
+        <button id="mic-button" class="btn-icono" type="button" title="Grabar audio" onclick="toggleMic()">🎙️</button>
+        <input
+          type="text"
+          id="entrada-texto"
+          class="entrada-texto"
+          placeholder="Escribe tu mensaje aquí..."
+          autocomplete="off"
+          onkeydown="if(event.key==='Enter')enviar()"
+        />
+        <button class="btn-enviar" onclick="enviar()">💬</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="/static/js/app.js"></script>
+<!-- Toast de bloqueo -->
+<div id="lock-toast"></div>
+</body>
+</html>

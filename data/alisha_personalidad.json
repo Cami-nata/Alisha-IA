@@ -1,0 +1,26 @@
+{
+  "gustos": {
+    "musica_synthwave": 0.8066180485062169,
+    "musica_electro": 0.8899916564110154,
+    "musica_lofi": 0.6333660105359512,
+    "musica_jazz": 0.7139537810847123,
+    "musica_rock": 0.3212223992553138,
+    "musica_pop": 0.09916174929325453,
+    "musica_clasica": -0.15837850305756263,
+    "musica_reggaeton": -0.8279676346809366,
+    "musica_cumbia": -0.32098643969618695,
+    "musica_trap": -0.42424976750903937,
+    "video_terror": -0.9472828224898673,
+    "video_horror": -0.7564074234490809,
+    "video_accion": 0.46018769933775716,
+    "video_comedia": 0.7852839451232552,
+    "video_romance": 0.20227263374084614,
+    "video_ciencia_ficcion": 0.6537106645341821,
+    "video_documental": 0.5004327185077195,
+    "video_drama": -0.17405417831439585,
+    "video_anime": 0.9059237297879835,
+    "video_tutorial": 0.4474151869835592
+  },
+  "memoria_opiniones": {},
+  "version": 1
+}

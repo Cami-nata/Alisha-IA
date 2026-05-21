@@ -1,0 +1,469 @@
+{
+  "sessions": [
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T07:30:31.126228",
+      "end_time": "2026-04-17T07:31:01.127481",
+      "details": [],
+      "window_titles": [
+        "juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T07:31:01.127481",
+      "end_time": "2026-04-17T07:31:30.567536",
+      "details": [],
+      "window_titles": [
+        "(493) lo que la vida me robó capítulo 8 parte 2 de 3 — lasestrellas.tv - youtube - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T12:44:54.173129",
+      "end_time": "2026-04-17T12:47:54.201936",
+      "details": [],
+      "window_titles": [
+        "juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "communication",
+      "start_time": "2026-04-17T12:47:54.201936",
+      "end_time": "2026-04-17T12:50:24.206134",
+      "details": [],
+      "window_titles": [
+        "whatsapp"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T12:50:24.206134",
+      "end_time": "2026-04-17T12:50:54.207189",
+      "details": [],
+      "window_titles": [
+        "(495) esta canción le pertenece a hiromi higuruma | rihanna - breakin' dishes (sub. español) - youtube - opera"
+      ]
+    },
+    {
+      "activity_type": "communication",
+      "start_time": "2026-04-17T12:50:54.207189",
+      "end_time": "2026-04-17T12:55:24.231727",
+      "details": [],
+      "window_titles": [
+        "whatsapp"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T12:55:24.231727",
+      "end_time": "2026-04-17T12:57:54.178977",
+      "details": [],
+      "window_titles": [
+        "inicio - explorador de archivos"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T12:57:54.287389",
+      "end_time": "2026-04-17T12:58:24.288724",
+      "details": [],
+      "window_titles": [
+        "inicio - explorador de archivos"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T12:58:24.288724",
+      "end_time": "2026-04-17T12:59:24.291141",
+      "details": [],
+      "window_titles": [
+        "(495) kali uchis - moonlight (official lyric video) - youtube - opera",
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T12:59:24.291141",
+      "end_time": "2026-04-17T13:00:54.184295",
+      "details": [],
+      "window_titles": [
+        "juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:25:53.604322",
+      "end_time": "2026-04-17T13:26:23.624376",
+      "details": [],
+      "window_titles": [
+        "juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:26:23.624376",
+      "end_time": "2026-04-17T13:26:53.626484",
+      "details": [],
+      "window_titles": [
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:26:53.626484",
+      "end_time": "2026-04-17T13:33:53.649652",
+      "details": [],
+      "window_titles": [
+        "juego - kiro",
+        "bugfix.md - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "design",
+      "start_time": "2026-04-17T13:33:53.649652",
+      "end_time": "2026-04-17T13:34:23.652119",
+      "details": [],
+      "window_titles": [
+        "design.md - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:34:23.652119",
+      "end_time": "2026-04-17T13:36:23.657240",
+      "details": [],
+      "window_titles": [
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:36:23.657240",
+      "end_time": "2026-04-17T13:38:53.608496",
+      "details": [],
+      "window_titles": [
+        "tasks.md - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:38:53.665434",
+      "end_time": "2026-04-17T13:43:53.728181",
+      "details": [],
+      "window_titles": [
+        "tasks.md - juego - kiro",
+        "desconocido",
+        "execution changes (archivos 2) - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "communication",
+      "start_time": "2026-04-17T13:43:53.728181",
+      "end_time": "2026-04-17T13:44:23.738757",
+      "details": [],
+      "window_titles": [
+        "whatsapp"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:44:23.738757",
+      "end_time": "2026-04-17T13:44:53.616125",
+      "details": [],
+      "window_titles": [
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:44:53.739298",
+      "end_time": "2026-04-17T13:45:53.744804",
+      "details": [],
+      "window_titles": [
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:45:53.744804",
+      "end_time": "2026-04-17T13:46:23.747800",
+      "details": [],
+      "window_titles": [
+        "execution changes (archivos 3) - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:46:23.747800",
+      "end_time": "2026-04-17T13:47:23.749802",
+      "details": [],
+      "window_titles": [
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:47:23.749802",
+      "end_time": "2026-04-17T13:47:53.750743",
+      "details": [],
+      "window_titles": [
+        "execution changes (archivos 4) - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:47:53.750743",
+      "end_time": "2026-04-17T13:48:23.751616",
+      "details": [],
+      "window_titles": [
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:48:23.751616",
+      "end_time": "2026-04-17T13:48:53.752358",
+      "details": [],
+      "window_titles": [
+        "execution changes (archivos 4) - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:48:53.752358",
+      "end_time": "2026-04-17T13:51:53.759370",
+      "details": [],
+      "window_titles": [
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:51:53.759370",
+      "end_time": "2026-04-17T13:52:23.767435",
+      "details": [],
+      "window_titles": [
+        "execution changes (archivos 5) - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:52:23.767435",
+      "end_time": "2026-04-17T13:52:53.768925",
+      "details": [],
+      "window_titles": [
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:52:53.768925",
+      "end_time": "2026-04-17T13:53:23.783285",
+      "details": [],
+      "window_titles": [
+        "execution changes (archivos 5) - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:53:23.783285",
+      "end_time": "2026-04-17T13:54:23.785859",
+      "details": [],
+      "window_titles": [
+        "google ai studio - opera",
+        "google search - google chrome for testing"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:54:23.785859",
+      "end_time": "2026-04-17T13:54:53.786448",
+      "details": [],
+      "window_titles": [
+        "desconocido"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:54:53.786448",
+      "end_time": "2026-04-17T13:55:23.787179",
+      "details": [],
+      "window_titles": [
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:55:23.787179",
+      "end_time": "2026-04-17T13:56:23.788588",
+      "details": [],
+      "window_titles": [
+        "execution changes (archivos 6) - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T13:56:23.788588",
+      "end_time": "2026-04-17T13:57:53.805020",
+      "details": [],
+      "window_titles": [
+        "en 1 oración corta, describí qué está haciendo cami basándote en que tiene abierto: 'gemini api - con - opera'. sin mencionar que ves la pantalla. - buscar con google - google chrome for testing",
+        "replicando ia de video: guía técnica - google gemini - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T13:57:53.805020",
+      "end_time": "2026-04-17T14:17:53.922475",
+      "details": [],
+      "window_titles": [
+        "execution changes (archivos 7) - juego - kiro",
+        "execution changes (archivos 8) - juego - kiro",
+        "inicio - explorador de archivos"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T14:17:53.922475",
+      "end_time": "2026-04-17T14:19:23.925283",
+      "details": [],
+      "window_titles": [
+        "(496) what you won't do for love - youtube - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T14:19:23.925283",
+      "end_time": "2026-04-17T14:20:53.623916",
+      "details": [],
+      "window_titles": [
+        "execution changes (archivos 8) - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-17T14:20:53.928714",
+      "end_time": "2026-04-17T14:23:23.932771",
+      "details": [],
+      "window_titles": [
+        "execution changes (archivos 8) - juego - kiro",
+        "execution changes (archivos 9) - juego - kiro"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-17T14:23:23.932771",
+      "end_time": "2026-04-17T14:23:53.628452",
+      "details": [],
+      "window_titles": [
+        "(496) lo que la vida me robó capítulo 17 parte 3 de 3 — lasestrellas.tv - youtube - opera"
+      ]
+    },
+    {
+      "activity_type": "communication",
+      "start_time": "2026-04-20T19:51:45.324924",
+      "end_time": "2026-04-20T19:53:15.414475",
+      "details": [],
+      "window_titles": [
+        "(4) whatsapp y 1 página más - personal: microsoft​ edge"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-20T19:53:15.414475",
+      "end_time": "2026-04-20T19:53:45.422195",
+      "details": [],
+      "window_titles": [
+        "acuerdos de la ie simon rodriguez - búsqueda y 2 páginas más - personal: microsoft​ edge"
+      ]
+    },
+    {
+      "activity_type": "work",
+      "start_time": "2026-04-20T19:53:45.422195",
+      "end_time": "2026-04-20T19:55:15.435354",
+      "details": [],
+      "window_titles": [
+        "documento1 - word"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-20T19:55:15.435354",
+      "end_time": "2026-04-20T19:59:45.845780",
+      "details": [],
+      "window_titles": [
+        "acuerdos de la ie simon rodriguez - búsqueda y 2 páginas más - personal: microsoft​ edge",
+        "acuerdos | institución educativa simon redríguez y 4 páginas más - personal: microsoft​ edge",
+        "colegio simón rodriguez | facebook y 4 páginas más - personal: microsoft​ edge",
+        "terminal"
+      ]
+    },
+    {
+      "activity_type": "work",
+      "start_time": "2026-04-20T19:59:45.845780",
+      "end_time": "2026-04-20T20:00:45.922152",
+      "details": [],
+      "window_titles": [
+        "acuerdos de convivencia i.e. simón rodríguez | pdf y 4 páginas más - personal: microsoft​ edge"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-20T20:00:45.922152",
+      "end_time": "2026-04-20T20:02:45.928460",
+      "details": [],
+      "window_titles": [
+        "colegio simón rodriguez | facebook y 4 páginas más - personal: microsoft​ edge",
+        "c:\\users\\user\\appdata\\local\\microsoft\\winget\\packages\\gyan.ffmpeg_microsoft.winget.source_8wekyb3d8bbwe\\ffmpeg-8.1-full_build\\bin\\ffmpeg.exe"
+      ]
+    },
+    {
+      "activity_type": "communication",
+      "start_time": "2026-04-20T20:02:45.928460",
+      "end_time": "2026-04-20T20:03:15.930585",
+      "details": [],
+      "window_titles": [
+        "(4) whatsapp y 4 páginas más - personal: microsoft​ edge"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-20T20:03:15.930585",
+      "end_time": "2026-04-20T20:06:16.288764",
+      "details": [],
+      "window_titles": [
+        "(516) \"veo una muñeca cuando miro en el espejo\" | kali uchis - youtube - opera"
+      ]
+    },
+    {
+      "activity_type": "general",
+      "start_time": "2026-04-20T20:06:16.288764",
+      "end_time": "2026-04-20T20:06:46.290878",
+      "details": [],
+      "window_titles": [
+        "terminal"
+      ]
+    },
+    {
+      "activity_type": "research",
+      "start_time": "2026-04-20T20:06:46.290878",
+      "end_time": "2026-04-20T20:07:16.292360",
+      "details": [],
+      "window_titles": [
+        "(516) \"veo una muñeca cuando miro en el espejo\" | kali uchis - youtube - opera"
+      ]
+    },
+    {
+      "activity_type": "communication",
+      "start_time": "2026-04-20T20:07:16.292360",
+      "end_time": "2026-04-20T20:11:45.326778",
+      "details": [],
+      "window_titles": [
+        "(4) whatsapp y 4 páginas más - personal: microsoft​ edge",
+        "(5) whatsapp y 4 páginas más - personal: microsoft​ edge",
+        "(6) whatsapp y 4 páginas más - personal: microsoft​ edge"
+      ]
+    }
+  ]
+}

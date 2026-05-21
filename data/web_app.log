@@ -1,0 +1,46 @@
+C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+[Brain] ✓ HybridIntelligenceCore — BrainPool inicializado
+[Brain]   Gemini  : ✓
+[Brain]   Groq    : ✓
+[Brain]   Mistral : ✓
+[Brain]   OpenAI  : ✓
+[Brain]   Ollama  : ✓
+[IdleWatcher] ✓ Iniciado (umbral: 3 min, voz: 2 min)
+[WebApp] ✓ HybridIntelligenceCore conectado
+[VisionEngine] ✓ Iniciado (scan cada 10.0-15.0s)
+[WebApp] ✓ VisionEngine conectado (scan pasivo activo)
+pygame 2.6.1 (SDL 2.28.4, Python 3.12.9)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+[WebApp] ✓ AudioVisualSync conectado
+[WebApp] ✓ ffmpeg configurado: C:\Users\User\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1-full_build\bin\ffmpeg.exe
+[Cuna Virtual] ✓ Alisha está activa en su mundo interno
+[Seguridad] ✓ Hotkey Ctrl+Shift+L registrado (bloquear/desbloquear control)
+
+🌐 Alisha - Interfaz Web
+==============================
+📍 Servidor: http://localhost:5000
+💡 Presiona Ctrl+C para cerrar
+
+ * Serving Flask app 'web_app'
+ * Debug mode: off
+C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\pydub\utils.py:198: RuntimeWarning: Couldn't find ffprobe or avprobe - defaulting to ffprobe, but may not work
+  warn("Couldn't find ffprobe or avprobe - defaulting to ffprobe, but may not work", RuntimeWarning)
+✨ Che Camila, ya estoy conectada a Atlas. Mi memoria ahora está en la nube y es persistente ✨
+ 🤔 Alisha 17:35
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Qué silencio... ¿todo bien?                                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+ 🤔 Alisha 17:35
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Che, ¿qué cosa es esa que estás usando? ¡Me parece bárbaro, mirá vos!      │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+ 🤔 Alisha 17:38
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Llevas un buen rato trabajando. ¿Tomaste agua?                             │
+└─────────────────────────────────────────────────────────────────────────────┘

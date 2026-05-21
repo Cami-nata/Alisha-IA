@@ -1,0 +1,791 @@
+
+============================================================
+[2026-04-14 22:44:35] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:44:40] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:44:45] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:44:50] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:44:55] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:45:00] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:45:05] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:45:10] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:45:15] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:45:20] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 16, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:48:51] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:48:56] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:49:01] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:49:06] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:49:11] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:49:16] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:49:21] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:49:26] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:49:31] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-14 22:49:36] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 277, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 43, in <module>
+    if sys.stdout.encoding != 'utf-8':
+       ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'encoding'
+
+
+============================================================
+[2026-04-15 17:14:26] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 106, in <module>
+    from audio_listener import transcribir_audio_bytes
+  File "C:\users\user\Downloads\Juego\audio_listener.py", line 29, in <module>
+    import whisper
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\whisper\__init__.py", line 8, in <module>
+    import torch
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\__init__.py", line 2273, in <module>
+    from torch import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\__init__.py", line 42, in <module>
+    from .spawn import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\spawn.py", line 12, in <module>
+    from concurrent.futures import as_completed, ThreadPoolExecutor
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\__init__.py", line 50, in __getattr__
+    from .thread import ThreadPoolExecutor as te
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\thread.py", line 37, in <module>
+    threading._register_atexit(_python_exit)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1561, in _register_atexit
+    raise RuntimeError("can't register atexit after shutdown")
+RuntimeError: can't register atexit after shutdown
+
+
+============================================================
+[2026-04-15 17:14:32] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 106, in <module>
+    from audio_listener import transcribir_audio_bytes
+  File "C:\users\user\Downloads\Juego\audio_listener.py", line 29, in <module>
+    import whisper
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\whisper\__init__.py", line 8, in <module>
+    import torch
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\__init__.py", line 2273, in <module>
+    from torch import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\__init__.py", line 42, in <module>
+    from .spawn import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\spawn.py", line 12, in <module>
+    from concurrent.futures import as_completed, ThreadPoolExecutor
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\__init__.py", line 50, in __getattr__
+    from .thread import ThreadPoolExecutor as te
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\thread.py", line 37, in <module>
+    threading._register_atexit(_python_exit)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1561, in _register_atexit
+    raise RuntimeError("can't register atexit after shutdown")
+RuntimeError: can't register atexit after shutdown
+
+
+============================================================
+[2026-04-15 17:14:37] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 106, in <module>
+    from audio_listener import transcribir_audio_bytes
+  File "C:\users\user\Downloads\Juego\audio_listener.py", line 29, in <module>
+    import whisper
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\whisper\__init__.py", line 8, in <module>
+    import torch
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\__init__.py", line 2273, in <module>
+    from torch import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\__init__.py", line 42, in <module>
+    from .spawn import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\spawn.py", line 12, in <module>
+    from concurrent.futures import as_completed, ThreadPoolExecutor
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\__init__.py", line 50, in __getattr__
+    from .thread import ThreadPoolExecutor as te
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\thread.py", line 37, in <module>
+    threading._register_atexit(_python_exit)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1561, in _register_atexit
+    raise RuntimeError("can't register atexit after shutdown")
+RuntimeError: can't register atexit after shutdown
+
+
+============================================================
+[2026-04-15 17:14:42] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 106, in <module>
+    from audio_listener import transcribir_audio_bytes
+  File "C:\users\user\Downloads\Juego\audio_listener.py", line 29, in <module>
+    import whisper
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\whisper\__init__.py", line 8, in <module>
+    import torch
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\__init__.py", line 2273, in <module>
+    from torch import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\__init__.py", line 42, in <module>
+    from .spawn import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\spawn.py", line 12, in <module>
+    from concurrent.futures import as_completed, ThreadPoolExecutor
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\__init__.py", line 50, in __getattr__
+    from .thread import ThreadPoolExecutor as te
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\thread.py", line 37, in <module>
+    threading._register_atexit(_python_exit)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1561, in _register_atexit
+    raise RuntimeError("can't register atexit after shutdown")
+RuntimeError: can't register atexit after shutdown
+
+
+============================================================
+[2026-04-15 17:14:47] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 106, in <module>
+    from audio_listener import transcribir_audio_bytes
+  File "C:\users\user\Downloads\Juego\audio_listener.py", line 29, in <module>
+    import whisper
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\whisper\__init__.py", line 8, in <module>
+    import torch
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\__init__.py", line 2273, in <module>
+    from torch import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\__init__.py", line 42, in <module>
+    from .spawn import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\spawn.py", line 12, in <module>
+    from concurrent.futures import as_completed, ThreadPoolExecutor
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\__init__.py", line 50, in __getattr__
+    from .thread import ThreadPoolExecutor as te
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\thread.py", line 37, in <module>
+    threading._register_atexit(_python_exit)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1561, in _register_atexit
+    raise RuntimeError("can't register atexit after shutdown")
+RuntimeError: can't register atexit after shutdown
+
+
+============================================================
+[2026-04-15 17:14:52] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 106, in <module>
+    from audio_listener import transcribir_audio_bytes
+  File "C:\users\user\Downloads\Juego\audio_listener.py", line 29, in <module>
+    import whisper
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\whisper\__init__.py", line 8, in <module>
+    import torch
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\__init__.py", line 2273, in <module>
+    from torch import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\__init__.py", line 42, in <module>
+    from .spawn import (
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\multiprocessing\spawn.py", line 12, in <module>
+    from concurrent.futures import as_completed, ThreadPoolExecutor
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\__init__.py", line 50, in __getattr__
+    from .thread import ThreadPoolExecutor as te
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\concurrent\futures\thread.py", line 37, in <module>
+    threading._register_atexit(_python_exit)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1561, in _register_atexit
+    raise RuntimeError("can't register atexit after shutdown")
+RuntimeError: can't register atexit after shutdown
+
+
+============================================================
+[2026-04-15 17:36:02] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 19, in <module>
+    logging.FileHandler(_log_file, encoding="utf-8"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\WINDOWS\\system32\\debug.log'
+
+
+============================================================
+[2026-04-15 17:36:07] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 19, in <module>
+    logging.FileHandler(_log_file, encoding="utf-8"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\WINDOWS\\system32\\debug.log'
+
+
+============================================================
+[2026-04-15 17:36:12] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 19, in <module>
+    logging.FileHandler(_log_file, encoding="utf-8"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\WINDOWS\\system32\\debug.log'
+
+
+============================================================
+[2026-04-15 17:36:17] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 19, in <module>
+    logging.FileHandler(_log_file, encoding="utf-8"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\WINDOWS\\system32\\debug.log'
+
+
+============================================================
+[2026-04-15 17:36:22] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 19, in <module>
+    logging.FileHandler(_log_file, encoding="utf-8"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\WINDOWS\\system32\\debug.log'
+
+
+============================================================
+[2026-04-15 17:36:27] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 320, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 19, in <module>
+    logging.FileHandler(_log_file, encoding="utf-8"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\logging\__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\WINDOWS\\system32\\debug.log'
+
+
+============================================================
+[2026-04-16 05:52:07] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:52:12] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:52:17] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:52:22] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:52:27] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:52:32] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:52:37] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:52:43] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:52:48] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:52:53] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+
+
+============================================================
+[2026-04-16 05:53:35] CRASH en _arrancar_servidor_una_vez
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [WinError 3] El sistema no puede encontrar la ruta especificada: 'static\\tmp'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\users\user\Downloads\Juego\Alisha_IA.py", line 169, in _arrancar_servidor_una_vez
+    from web_app import app, socketio, _inicializar
+  File "C:\users\user\Downloads\Juego\web_app.py", line 105, in <module>
+    from ia import inicializar_asistente, procesar_turno
+  File "C:\users\user\Downloads\Juego\ia.py", line 76, in <module>
+    from screen_context import obtener_contexto_pantalla
+  File "C:\users\user\Downloads\Juego\screen_context.py", line 70, in <module>
+    TMP_SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1315, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1311, in mkdir
+    os.mkdir(self, mode)
+PermissionError: [WinError 5] Acceso denegado: 'static'
+

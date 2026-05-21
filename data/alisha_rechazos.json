@@ -1,0 +1,22 @@
+{
+  "aprendizaje:tomar_notas": {
+    "count": 1,
+    "ultima": "2026-04-16T18:31:00.775579",
+    "pausado_hasta": null
+  },
+  "aprendizaje:buscar_mas": {
+    "count": 1,
+    "ultima": "2026-04-17T12:58:42.616544",
+    "pausado_hasta": null
+  },
+  "codigo:documentar": {
+    "count": 1,
+    "ultima": "2026-04-17T13:41:40.427073",
+    "pausado_hasta": null
+  },
+  "codigo:buscar_error": {
+    "count": 1,
+    "ultima": "2026-04-20T17:20:37.878201",
+    "pausado_hasta": null
+  }
+}

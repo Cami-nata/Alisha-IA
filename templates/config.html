@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚙️ Configuración de Alisha</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0d0010;
+      color: #f9d4e2;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 24px;
+      min-height: 100vh;
+    }
+    h1 { color: #f48fb1; font-size: 1.4em; margin-bottom: 20px; }
+    h2 { color: #c2185b; font-size: 1em; margin: 16px 0 8px; }
+    .card {
+      background: #1a0a12;
+      border: 1px solid #f48fb133;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    label { display: block; font-size: 0.85em; color: #9c6080; margin-bottom: 4px; }
+    select, input[type="text"], input[type="range"] {
+      width: 100%;
+      background: #0d0010;
+      border: 1px solid #f48fb155;
+      border-radius: 8px;
+      color: #f9d4e2;
+      padding: 8px 12px;
+      font-size: 0.9em;
+      margin-bottom: 12px;
+    }
+    input[type="range"] { padding: 4px 0; cursor: pointer; }
+    .btn {
+      background: #c2185b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 0.9em;
+      margin-right: 8px;
+      margin-top: 4px;
+    }
+    .btn:hover { background: #f48fb1; }
+    .btn.secondary { background: #1a0a12; border: 1px solid #f48fb155; }
+    .tag {
+      display: inline-block;
+      background: #f48fb122;
+      border: 1px solid #f48fb155;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.8em;
+      margin: 2px;
+      cursor: pointer;
+    }
+    .tag.dislike { background: #ff000022; border-color: #ff000055; }
+    .tag:hover { background: #f48fb144; }
+    #status {
+      position: fixed; bottom: 16px; right: 16px;
+      background: #c2185b; color: white;
+      padding: 8px 16px; border-radius: 8px;
+      display: none; font-size: 0.85em;
+    }
+    .row { display: flex; gap: 12px; }
+    .row > * { flex: 1; }
+    .val-label { font-size: 0.8em; color: #f48fb1; text-align: right; }
+  </style>
+</head>
+<body>
+  <h1>⚙️ Configuración de Alisha</h1>
+
+  <!-- Voz -->
+  <div class="card">
+    <h2>🎙️ Voz</h2>
+    <label>Voz del TTS</label>
+    <select id="voz">
+      <option value="alisha">Alisha (Elvira - España)</option>
+      <option value="elena">Elena (Argentina)</option>
+      <option value="dalia">Dalia (México)</option>
+      <option value="salome">Salomé (Colombia)</option>
+      <option value="valentina">Valentina (Uruguay)</option>
+      <option value="camila">Camila (Perú)</option>
+    </select>
+    <label>Velocidad de habla: <span id="rate-val">175</span> wpm</label>
+    <input type="range" id="rate" min="100" max="300" value="175"
+           oninput="document.getElementById('rate-val').textContent=this.value">
+  </div>
+
+  <!-- Modelo de IA -->
+  <div class="card">
+    <h2>🧠 Modelo de IA preferido</h2>
+    <label>Motor principal</label>
+    <select id="modelo">
+      <option value="auto">Auto (SmartRouter decide)</option>
+      <option value="groq">Groq — Llama 3 (rápido)</option>
+      <option value="gemini">Gemini — Google (documentos/visión)</option>
+      <option value="mistral">Mistral (equilibrado)</option>
+      <option value="openai">OpenAI GPT-4o (complejo)</option>
+      <option value="ollama">Ollama — Local (sin internet)</option>
+    </select>
+  </div>
+
+  <!-- Personalidad -->
+  <div class="card">
+    <h2>🎭 Personalidad</h2>
+    <div class="row">
+      <div>
+        <label>Nivel de sarcasmo</label>
+        <input type="range" id="sarcasmo" min="0" max="10" value="5"
+               oninput="document.getElementById('sarcasmo-val').textContent=this.value">
+        <div class="val-label" id="sarcasmo-val">5</div>
+      </div>
+      <div>
+        <label>Frecuencia de comentarios</label>
+        <input type="range" id="frecuencia" min="1" max="10" value="5"
+               oninput="document.getElementById('frec-val').textContent=this.value">
+        <div class="val-label" id="frec-val">5</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gustos musicales -->
+  <div class="card">
+    <h2>🎵 Gustos musicales de Alisha</h2>
+    <label>Le gusta (click para quitar)</label>
+    <div id="likes-musica"></div>
+    <label style="margin-top:8px">No le gusta (click para quitar)</label>
+    <div id="dislikes-musica"></div>
+    <div style="margin-top:8px; display:flex; gap:8px">
+      <input type="text" id="nuevo-like" placeholder="Agregar género que le gusta..." style="margin:0">
+      <button class="btn" onclick="agregarGusto('like')">+ Like</button>
+      <button class="btn secondary" onclick="agregarGusto('dislike')">+ Dislike</button>
+    </div>
+  </div>
+
+  <!-- Hobbies -->
+  <div class="card">
+    <h2>🌟 Hobbies de Alisha</h2>
+    <div id="hobbies"></div>
+    <div style="margin-top:8px; display:flex; gap:8px">
+      <input type="text" id="nuevo-hobby" placeholder="Nuevo hobby..." style="margin:0">
+      <button class="btn" onclick="agregarHobby()">+ Agregar</button>
+    </div>
+  </div>
+
+  <!-- Acciones -->
+  <div style="margin-top:8px">
+    <button class="btn" onclick="guardar()">💾 Guardar cambios</button>
+    <button class="btn secondary" onclick="resetear()">↺ Resetear personalidad</button>
+  </div>
+
+  <div id="status">✓ Guardado</div>
+
+<script>
+let personalidad = {};
+
+async function cargar() {
+  try {
+    const r = await fetch('/api/config');
+    const d = await r.json();
+    personalidad = d.personalidad || {};
+
+    document.getElementById('voz').value = d.voz || 'alisha';
+    document.getElementById('rate').value = d.rate || 175;
+    document.getElementById('rate-val').textContent = d.rate || 175;
+    document.getElementById('modelo').value = d.modelo || 'auto';
+    document.getElementById('sarcasmo').value = d.sarcasmo || 5;
+    document.getElementById('sarcasmo-val').textContent = d.sarcasmo || 5;
+    document.getElementById('frecuencia').value = d.frecuencia || 5;
+    document.getElementById('frec-val').textContent = d.frecuencia || 5;
+
+    renderTags('likes-musica', personalidad.likes?.musica || [], false);
+    renderTags('dislikes-musica', personalidad.dislikes?.musica || [], true);
+    renderTags('hobbies', personalidad.likes?.hobbies || [], false, true);
+  } catch(e) { console.error(e); }
+}
+
+function renderTags(containerId, items, isDislike, isHobby=false) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = items.map(item =>
+    `<span class="tag ${isDislike?'dislike':''}" onclick="quitarItem('${containerId}','${item}','${isDislike?'dislike':'like'}','${isHobby?'hobby':'musica'}')">${item} ✕</span>`
+  ).join('');
+}
+
+function quitarItem(containerId, item, tipo, categoria) {
+  if (tipo === 'like') {
+    const lista = categoria === 'hobby'
+      ? (personalidad.likes = personalidad.likes||{}).hobbies = (personalidad.likes?.hobbies||[]).filter(x=>x!==item)
+      : (personalidad.likes = personalidad.likes||{}).musica = (personalidad.likes?.musica||[]).filter(x=>x!==item);
+  } else {
+    personalidad.dislikes = personalidad.dislikes || {};
+    personalidad.dislikes.musica = (personalidad.dislikes.musica||[]).filter(x=>x!==item);
+  }
+  renderTags('likes-musica', personalidad.likes?.musica||[], false);
+  renderTags('dislikes-musica', personalidad.dislikes?.musica||[], true);
+  renderTags('hobbies', personalidad.likes?.hobbies||[], false, true);
+}
+
+function agregarGusto(tipo) {
+  const val = document.getElementById('nuevo-like').value.trim();
+  if (!val) return;
+  personalidad.likes = personalidad.likes || {};
+  personalidad.dislikes = personalidad.dislikes || {};
+  if (tipo === 'like') {
+    personalidad.likes.musica = [...new Set([...(personalidad.likes.musica||[]), val])];
+    personalidad.dislikes.musica = (personalidad.dislikes.musica||[]).filter(x=>x!==val);
+  } else {
+    personalidad.dislikes.musica = [...new Set([...(personalidad.dislikes.musica||[]), val])];
+    personalidad.likes.musica = (personalidad.likes.musica||[]).filter(x=>x!==val);
+  }
+  document.getElementById('nuevo-like').value = '';
+  renderTags('likes-musica', personalidad.likes?.musica||[], false);
+  renderTags('dislikes-musica', personalidad.dislikes?.musica||[], true);
+}
+
+function agregarHobby() {
+  const val = document.getElementById('nuevo-hobby').value.trim();
+  if (!val) return;
+  personalidad.likes = personalidad.likes || {};
+  personalidad.likes.hobbies = [...new Set([...(personalidad.likes.hobbies||[]), val])];
+  document.getElementById('nuevo-hobby').value = '';
+  renderTags('hobbies', personalidad.likes.hobbies, false, true);
+}
+
+async function guardar() {
+  const data = {
+    voz: document.getElementById('voz').value,
+    rate: parseInt(document.getElementById('rate').value),
+    modelo: document.getElementById('modelo').value,
+    sarcasmo: parseInt(document.getElementById('sarcasmo').value),
+    frecuencia: parseInt(document.getElementById('frecuencia').value),
+    personalidad,
+  };
+  await fetch('/api/config', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(data)
+  });
+  const s = document.getElementById('status');
+  s.style.display = 'block';
+  setTimeout(() => s.style.display = 'none', 2000);
+}
+
+async function resetear() {
+  if (!confirm('¿Resetear la personalidad de Alisha? Perderá sus gustos aprendidos.')) return;
+  await fetch('/api/config/reset', {method:'POST'});
+  location.reload();
+}
+
+cargar();
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\platform\win32.py
+# hypothesis_version: 6.151.12
+
+[34013184, 50528256, 50659328, 'GLUT_BITMAP_8_BY_13', 'GLUT_BITMAP_9_BY_15', 'GLUT_STROKE_ROMAN', 'bits', 'freeglut%s.%s', 'gle%s.%s', 'glu32', 'glut%s.%s', 'opengl32', 'opengle%s.%s', 'vc10', 'vc14', 'vc7', 'vc9']

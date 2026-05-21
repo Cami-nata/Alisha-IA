@@ -1,0 +1,4 @@
+# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\live2d\v3\params.py
+# hypothesis_version: 6.151.12
+
+['ParamAngleX', 'ParamAngleY', 'ParamAngleZ', 'ParamArmLA', 'ParamArmLB', 'ParamArmRA', 'ParamArmRB', 'ParamBaseX', 'ParamBaseY', 'ParamBodyAngleX', 'ParamBodyAngleY', 'ParamBodyAngleZ', 'ParamBreath', 'ParamBrowLAngle', 'ParamBrowLForm', 'ParamBrowLX', 'ParamBrowLY', 'ParamBrowRAngle', 'ParamBrowRForm', 'ParamBrowRX', 'ParamBrowRY', 'ParamBustX', 'ParamBustY', 'ParamCheek', 'ParamEyeBallForm', 'ParamEyeBallX', 'ParamEyeBallY', 'ParamEyeLOpen', 'ParamEyeLSmile', 'ParamEyeROpen', 'ParamEyeRSmile', 'ParamHairBack', 'ParamHairFluffy', 'ParamHairFront', 'ParamHairSide', 'ParamHandL', 'ParamHandR', 'ParamMouthForm', 'ParamMouthOpenY', 'ParamShoulderY']

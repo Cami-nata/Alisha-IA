@@ -1,0 +1,4 @@
+# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\error.py
+# hypothesis_version: 6.151.12
+
+[117, 120, '%s = %r', '%s = %s', '%s(\n\t%s\n)', '%s( %s )', '(\n\t\t%s,\n\t)', ',\n\t', ',\n\t\t', ', ', '...', 'ArgumentError', 'Error', 'GLError', 'GLUError', 'GLUTError', 'GLUTerror', 'GLUerror', 'GLerror', 'OpenGL.error', '[\n\t\t%s\n\t]', '__name__', 'baseOperation', 'cArgs', 'cArguments', 'description', 'err', 'err=%s', 'format_%s', 'pyArgs', 'result']

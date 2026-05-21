@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%;
+    background: transparent;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+    width: 100%; height: 100%;
+    background: transparent;
+  }
+</style>
+</head>
+<body>
+<canvas id="live2d"></canvas>
+
+<script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+<script>
+const MODEL_PATH = "MODEL_PATH_PLACEHOLDER";
+const EXPRESSIONS = EXPRESSIONS_PLACEHOLDER;
+
+let app, model;
+
+// Redirigir logs JS a Python para debugging
+const _origLog = console.log.bind(console);
+const _origWarn = console.warn.bind(console);
+const _origErr = console.error.bind(console);
+console.log  = function(...a) { notifyPython("log:" + a.join(" ")); };
+console.info = function(...a) { notifyPython("log:" + a.join(" ")); };
+console.warn = function(...a) { notifyPython("warn:" + a.join(" ")); };
+console.debug= function(...a) {};
+console.error= function(...a) { notifyPython("error:" + a.join(" ")); };
+
+async function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = () => {
+      console.warn("No se pudo cargar:", src);
+      resolve(); // no fallar, continuar
+    };
+    document.head.appendChild(s);
+  });
+}
+
+async function init() {
+  const BASE = "http://localhost:8765/static/js/live2d";
+  console.log("init() arrancando, BASE=" + BASE);
+
+  // ── Paso 0: Cargar Cubism 4 Core Runtime PRIMERO ─────────────────────────────
+  if (typeof Live2DCubismCore === "undefined") {
+    console.log("Cargando live2dcubismcore local...");
+    await loadScript(`${BASE}/live2dcubismcore.min.js`);
+  }
+  if (typeof Live2DCubismCore === "undefined") {
+    console.warn("Core local falló, intentando CDN...");
+    await loadScript("https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js");
+  }
+  console.log("Live2DCubismCore: " + (typeof Live2DCubismCore !== "undefined" ? "OK" : "FALLO"));
+
+  // ── Paso 1: Cargar PixiJS ──────────────────────────────────────────────────
+  if (typeof PIXI === "undefined" || typeof PIXI.Application === "undefined") {
+    console.log("Cargando pixi6 local...");
+    await loadScript(`${BASE}/pixi6.min.js`);
+  }
+  if (typeof PIXI === "undefined" || typeof PIXI.Application === "undefined") {
+    await loadScript(`${BASE}/pixi.min.js`);
+  }
+  if (typeof PIXI === "undefined" || typeof PIXI.Application === "undefined") {
+    console.warn("PIXI local falló, intentando CDN...");
+    await loadScript("https://cdn.jsdelivr.net/npm/pixi.js@6.5.10/dist/browser/pixi.min.js");
+  }
+  console.log("PIXI: " + (typeof PIXI !== "undefined" ? "v" + (PIXI.VERSION||"?") : "FALLO"));
+
+  // ── Paso 2: Cargar plugin pixi-live2d-display ─────────────────────────────
+  if (typeof PIXI !== "undefined" && typeof PIXI.live2d === "undefined") {
+    console.log("Cargando cubism4 plugin local...");
+    await loadScript(`${BASE}/cubism4.min.js`);
+  }
+  if (typeof PIXI !== "undefined" && typeof PIXI.live2d === "undefined") {
+    await loadScript(`${BASE}/index.min.js`);
+  }
+  if (typeof PIXI !== "undefined" && typeof PIXI.live2d === "undefined") {
+    console.warn("Plugin local falló, intentando CDN...");
+    await loadScript("https://cdn.jsdelivr.net/npm/pixi-live2d-display-lipsyncpatch/dist/cubism4.min.js");
+  }
+  console.log("PIXI.live2d: " + (typeof PIXI !== "undefined" && typeof PIXI.live2d !== "undefined" ? "OK" : "FALLO"));
+
+  // ── Verificar que todo cargó ─────────────────────────────────────────────────
+  if (typeof PIXI === "undefined" || typeof PIXI.Application === "undefined") {
+    console.error("PIXI.Application no disponible");
+    notifyPython("error:PIXI no disponible");
+    return;
+  }
+
+  if (typeof PIXI.live2d === "undefined") {
+    console.error("pixi-live2d-display no cargó");
+    notifyPython("error:Live2D plugin no disponible");
+    return;
+  }
+
+  try {
+    // PixiJS v7+ usa await app.init() en lugar del constructor directo
+    // PixiJS v6 usa new PIXI.Application() directamente
+    // Detectamos la versión y usamos la API correcta
+    const pixiVersion = parseInt((PIXI.VERSION || "6").split(".")[0]);
+
+    if (pixiVersion >= 8) {
+      // PixiJS v8+: API async
+      app = new PIXI.Application();
+      await app.init({
+        canvas: document.getElementById("live2d"),
+        backgroundAlpha: 0,
+        resizeTo: window,
+        antialias: true,
+      });
+    } else {
+      // PixiJS v6/v7: constructor síncrono
+      app = new PIXI.Application({
+        view: document.getElementById("live2d"),
+        transparent: true,
+        backgroundAlpha: 0,
+        resizeTo: window,
+        antialias: true,
+      });
+    }
+
+    PIXI.live2d.Live2DModel.registerTicker(PIXI.Ticker);
+
+    console.log("Cargando modelo desde: " + MODEL_PATH);
+    // Cargar modelo con auto-retry (3 intentos)
+    let intentos = 0;
+    const MAX_INTENTOS = 3;
+    while (intentos < MAX_INTENTOS) {
+      try {
+        model = await PIXI.live2d.Live2DModel.from(MODEL_PATH);
+        break;  // éxito
+      } catch (loadErr) {
+        intentos++;
+        console.warn(`Intento ${intentos}/${MAX_INTENTOS} fallido:`, loadErr.message);
+        if (intentos >= MAX_INTENTOS) throw loadErr;
+        await new Promise(r => setTimeout(r, 1500));  // esperar 1.5s antes de reintentar
+      }
+    }
+
+    app.stage.addChild(model);
+    fitModel();
+    window.addEventListener("resize", fitModel);
+
+    // Animación idle
+    try { model.motion("Idle"); } catch(e) {}
+
+    // Iniciar en estado SLEEPING y luego despertar
+    _initSleeping();
+    setTimeout(wakeUpSequence, 3000);
+
+    notifyPython("ready");
+  } catch(e) {
+    console.error("Error cargando modelo:", e);
+    notifyPython("error:" + e.message);
+  }
+}
+
+function fitModel() {
+  if (!model) return;
+  const scale = Math.min(
+    window.innerWidth  / model.width,
+    window.innerHeight / model.height
+  ) * 0.9;
+  model.scale.set(scale);
+  model.x = (window.innerWidth  - model.width)  / 2;
+  model.y = (window.innerHeight - model.height) / 2 + 20;
+}
+
+function setExpression(nombre) {
+  if (!model) return;
+  const expFile = EXPRESSIONS[nombre];
+  if (!expFile) {
+    return;
+  }
+  try {
+    model.expression(expFile);
+  } catch(e) {
+    // Ignorar errores internos de expresión inválida
+  }
+}
+
+function setMotion(grupo) {
+  if (!model) return;
+  try { model.motion(grupo); } catch(e) {}
+}
+
+function setHablando(hablando) {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    if (hablando) {
+      if (window._mouthInterval) clearInterval(window._mouthInterval);
+      let t = 0;
+      // Detectar si estamos en modo sarcástico para boca asimétrica
+      const nivelSk = window._currentSarcasmLevel || 0;
+      window._mouthInterval = setInterval(() => {
+        t += 0.3;
+        // Usar amplitud real si está disponible (lip-sync real)
+        const realAmp = window._currentMouthAmplitude || 0;
+        const base = realAmp > 0.01 ? realAmp : Math.abs(Math.sin(t)) * 0.8;
+        try {
+          core.setParameterValueById("ParamMouthOpenY", base);
+          core.setParameterValueById("PARAM_MOUTH_OPEN_Y", base);
+          // En modo sarcástico: boca asimétrica (MouthForm oscila levemente)
+          if (nivelSk >= 2) {
+            const asimetria = Math.sin(t * 0.7) * 0.3 - 0.4; // oscila en negativo
+            core.setParameterValueById("ParamMouthForm", asimetria);
+          }
+        } catch(e) {}
+      }, 50);
+    } else {
+      if (window._mouthInterval) clearInterval(window._mouthInterval);
+      try {
+        core.setParameterValueById("ParamMouthOpenY", 0);
+        core.setParameterValueById("PARAM_MOUTH_OPEN_Y", 0);
+      } catch(e) {}
+    }
+  } catch(e) {}
+}
+
+// Amplitud de boca actual (actualizada desde Python via chibi_state.json)
+window._currentMouthAmplitude = 0;
+
+function setMouthAmplitude(amplitude) {
+  // Llamado desde Python cuando hay audio real
+  window._currentMouthAmplitude = Math.max(0, Math.min(1, amplitude));
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    core.setParameterValueById("ParamMouthOpenY", window._currentMouthAmplitude);
+    core.setParameterValueById("PARAM_MOUTH_OPEN_Y", window._currentMouthAmplitude);
+    // Cerrar boca completamente cuando no hay sonido
+    if (window._currentMouthAmplitude < 0.01) {
+      core.setParameterValueById("ParamMouthOpenY", 0);
+      core.setParameterValueById("PARAM_MOUTH_OPEN_Y", 0);
+    }
+  } catch(e) {}
+}
+
+// ── Lerp helper ──────────────────────────────────────────────────────────────
+// Todos los cambios de parámetros pasan por aquí para evitar saltos bruscos.
+// duration_ms: tiempo de transición en milisegundos (default 800ms)
+const _lerpTargets = {};   // { paramId: { from, to, start, duration } }
+let   _lerpRafId   = null;
+
+function _setParamLerp(core, paramId, targetValue, duration_ms) {
+  if (!core) return;
+  let current = 0;
+  try { current = core.getParameterValueById(paramId); } catch(e) {}
+  _lerpTargets[paramId] = {
+    core, from: current, to: targetValue,
+    start: performance.now(), duration: duration_ms || 800
+  };
+  if (!_lerpRafId) _lerpTick();
+}
+
+function _lerpTick() {
+  _lerpRafId = requestAnimationFrame(() => {
+    const now = performance.now();
+    let anyActive = false;
+    for (const [id, t] of Object.entries(_lerpTargets)) {
+      const elapsed = now - t.start;
+      const progress = Math.min(elapsed / t.duration, 1.0);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = t.from + (t.to - t.from) * eased;
+      try { t.core.setParameterValueById(id, value); } catch(e) {}
+      if (progress < 1.0) anyActive = true;
+      else delete _lerpTargets[id];
+    }
+    _lerpRafId = null;
+    if (anyActive) _lerpTick();
+  });
+}
+
+// ── Idle noise — micro-movimientos suaves de cabeza (lerp, sin saltos) ────────
+let _idleNoiseT = 0;
+let _idleTargetX = 0, _idleTargetY = 0;
+let _idleCurrentX = 0, _idleCurrentY = 0;
+let _idleNextUpdateT = 0;  // cuándo actualizar el target
+
+function _tickIdleNoise() {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    _idleNoiseT += 0.016;
+
+    // Actualizar target cada ~2 segundos para movimientos lentos y naturales
+    if (_idleNoiseT > _idleNextUpdateT) {
+      _idleNextUpdateT = _idleNoiseT + 1.5 + Math.random() * 1.5;
+      _idleTargetX = (Math.random() - 0.5) * 6;   // rango -3 a +3
+      _idleTargetY = (Math.random() - 0.5) * 4;   // rango -2 a +2
+    }
+
+    // Lerp suave hacia el target (factor 0.02 = muy suave, ~2s para llegar)
+    const lerpF = 0.025;
+    _idleCurrentX += (_idleTargetX - _idleCurrentX) * lerpF;
+    _idleCurrentY += (_idleTargetY - _idleCurrentY) * lerpF;
+
+    // No sobreescribir si hay animación de baile activa
+    if (!window._danceActive) {
+      core.setParameterValueById("ParamAngleX", _idleCurrentX);
+      core.setParameterValueById("ParamAngleY", _idleCurrentY);
+      core.setParameterValueById("PARAM_ANGLE_X", _idleCurrentX);
+      core.setParameterValueById("PARAM_ANGLE_Y", _idleCurrentY);
+    }
+  } catch(e) {}
+}
+setInterval(_tickIdleNoise, 16); // 60 FPS
+
+// ── Animación de baile — fluida y natural ─────────────────────────────────────
+// Se activa cuando Alisha detecta música. Movimientos suaves con lerp.
+window._danceActive = false;
+let _danceT = 0;
+let _danceInterval = null;
+let _danceCurX = 0, _danceCurY = 0, _danceCurZ = 0, _danceCurBody = 0;
+
+function startDanceMode() {
+  if (window._danceActive) return;
+  window._danceActive = true;
+  _danceT = 0;
+  _danceCurX = _idleCurrentX;
+  _danceCurY = _idleCurrentY;
+  _danceCurZ = 0;
+  _danceCurBody = 0;
+
+  _danceInterval = setInterval(() => {
+    if (!model || !model.internalModel) return;
+    try {
+      const core = model.internalModel.coreModel;
+      _danceT += 0.025;  // velocidad del baile (más lento = más fluido)
+
+      // Movimientos suaves con múltiples frecuencias superpuestas
+      // Cabeza: balanceo lateral suave
+      const tgtX = Math.sin(_danceT * 1.2) * 8 + Math.sin(_danceT * 0.7) * 3;
+      // Cabeza: movimiento vertical suave
+      const tgtY = Math.sin(_danceT * 0.9 + 0.5) * 5 + Math.sin(_danceT * 1.8) * 2;
+      // Rotación Z: inclinación rítmica suave
+      const tgtZ = Math.sin(_danceT * 1.0) * 6 + Math.sin(_danceT * 2.1) * 2;
+      // Cuerpo: movimiento más lento y sutil
+      const tgtBody = Math.sin(_danceT * 0.8) * 4;
+
+      // Lerp suave hacia los targets (0.08 = transición en ~0.5s)
+      const lf = 0.08;
+      _danceCurX    += (tgtX    - _danceCurX)    * lf;
+      _danceCurY    += (tgtY    - _danceCurY)    * lf;
+      _danceCurZ    += (tgtZ    - _danceCurZ)    * lf;
+      _danceCurBody += (tgtBody - _danceCurBody) * lf;
+
+      core.setParameterValueById("ParamAngleX",    _danceCurX);
+      core.setParameterValueById("ParamAngleY",    _danceCurY);
+      core.setParameterValueById("ParamAngleZ",    _danceCurZ);
+      core.setParameterValueById("ParamBodyAngleX", _danceCurBody);
+      core.setParameterValueById("PARAM_ANGLE_X",  _danceCurX);
+      core.setParameterValueById("PARAM_ANGLE_Y",  _danceCurY);
+      core.setParameterValueById("PARAM_ANGLE_Z",  _danceCurZ);
+
+      // Respiración rítmica
+      const breath = 0.5 + Math.abs(Math.sin(_danceT * 1.5)) * 0.5;
+      core.setParameterValueById("ParamBreath", breath);
+      core.setParameterValueById("PARAM_BREATH", breath);
+    } catch(e) {}
+  }, 16); // 60 FPS
+}
+
+function stopDanceMode() {
+  if (!window._danceActive) return;
+  window._danceActive = false;
+  if (_danceInterval) {
+    clearInterval(_danceInterval);
+    _danceInterval = null;
+  }
+  // Volver suavemente a posición neutral
+  if (model && model.internalModel) {
+    try {
+      const core = model.internalModel.coreModel;
+      _setParamLerp(core, "ParamAngleX",    0, 1200);
+      _setParamLerp(core, "ParamAngleY",    0, 1200);
+      _setParamLerp(core, "ParamAngleZ",    0, 1200);
+      _setParamLerp(core, "ParamBodyAngleX", 0, 1200);
+      _setParamLerp(core, "ParamBreath",    0.6, 800);
+    } catch(e) {}
+  }
+}
+
+// ── Sarcasmo → cejas y boca ───────────────────────────────────────────────────
+// nivel: 0 = neutral, 1 = ceja levantada, 2 = media sonrisa irónica, 3 = WaiZui
+function setSarcasmLevel(nivel) {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const D = 800; // duración lerp 800ms
+
+    if (nivel === 0) {
+      // Resetear todo
+      _setParamLerp(core, "ParamBrowLAngle",  0, D);
+      _setParamLerp(core, "ParamBrowRAngle",  0, D);
+      _setParamLerp(core, "ParamMouthForm",   0, D);
+      _setParamLerp(core, "ParamEyeLOpen",    1, D);
+      _setParamLerp(core, "ParamEyeROpen",    1, D);
+    } else if (nivel === 1) {
+      // Una ceja más alta que la otra
+      _setParamLerp(core, "ParamBrowLAngle",  0.4, D);
+      _setParamLerp(core, "ParamBrowRAngle", -0.2, D);
+      _setParamLerp(core, "ParamMouthForm",   0,   D);
+    } else if (nivel === 2) {
+      // Media sonrisa irónica
+      _setParamLerp(core, "ParamBrowLAngle",  0.5, D);
+      _setParamLerp(core, "ParamBrowRAngle", -0.3, D);
+      _setParamLerp(core, "ParamMouthForm",  -0.5, D); // negativo = media sonrisa
+    } else if (nivel >= 3) {
+      // WaiZui (boca torcida) + párpados caídos
+      _setParamLerp(core, "ParamBrowLAngle",  0.6, D);
+      _setParamLerp(core, "ParamBrowRAngle", -0.4, D);
+      _setParamLerp(core, "ParamMouthForm",  -0.8, D);
+      _setParamLerp(core, "ParamEyeLOpen",   0.7,  D);
+      _setParamLerp(core, "ParamEyeROpen",   0.7,  D);
+      // WaiZui — boca torcida (nombre del parámetro en IceGirl)
+      try { _setParamLerp(core, "歪嘴",  1.0, D); } catch(e) {}
+    }
+  } catch(e) {}
+}
+
+// ── Dopamina → brillo y respiración ──────────────────────────────────────────
+// ajuste: +0.15 = contenta/radiante, -0.10 = decepcionada/pesada
+function setDopaminaAdjust(ajuste) {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const D = 800;
+    if (ajuste > 0) {
+      // Radiante: respiración rápida, ojos sonrientes
+      _setParamLerp(core, "ParamBreath",    1.0, D);
+      _setParamLerp(core, "ParamEyeLSmile", 1.0, D);
+      _setParamLerp(core, "ParamEyeRSmile", 1.0, D);
+      _setParamLerp(core, "PARAM_BREATH",   1.0, D);
+    } else if (ajuste < 0) {
+      // Decepcionada: respiración lenta, mirada baja
+      _setParamLerp(core, "ParamBreath",    0.2, D);
+      _setParamLerp(core, "ParamEyeLSmile", 0.0, D);
+      _setParamLerp(core, "ParamEyeRSmile", 0.0, D);
+      _setParamLerp(core, "ParamEyeBallY", -0.5, D); // mirada de decepción
+      _setParamLerp(core, "PARAM_BREATH",   0.2, D);
+    } else {
+      // Neutral
+      _setParamLerp(core, "ParamBreath",    0.6, D);
+      _setParamLerp(core, "ParamEyeLSmile", 0.0, D);
+      _setParamLerp(core, "ParamEyeRSmile", 0.0, D);
+    }
+  } catch(e) {}
+}
+
+// ── Modo creativo (Photoshop) ─────────────────────────────────────────────────
+function setModoCreativo() {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const D = 800;
+    // JingYa (asombro) + sonrisa
+    try { _setParamLerp(core, "惊讶", 1.0, D); } catch(e) {}
+    _setParamLerp(core, "ParamMouthForm",   0.8, D);
+    _setParamLerp(core, "ParamEyeLSmile",   0.8, D);
+    _setParamLerp(core, "ParamEyeRSmile",   0.8, D);
+  } catch(e) {}
+}
+
+// ── Modo CV nocturno ──────────────────────────────────────────────────────────
+function setModoCVNoche() {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const D = 800;
+    // Cejas bajas (preocupación empática)
+    _setParamLerp(core, "ParamBrowLForm", -0.5, D);
+    _setParamLerp(core, "ParamBrowRForm", -0.5, D);
+    _setParamLerp(core, "ParamBreath",     0.3, D);
+  } catch(e) {}
+}
+
+function setEyeOffset(offsetX, offsetY) {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const normalizedX = Math.max(-1, Math.min(1, offsetX / 15));
+    const normalizedY = Math.max(-1, Math.min(1, offsetY / 15));
+    core.setParameterValueById("ParamEyeLOpen", 1 - Math.abs(normalizedY) * 0.2);
+    core.setParameterValueById("ParamEyeROpen", 1 - Math.abs(normalizedY) * 0.2);
+    core.setParameterValueById("ParamEyeBallX", normalizedX);
+    core.setParameterValueById("ParamEyeBallY", -normalizedY);
+    core.setParameterValueById("PARAM_EYE_L_OPEN", 1 - Math.abs(normalizedY) * 0.2);
+    core.setParameterValueById("PARAM_EYE_R_OPEN", 1 - Math.abs(normalizedY) * 0.2);
+    core.setParameterValueById("PARAM_EYE_BALL_X", normalizedX);
+    core.setParameterValueById("PARAM_EYE_BALL_Y", -normalizedY);
+  } catch(e) {}
+}
+
+function setHeadTilt(angle) {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const normalizedAngle = Math.max(-30, Math.min(30, angle));
+    core.setParameterValueById("ParamAngleZ", normalizedAngle);
+    core.setParameterValueById("PARAM_ANGLE_Z", normalizedAngle);
+    core.setParameterValueById("ParamBodyAngleZ", normalizedAngle * 0.3);
+    core.setParameterValueById("PARAM_BODY_ANGLE_Z", normalizedAngle * 0.3);
+  } catch(e) {}
+}
+
+function triggerBlink() {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    core.setParameterValueById("ParamEyeLOpen", 0);
+    core.setParameterValueById("ParamEyeROpen", 0);
+    core.setParameterValueById("PARAM_EYE_L_OPEN", 0);
+    core.setParameterValueById("PARAM_EYE_R_OPEN", 0);
+    setTimeout(() => {
+      try {
+        core.setParameterValueById("ParamEyeLOpen", 1);
+        core.setParameterValueById("ParamEyeROpen", 1);
+        core.setParameterValueById("PARAM_EYE_L_OPEN", 1);
+        core.setParameterValueById("PARAM_EYE_R_OPEN", 1);
+      } catch(e) {}
+    }, 100);
+  } catch(e) {}
+}
+
+// ── Idle animations aleatorias ────────────────────────────────────────────────
+const _IDLE_ANIMATIONS = [
+  () => { // Bostezo
+    if (!model || !model.internalModel) return;
+    const core = model.internalModel.coreModel;
+    _setParamLerp(core, "ParamMouthOpenY", 0.8, 400);
+    setTimeout(() => _setParamLerp(core, "ParamMouthOpenY", 0, 600), 800);
+  },
+  () => { // Mirar a la derecha
+    if (!model || !model.internalModel) return;
+    const core = model.internalModel.coreModel;
+    _setParamLerp(core, "ParamEyeBallX", 0.8, 500);
+    setTimeout(() => _setParamLerp(core, "ParamEyeBallX", 0, 500), 1500);
+  },
+  () => { // Parpadeo doble
+    if (!model || !model.internalModel) return;
+    const core = model.internalModel.coreModel;
+    core.setParameterValueById("ParamEyeLOpen", 0);
+    core.setParameterValueById("ParamEyeROpen", 0);
+    setTimeout(() => {
+      core.setParameterValueById("ParamEyeLOpen", 1);
+      core.setParameterValueById("ParamEyeROpen", 1);
+      setTimeout(() => {
+        core.setParameterValueById("ParamEyeLOpen", 0);
+        core.setParameterValueById("ParamEyeROpen", 0);
+        setTimeout(() => {
+          core.setParameterValueById("ParamEyeLOpen", 1);
+          core.setParameterValueById("ParamEyeROpen", 1);
+        }, 80);
+      }, 100);
+    }, 80);
+  },
+  () => { // Sacudida de cabeza suave
+    if (!model || !model.internalModel) return;
+    const core = model.internalModel.coreModel;
+    _setParamLerp(core, "ParamAngleZ", 5, 200);
+    setTimeout(() => _setParamLerp(core, "ParamAngleZ", -5, 300), 300);
+    setTimeout(() => _setParamLerp(core, "ParamAngleZ", 0, 300), 700);
+  },
+];
+
+// Disparar idle animation aleatoria cada 5 minutos sin interacción
+setInterval(() => {
+  const fn = _IDLE_ANIMATIONS[Math.floor(Math.random() * _IDLE_ANIMATIONS.length)];
+  try { fn(); } catch(e) {}
+}, 5 * 60 * 1000);
+
+// ── Sistema de Despertar (Boot Sequence) ─────────────────────────────────────
+
+function _initSleeping() {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    // Estado SLEEPING: ojos cerrados, respiración lenta, cejas relajadas
+    core.setParameterValueById("ParamEyeLOpen",  0);
+    core.setParameterValueById("ParamEyeROpen",  0);
+    core.setParameterValueById("PARAM_EYE_L_OPEN", 0);
+    core.setParameterValueById("PARAM_EYE_R_OPEN", 0);
+    core.setParameterValueById("ParamBrowLForm", -1.0);
+    core.setParameterValueById("ParamBrowRForm", -1.0);
+    core.setParameterValueById("ParamBreath",     0.2);
+    core.setParameterValueById("PARAM_BREATH",    0.2);
+    core.setParameterValueById("ParamMouthOpenY", 0);
+    core.setParameterValueById("ParamAngleX",     0);
+    core.setParameterValueById("ParamAngleY",     5); // cabeza levemente inclinada
+  } catch(e) {}
+}
+
+function wakeUpSequence() {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const D_FAST = 300;
+    const D_SLOW = 800;
+
+    // Fase 1 (0ms): Parpadeo de sorpresa — ojos se abren rápido
+    _setParamLerp(core, "ParamEyeLOpen",  1.0, D_FAST);
+    _setParamLerp(core, "ParamEyeROpen",  1.0, D_FAST);
+    _setParamLerp(core, "PARAM_EYE_L_OPEN", 1.0, D_FAST);
+    _setParamLerp(core, "PARAM_EYE_R_OPEN", 1.0, D_FAST);
+    _setParamLerp(core, "ParamAngleY",    0, D_SLOW);
+
+    // Fase 2 (400ms): Bostezo suave
+    setTimeout(() => {
+      _setParamLerp(core, "ParamMouthOpenY", 0.7, 400);
+      _setParamLerp(core, "ParamBreath",     0.8, 600);
+      _setParamLerp(core, "PARAM_BREATH",    0.8, 600);
+    }, 400);
+
+    // Fase 3 (1000ms): Cerrar boca, normalizar cejas
+    setTimeout(() => {
+      _setParamLerp(core, "ParamMouthOpenY", 0,   400);
+      _setParamLerp(core, "ParamBrowLForm",  0,   D_SLOW);
+      _setParamLerp(core, "ParamBrowRForm",  0,   D_SLOW);
+    }, 1000);
+
+    // Fase 4 (1500ms): Mirar alrededor (idle noise activo)
+    setTimeout(() => {
+      _setParamLerp(core, "ParamAngleX",  3, 600);
+      setTimeout(() => _setParamLerp(core, "ParamAngleX", 0, 600), 700);
+    }, 1500);
+
+  } catch(e) {}
+  notifyPython("woke_up");
+}
+
+// ── Modo Programadora (anteojos / luz azul de pantalla) ───────────────────────
+// Usa la opacidad de capas para mostrar un efecto de luz azul reflejada en los ojos.
+// No modifica texturas — usa setDrawableOpacity sobre las capas de brillo.
+
+let _programmerMode = false;
+
+function setProgrammerMode(active) {
+  _programmerMode = active;
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const D = 600;
+
+    if (active) {
+      // Luz azul reflejada: tinte azul suave en los ojos (Multiply Color)
+      // Usar setIrisColor con azul brillante en lugar de blanco neutro
+      setIrisColor(0.6, 0.8, 1.0, 800);   // tinte azul pantalla
+      setEyeBrightness(0.9, 600);           // ojos brillantes (pantalla iluminando)
+
+      // Concentración: cejas levemente bajas, cuerpo inclinado hacia adelante
+      _setParamLerp(core, "ParamBrowLForm",  -0.3, D);
+      _setParamLerp(core, "ParamBrowRForm",  -0.3, D);
+      _setParamLerp(core, "ParamAngleZ",     -5,   D); // inclinación hacia adelante
+      _setParamLerp(core, "ParamBodyAngleZ", -3,   D);
+      _setParamLerp(core, "ParamBreath",      0.5, D); // respiración pausada
+
+      // Intentar activar capa de anteojos si existe en el modelo
+      try {
+        const drawables = model.internalModel.drawables;
+        if (drawables && drawables.ids) {
+          drawables.ids.forEach((id, i) => {
+            const lower = id.toLowerCase();
+            if (lower.includes('glass') || lower.includes('眼镜') || lower.includes('anteo')) {
+              if (core.setDrawableOpacity) core.setDrawableOpacity(i, 1.0);
+            }
+          });
+        }
+      } catch(e) {}
+
+    } else {
+      // Restaurar: ojos azules normales, postura normal
+      setIrisColor(1.0, 1.0, 1.0, 800);
+      setEyeBrightness(0.5, 600);
+      _setParamLerp(core, "ParamBrowLForm",  0, D);
+      _setParamLerp(core, "ParamBrowRForm",  0, D);
+      _setParamLerp(core, "ParamAngleZ",     0, D);
+      _setParamLerp(core, "ParamBodyAngleZ", 0, D);
+      _setParamLerp(core, "ParamBreath",     0.6, D);
+    }
+  } catch(e) {}
+}
+
+// ── Animación de herramienta (ojos moviéndose como si leyera) ────────────────
+let _toolAnimInterval = null;
+let _toolAnimT = 0;
+
+function setToolAnimation(active) {
+  if (active) {
+    if (_toolAnimInterval) return; // ya activa
+    _toolAnimT = 0;
+    _toolAnimInterval = setInterval(() => {
+      if (!model || !model.internalModel) return;
+      try {
+        const core = model.internalModel.coreModel;
+        _toolAnimT += 0.15;
+        // Ojos moviéndose de lado a lado rápidamente (como leyendo)
+        const eyeX = Math.sin(_toolAnimT * 3.0) * 0.8;
+        const eyeY = Math.sin(_toolAnimT * 1.5) * 0.3;
+        core.setParameterValueById("ParamEyeBallX", eyeX);
+        core.setParameterValueById("ParamEyeBallY", eyeY);
+        core.setParameterValueById("PARAM_EYE_BALL_X", eyeX);
+        core.setParameterValueById("PARAM_EYE_BALL_Y", eyeY);
+        // Respiración levemente aumentada (concentración)
+        const breath = 0.6 + Math.sin(_toolAnimT * 0.8) * 0.3;
+        core.setParameterValueById("ParamBreath", breath);
+        core.setParameterValueById("PARAM_BREATH", breath);
+      } catch(e) {}
+    }, 50); // 20fps para la animación de herramienta
+  } else {
+    if (_toolAnimInterval) {
+      clearInterval(_toolAnimInterval);
+      _toolAnimInterval = null;
+    }
+    // Restaurar ojos a posición normal suavemente
+    if (model && model.internalModel) {
+      try {
+        const core = model.internalModel.coreModel;
+        _setParamLerp(core, "ParamEyeBallX", 0, 400);
+        _setParamLerp(core, "ParamEyeBallY", 0, 400);
+        _setParamLerp(core, "ParamBreath",   0.6, 600);
+      } catch(e) {}
+    }
+  }
+}
+
+function notifyPython(msg) {
+  if (window.pyBridge) {
+    window.pyBridge.onMessage(msg);
+  } else {
+    // pyBridge no listo aún — encolar y reintentar
+    setTimeout(() => notifyPython(msg), 200);
+  }
+}
+
+// ── Inicializar WebChannel y arrancar ────────────────────────────────────────
+// _startLive2D es llamado desde Python (loadFinished) después de inyectar qwebchannel.js
+window._startLive2D = function() {
+  console.log("_startLive2D llamado, pyBridge=" + (window.pyBridge ? "OK" : "no disponible"));
+  init();
+};
+// Usa la API de pixi-live2d-display para cambiar el color de los ArtMesh del iris.
+// Transición de 1.2 segundos (lerp por RAF) de azul (1,1,1) a rojo (1,0,0).
+// Las texturas del modelo son: texture_00.png (cuerpo/cara), texture_01.png,
+// texture_02.png, texture_03.png. El iris está en texture_00.png.
+// Usamos setDrawableMultiplyColor sobre los ArtMesh que referencian texture_00
+// para aplicar el tinte directamente sobre la capa del iris.
+
+window._currentSarcasmLevel = 0;  // tracking global del nivel de sarcasmo
+
+const _irisColor = { r: 1.0, g: 1.0, b: 1.0 };  // color actual (normalizado 0-1)
+let   _irisTarget = { r: 1.0, g: 1.0, b: 1.0 };  // color objetivo
+let   _irisLerpStart = null;
+let   _irisLerpDuration = 1200; // ms
+let   _irisRafId = null;
+
+// Nombres de ArtMesh que corresponden al iris/pupila de IceGirl.
+// pixi-live2d-display los expone en model.internalModel.drawables
+// Los ArtMesh del iris referencian texture_00.png (índice 0 en el array de texturas).
+const _IRIS_MESH_KEYWORDS = ['eye', 'iris', 'pupil', '眼', '瞳', '虹彩'];
+
+function _getIrisMeshes() {
+  if (!model || !model.internalModel) return [];
+  try {
+    const drawables = model.internalModel.drawables;
+    if (!drawables) return [];
+    const ids = drawables.ids || [];
+
+    // Método 1: filtrar por nombre de ArtMesh (más preciso)
+    const byName = ids.reduce((acc, id, i) => {
+      const lower = id.toLowerCase();
+      if (_IRIS_MESH_KEYWORDS.some(k => lower.includes(k))) acc.push(i);
+      return acc;
+    }, []);
+    if (byName.length > 0) return byName;
+
+    // Método 2: filtrar por índice de textura (texture_00.png = índice 0)
+    // Los ArtMesh de cara/ojos de IceGirl usan texture_00.png
+    const textureIndices = drawables.textureIndices || [];
+    return textureIndices.reduce((acc, texIdx, i) => {
+      if (texIdx === 0) acc.push(i);
+      return acc;
+    }, []).slice(0, 15); // limitar para no colorear todo el cuerpo
+  } catch(e) { return []; }
+}
+
+function _applyIrisColor(r, g, b) {
+  if (!model || !model.internalModel) return;
+  try {
+    // Método 1: pixi-live2d-display v0.4+ expone setDrawableMultiplyColor
+    const core = model.internalModel.coreModel;
+    const meshes = _getIrisMeshes();
+    if (meshes.length > 0 && core.setDrawableMultiplyColor) {
+      meshes.forEach(i => {
+        core.setDrawableMultiplyColor(i, r, g, b, 1.0);
+      });
+      return;
+    }
+
+    // Método 2: acceder a los PIXI sprites del modelo
+    if (model.children && model.children.length > 0) {
+      model.children.forEach(child => {
+        if (child && child.tint !== undefined) {
+          // Convertir RGB normalizado a hex tint
+          const hex = ((Math.round(r*255) << 16) |
+                       (Math.round(g*255) << 8)  |
+                        Math.round(b*255));
+          child.tint = hex;
+        }
+      });
+    }
+  } catch(e) {}
+}
+
+function _irisColorTick() {
+  if (!_irisLerpStart) return;
+  const now = performance.now();
+  const elapsed = now - _irisLerpStart;
+  const t = Math.min(elapsed / _irisLerpDuration, 1.0);
+  // ease-in-out cubic para que la transición se vea visceral
+  const eased = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+
+  _irisColor.r = _irisColor.r + (_irisTarget.r - _irisColor.r) * eased;
+  _irisColor.g = _irisColor.g + (_irisTarget.g - _irisColor.g) * eased;
+  _irisColor.b = _irisColor.b + (_irisTarget.b - _irisColor.b) * eased;
+
+  _applyIrisColor(_irisColor.r, _irisColor.g, _irisColor.b);
+
+  if (t < 1.0) {
+    _irisRafId = requestAnimationFrame(_irisColorTick);
+  } else {
+    _irisColor.r = _irisTarget.r;
+    _irisColor.g = _irisTarget.g;
+    _irisColor.b = _irisTarget.b;
+    _irisLerpStart = null;
+    _irisRafId = null;
+  }
+}
+
+function setIrisColor(r, g, b, duration_ms) {
+  // r,g,b en rango 0.0-1.0
+  _irisTarget = { r, g, b };
+  _irisLerpDuration = duration_ms || 1200;
+  _irisLerpStart = performance.now();
+  if (_irisRafId) cancelAnimationFrame(_irisRafId);
+  _irisColorTick();
+}
+
+// ── Brillo de ojos (opacidad del highlight) ───────────────────────────────────
+// Controla la opacidad del ArtMesh de brillo (highlight) de los ojos.
+// +0.15 dopamina → brillo máximo (1.0), -0.10 → brillo apagado (0.2)
+
+const _HIGHLIGHT_KEYWORDS = ['highlight', 'bright', 'shine', '高光', '光', 'glint'];
+let   _eyeBrightnessTarget = 1.0;
+let   _eyeBrightnessCurrent = 1.0;
+
+function _getHighlightMeshes() {
+  if (!model || !model.internalModel) return [];
+  try {
+    const drawables = model.internalModel.drawables;
+    if (!drawables) return [];
+    const ids = drawables.ids || [];
+    return ids.reduce((acc, id, i) => {
+      const lower = id.toLowerCase();
+      if (_HIGHLIGHT_KEYWORDS.some(k => lower.includes(k))) acc.push(i);
+      return acc;
+    }, []);
+  } catch(e) { return []; }
+}
+
+function _applyEyeBrightness(opacity) {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const meshes = _getHighlightMeshes();
+    if (meshes.length > 0 && core.setDrawableOpacity) {
+      meshes.forEach(i => core.setDrawableOpacity(i, opacity));
+    }
+    // Fallback: usar ParamEyeLSmile/RSmile como proxy de brillo
+    _setParamLerp(core, "ParamEyeLSmile", opacity, 600);
+    _setParamLerp(core, "ParamEyeRSmile", opacity, 600);
+  } catch(e) {}
+}
+
+function setEyeBrightness(opacity, duration_ms) {
+  // opacity: 0.0 (apagado) a 1.0 (radiante)
+  _eyeBrightnessTarget = Math.max(0.0, Math.min(1.0, opacity));
+  // Usar lerp existente para suavizar
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    _setParamLerp(core, "ParamEyeLSmile", _eyeBrightnessTarget, duration_ms || 600);
+    _setParamLerp(core, "ParamEyeRSmile", _eyeBrightnessTarget, duration_ms || 600);
+  } catch(e) {}
+  _applyEyeBrightness(_eyeBrightnessTarget);
+}
+
+// ── setSarcasmLevel mejorado con color de iris ────────────────────────────────
+// Sobreescribe la función anterior para agregar el cambio de color.
+function setSarcasmLevel(nivel) {
+  window._currentSarcasmLevel = nivel;  // trackear para boca asimétrica
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const D = 800;
+
+    if (nivel === 0) {
+      // Resetear: ojos azules, cejas normales
+      setIrisColor(1.0, 1.0, 1.0, 1200);   // blanco = sin tinte (azul original)
+      setEyeBrightness(0.5, 600);
+      _setParamLerp(core, "ParamBrowLAngle",  0, D);
+      _setParamLerp(core, "ParamBrowRAngle",  0, D);
+      _setParamLerp(core, "ParamBrowLForm",   0, D);
+      _setParamLerp(core, "ParamMouthForm",   0, D);
+      _setParamLerp(core, "ParamEyeLOpen",    1, D);
+      _setParamLerp(core, "ParamEyeROpen",    1, D);
+
+    } else if (nivel === 1) {
+      // Sarcasmo suave: ojos azules, ceja asimétrica
+      setIrisColor(1.0, 1.0, 1.0, 1200);   // mantener azul
+      _setParamLerp(core, "ParamBrowLAngle",  0.4, D);
+      _setParamLerp(core, "ParamBrowRAngle", -0.2, D);
+      _setParamLerp(core, "ParamMouthForm",   0,   D);
+
+    } else if (nivel === 2) {
+      // Sarcasmo medio: ojos azules, media sonrisa irónica, párpados levemente caídos
+      setIrisColor(1.0, 1.0, 1.0, 1200);   // mantener azul
+      _setParamLerp(core, "ParamBrowLAngle",  0.5, D);
+      _setParamLerp(core, "ParamBrowRAngle", -0.3, D);
+      _setParamLerp(core, "ParamBrowLForm",  -0.4, D);
+      _setParamLerp(core, "ParamMouthForm",  -0.5, D);
+      _setParamLerp(core, "ParamEyeLOpen",   0.85, D);
+      _setParamLerp(core, "ParamEyeROpen",   0.85, D);
+
+    } else if (nivel >= 3) {
+      // Modo "Ya sé cómo sos": iris ROJO, WaiZui, párpados caídos, ceja arqueada
+      setIrisColor(1.0, 0.0, 0.0, 1200);   // ← transición azul→rojo en 1.2s
+      setEyeBrightness(0.2, 800);           // brillo apagado
+      _setParamLerp(core, "ParamBrowLAngle",  0.7, D);
+      _setParamLerp(core, "ParamBrowRAngle", -0.4, D);
+      _setParamLerp(core, "ParamBrowLForm",  -0.8, D); // ceja izquierda arqueada
+      _setParamLerp(core, "ParamMouthForm",  -0.8, D);
+      _setParamLerp(core, "ParamEyeLOpen",   0.7,  D);
+      _setParamLerp(core, "ParamEyeROpen",   0.7,  D);
+      // WaiZui — boca torcida
+      try { _setParamLerp(core, "歪嘴",  1.0, D); } catch(e) {}
+    }
+  } catch(e) {}
+}
+
+// ── setDopaminaAdjust mejorado con brillo de ojos ────────────────────────────
+function setDopaminaAdjust(ajuste) {
+  if (!model || !model.internalModel) return;
+  try {
+    const core = model.internalModel.coreModel;
+    const D = 800;
+    if (ajuste > 0) {
+      // Radiante: brillo máximo, respiración rápida, ojos sonrientes
+      setEyeBrightness(1.0, 600);
+      setIrisColor(1.0, 1.0, 1.0, 800);    // restaurar azul si estaba rojo
+      _setParamLerp(core, "ParamBreath",    1.0, D);
+      _setParamLerp(core, "ParamEyeLSmile", 1.0, D);
+      _setParamLerp(core, "ParamEyeRSmile", 1.0, D);
+      _setParamLerp(core, "PARAM_BREATH",   1.0, D);
+    } else if (ajuste < 0) {
+      // Decepcionada: brillo apagado, respiración lenta, mirada baja
+      setEyeBrightness(0.15, 800);
+      _setParamLerp(core, "ParamBreath",    0.2, D);
+      _setParamLerp(core, "ParamEyeLSmile", 0.0, D);
+      _setParamLerp(core, "ParamEyeRSmile", 0.0, D);
+      _setParamLerp(core, "ParamEyeBallY", -0.5, D);
+      _setParamLerp(core, "PARAM_BREATH",   0.2, D);
+    } else {
+      // Neutral
+      setEyeBrightness(0.5, 600);
+      _setParamLerp(core, "ParamBreath",    0.6, D);
+      _setParamLerp(core, "ParamEyeLSmile", 0.0, D);
+      _setParamLerp(core, "ParamEyeRSmile", 0.0, D);
+    }
+  } catch(e) {}
+}
+
+window.live2dControl = {
+  setExpression, setMotion, setHablando,
+  setEyeOffset, setHeadTilt, triggerBlink,
+  setSarcasmLevel, setDopaminaAdjust,
+  setModoCreativo, setModoCVNoche,
+  setIrisColor, setEyeBrightness,
+  setToolAnimation, setProgrammerMode,
+  wakeUpSequence,
+  startDanceMode, stopDanceMode,
+  setMouthAmplitude
+};
+</script>
+</body>
+</html>

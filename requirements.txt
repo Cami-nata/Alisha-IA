@@ -1,0 +1,78 @@
+# ── Alisha IA — Dependencias ──────────────────────────────────────────────────
+# Instalar: pip install -r requirements.txt
+#
+# NOTAS DE PERMISOS:
+#   - pyautogui: requiere ejecutar como Administrador en Windows 11
+#     para controlar apps elevadas (UAC). Para uso normal no es necesario.
+#   - pystray: funciona sin admin. El ícono en bandeja no requiere permisos.
+#   - pywin32: requiere ejecutar el instalador post-install:
+#     python Scripts/pywin32_postinstall.py -install
+#
+# DEPENDENCIAS OPCIONALES (no bloquean el arranque si faltan):
+#   - whisper / torch: solo para transcripción de audio por voz
+#   - pytesseract: requiere instalar Tesseract OCR por separado
+#     https://github.com/UB-Mannheim/tesseract/wiki
+#   - pydub: requiere ffmpeg instalado en el sistema
+#   - edge-tts: voz neural de Microsoft (recomendado)
+#   - elevenlabs: voz premium (requiere API key)
+
+# ── Core ──────────────────────────────────────────────────────────────────────
+flask>=3.0.0
+flask-socketio>=5.3.0
+python-socketio>=5.10.0
+python-engineio>=4.8.0
+
+# ── IA y APIs ─────────────────────────────────────────────────────────────────
+requests>=2.31.0
+python-dotenv>=1.0.0
+google-genai>=0.3.0
+groq>=0.4.0
+openai>=1.12.0
+
+# ── TTS (voz) ─────────────────────────────────────────────────────────────────
+edge-tts>=6.1.9
+pyttsx3>=2.90
+pydub>=0.25.1
+
+# ── Control del PC ────────────────────────────────────────────────────────────
+pyautogui>=0.9.54
+pywin32>=306
+pynput>=1.7.6
+psutil>=5.9.0
+pycaw>=20230407
+screen-brightness-control>=0.22.0
+
+# ── Visión ────────────────────────────────────────────────────────────────────
+pillow>=10.0.0
+pytesseract>=0.3.10
+mss>=9.0.1
+
+# ── Interfaz web ──────────────────────────────────────────────────────────────
+jinja2>=3.1.0
+werkzeug>=3.0.0
+
+# ── Base de datos ─────────────────────────────────────────────────────────────
+pymongo>=4.6.0
+dnspython>=2.4.0
+
+# ── Bandeja del sistema ───────────────────────────────────────────────────────
+pystray>=0.19.5
+
+# ── Documentos ───────────────────────────────────────────────────────────────
+python-docx>=1.1.0
+pymupdf>=1.23.0
+
+# ── Web scraping ──────────────────────────────────────────────────────────────
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+playwright>=1.41.0
+
+# ── Utilidades ────────────────────────────────────────────────────────────────
+pyperclip>=1.8.2
+numpy>=1.26.0
+
+# ── OPCIONALES — instalar manualmente si se necesitan ─────────────────────────
+# whisper>=1.1.10          # transcripción de audio (requiere torch)
+# torch>=2.0.0             # necesario para whisper
+# sounddevice>=0.4.6       # grabación de audio alternativa
+# winsdk>=1.0.0b10         # metadatos de medios de Windows
