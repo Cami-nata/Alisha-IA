@@ -1,0 +1,128 @@
+─────────────────────────────────────────────────────────────
+ 🐾 live2d-py (built with Python 3.12.0)
+ 🧸 3rd-party lib integrated with official Live2D native SDK 
+ ✨ Official SDK: https://www.live2d.com/sdk/download/native/
+─────────────────────────────────────────────────────────────
+[INFO]  [Pal] Init Shader Dir: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\live2d\v3\
+[INFO]  [CSM][I]Live2D Cubism Core version: 05.01.0000 (83951616)
+
+[INFO]  [CSM][I]CubismFramework::StartUp() is complete.
+
+[INFO]  [CSM][I]CubismFramework::Initialize() is complete.
+
+[INFO]  [M] allocate cpp LAppModel(at=0000015D2D3D2180)
+[INFO]  load model setting: C:\Program Files (x86)\Steam\steamapps\common\VTube Studio\VTube Studio_Data\StreamingAssets\Live2DModels\IceGirl_Live2d\IceGIrl Live2D\IceGirl.model3.json
+[INFO]  create buffer: C:\Program Files (x86)\Steam\steamapps\common\VTube Studio\VTube Studio_Data\StreamingAssets\Live2DModels\IceGirl_Live2d\IceGIrl Live2D\IceGirl.model3.json 
+[INFO]  delete buffer: C:\Program Files (x86)\Steam\steamapps\common\VTube Studio\VTube Studio_Data\StreamingAssets\Live2DModels\IceGirl_Live2d\IceGIrl Live2D\IceGirl.model3.json
+[INFO]  create model: IceGirl.moc3
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/IceGirl.moc3 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/IceGirl.moc3
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/←歪嘴.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/←歪嘴.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/惊讶.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/惊讶.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/手柄.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/手柄.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/披发.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/披发.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/星星眼.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/星星眼.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/歪嘴→.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/歪嘴→.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/流泪.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/流泪.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/爱心眼.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/爱心眼.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/猫耳.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/猫耳.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/王冠.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/王冠.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/生气.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/生气.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/疑惑.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/疑惑.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/白眼.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/白眼.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/直播套装.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/直播套装.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/翅膀.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/翅膀.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/脸红.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/脸红.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/脸黑.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/脸黑.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/舌头.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/舌头.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/金钱眼.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/金钱眼.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/马尾.exp3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/马尾.exp3.json
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/IceGirl.physics3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/IceGirl.physics3.json
+[INFO]  load motion: HuiShou.motion3.json => [HuiShou_0] 
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/HuiShou.motion3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/HuiShou.motion3.json
+[INFO]  load motion: MeiYan.motion3.json => [MeiYan_0] 
+[INFO]  create buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/MeiYan.motion3.json 
+[INFO]  delete buffer: C:/Program Files (x86)/Steam/steamapps/common/VTube Studio/VTube Studio_Data/StreamingAssets/Live2DModels/IceGirl_Live2d/IceGIrl Live2D/MeiYan.motion3.json
+[INFO]  set default expression: 脸红
+[INFO]  expression: [脸红]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 爱心眼
+[INFO]  expression: [爱心眼]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 惊讶
+[INFO]  expression: [惊讶]
+[INFO]  set default expression: 脸红
+[INFO]  expression: [脸红]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 白眼
+[INFO]  expression: [白眼]
+[INFO]  set default expression: 爱心眼
+[INFO]  expression: [爱心眼]
+[INFO]  set default expression: 生气
+[INFO]  expression: [生气]
+[INFO]  set default expression: 惊讶
+[INFO]  expression: [惊讶]
+[INFO]  set default expression: 脸红
+[INFO]  expression: [脸红]
+[INFO]  set default expression: 生气
+[INFO]  expression: [生气]
+[INFO]  set default expression: 脸红
+[INFO]  expression: [脸红]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 爱心眼
+[INFO]  expression: [爱心眼]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 脸红
+[INFO]  expression: [脸红]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 爱心眼
+[INFO]  expression: [爱心眼]
+[INFO]  set default expression: 爱心眼
+[INFO]  expression: [爱心眼]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 爱心眼
+[INFO]  expression: [爱心眼]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 爱心眼
+[INFO]  expression: [爱心眼]
+[INFO]  set default expression: 星星眼
+[INFO]  expression: [星星眼]
+[INFO]  set default expression: 爱心眼
+[INFO]  expression: [爱心眼]
+[INFO]  set default expression: 脸红
+[INFO]  expression: [脸红]
+[INFO]  set default expression:

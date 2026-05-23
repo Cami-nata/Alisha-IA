@@ -538,6 +538,227 @@ class ManageCVTool(Tool):
 
 
 # ---------------------------------------------------------------------------
+# screenshot, clipboard, window_manager, brightness (FASE 11 — JCySharp)
+# ---------------------------------------------------------------------------
+
+class ScreenshotTool(Tool):
+    """Captura de pantalla — guarda, copia al portapapeles o analiza con Gemini."""
+
+    def __init__(self):
+        super().__init__(
+            nombre="screenshot",
+            descripcion="Toma una captura de pantalla: guardar en archivo, copiar al portapapeles o analizar con IA",
+            parametros={
+                "accion": "str — guardar|portapapeles|analizar",
+                "ruta":   "str (opcional) — ruta donde guardar (solo para 'guardar')",
+            },
+            critica=False,
+        )
+
+    def ejecutar(self, accion: str = "guardar", ruta: str = "", **_) -> str:
+        try:
+            import pyautogui as _pag
+            from PIL import Image as _PILImg
+            import io as _io
+            from datetime import datetime as _dt
+
+            # Capturar pantalla completa con pyautogui (sin mss)
+            img = _pag.screenshot()
+
+            if accion == "guardar":
+                if not ruta:
+                    from pathlib import Path
+                    ruta = str(Path.home() / "Desktop" /
+                               f"screenshot_{_dt.now().strftime('%Y%m%d_%H%M%S')}.png")
+                img.save(ruta)
+                return f"Captura guardada en: {ruta}"
+
+            elif accion == "portapapeles":
+                try:
+                    import win32clipboard
+                    output = _io.BytesIO()
+                    img.save(output, "BMP")
+                    data = output.getvalue()[14:]
+                    win32clipboard.OpenClipboard()
+                    win32clipboard.EmptyClipboard()
+                    win32clipboard.SetClipboardData(win32clipboard.CF_DIB, data)
+                    win32clipboard.CloseClipboard()
+                    return "Captura copiada al portapapeles"
+                except ImportError:
+                    return "win32clipboard no disponible — guardá la captura con accion='guardar'"
+
+            elif accion == "analizar":
+                output = _io.BytesIO()
+                img.save(output, "JPEG", quality=70)
+                img_bytes = output.getvalue()
+                try:
+                    from gemini_vision import GeminiVision
+                    gv = GeminiVision()
+                    descripcion = gv._analyze(img_bytes)
+                    return descripcion or "No pude analizar la imagen con Gemini."
+                except Exception as e:
+                    return f"Gemini no disponible para analizar: {e}"
+
+            return f"Acción desconocida: {accion}. Usá: guardar, portapapeles, analizar"
+        except Exception as e:
+            return f"Error con captura: {e}"
+
+
+class ClipboardTool(Tool):
+    """Lee o escribe en el portapapeles del sistema."""
+
+    def __init__(self):
+        super().__init__(
+            nombre="clipboard",
+            descripcion="Lee o escribe texto en el portapapeles del sistema",
+            parametros={
+                "accion":    "str — leer|escribir|limpiar",
+                "contenido": "str (opcional) — texto a escribir",
+            },
+            critica=False,
+        )
+
+    def ejecutar(self, accion: str = "leer", contenido: str = "", **_) -> str:
+        try:
+            import pyperclip
+            if accion == "leer":
+                texto = pyperclip.paste()
+                if not texto:
+                    return "El portapapeles está vacío."
+                return f"Portapapeles: {texto[:500]}{'...' if len(texto) > 500 else ''}"
+            elif accion == "escribir":
+                if not contenido:
+                    return "Necesito el contenido a escribir."
+                pyperclip.copy(contenido)
+                return f"Texto copiado al portapapeles ({len(contenido)} caracteres)"
+            elif accion == "limpiar":
+                pyperclip.copy("")
+                return "Portapapeles limpiado"
+            return f"Acción desconocida: {accion}. Usá: leer, escribir, limpiar"
+        except Exception as e:
+            return f"Error con portapapeles: {e}"
+
+
+class WindowManagerTool(Tool):
+    """Gestiona ventanas abiertas: listar, maximizar, minimizar, snap."""
+
+    def __init__(self):
+        super().__init__(
+            nombre="window_manager",
+            descripcion="Gestiona ventanas: listar abiertas, maximizar, minimizar, snap izquierda/derecha, cerrar",
+            parametros={
+                "accion": "str — listar|maximizar|minimizar|snap_izquierda|snap_derecha|cerrar",
+                "titulo": "str (opcional) — título parcial de la ventana a gestionar",
+            },
+            critica=False,
+        )
+
+    def ejecutar(self, accion: str = "listar", titulo: str = "", **_) -> str:
+        try:
+            import win32gui
+            import win32con
+
+            if accion == "listar":
+                ventanas: list[str] = []
+
+                def _enum(hwnd, _):
+                    if win32gui.IsWindowVisible(hwnd):
+                        t = win32gui.GetWindowText(hwnd)
+                        if t and len(t) > 2:
+                            ventanas.append(t)
+
+                win32gui.EnumWindows(_enum, None)
+                if not ventanas:
+                    return "No encontré ventanas visibles."
+                return "Ventanas abiertas:\n" + "\n".join(f"• {v}" for v in ventanas[:15])
+
+            # Para las demás acciones necesitamos encontrar la ventana
+            if not titulo:
+                return f"Para '{accion}' necesito el título parcial de la ventana."
+
+            hwnd_found = [None]
+
+            def _find(hwnd, _):
+                if hwnd_found[0]:
+                    return
+                t = win32gui.GetWindowText(hwnd)
+                if titulo.lower() in t.lower() and win32gui.IsWindowVisible(hwnd):
+                    hwnd_found[0] = hwnd
+
+            win32gui.EnumWindows(_find, None)
+            hwnd = hwnd_found[0]
+
+            if not hwnd:
+                return f"No encontré ninguna ventana con '{titulo}'"
+
+            nombre_ventana = win32gui.GetWindowText(hwnd)
+
+            if accion == "maximizar":
+                win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
+                return f"Ventana maximizada: {nombre_ventana}"
+            elif accion == "minimizar":
+                win32gui.ShowWindow(hwnd, win32con.SW_MINIMIZE)
+                return f"Ventana minimizada: {nombre_ventana}"
+            elif accion == "snap_izquierda":
+                win32gui.SetForegroundWindow(hwnd)
+                import pyautogui
+                pyautogui.hotkey("win", "left")
+                return f"Ventana anclada a la izquierda: {nombre_ventana}"
+            elif accion == "snap_derecha":
+                win32gui.SetForegroundWindow(hwnd)
+                import pyautogui
+                pyautogui.hotkey("win", "right")
+                return f"Ventana anclada a la derecha: {nombre_ventana}"
+            elif accion == "cerrar":
+                win32gui.PostMessage(hwnd, win32con.WM_CLOSE, 0, 0)
+                return f"Señal de cierre enviada a: {nombre_ventana}"
+
+            return f"Acción desconocida: {accion}"
+        except ImportError:
+            return "win32gui no disponible — instalá pywin32"
+        except Exception as e:
+            return f"Error gestionando ventana: {e}"
+
+
+class BrightnessTool(Tool):
+    """Controla el brillo de la pantalla (0-100)."""
+
+    def __init__(self):
+        super().__init__(
+            nombre="brightness",
+            descripcion="Controla el brillo de la pantalla del sistema (0-100)",
+            parametros={"valor": "int — nivel de brillo de 0 a 100"},
+            critica=False,
+        )
+
+    def ejecutar(self, valor: int = 70, **_) -> str:
+        try:
+            valor = max(0, min(100, int(valor)))
+            import subprocess
+            # PowerShell WMI — funciona en la mayoría de laptops con Windows
+            cmd = (
+                f"(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods)"
+                f".WmiSetBrightness(1,{valor})"
+            )
+            result = subprocess.run(
+                ["powershell", "-NonInteractive", "-Command", cmd],
+                capture_output=True, timeout=5, text=True
+            )
+            if result.returncode == 0:
+                return f"Brillo ajustado a {valor}%"
+            # Fallback: screen_brightness_control si está instalado
+            try:
+                import screen_brightness_control as sbc
+                sbc.set_brightness(valor)
+                return f"Brillo ajustado a {valor}% (via sbc)"
+            except ImportError:
+                pass
+            return f"No pude ajustar el brillo (código {result.returncode}). En laptops puede requerir permisos de administrador."
+        except Exception as e:
+            return f"Error ajustando brillo: {e}"
+
+
+# ---------------------------------------------------------------------------
 # Registro global de herramientas
 # ---------------------------------------------------------------------------
 
@@ -563,6 +784,11 @@ def _registrar_herramientas() -> None:
         RunCodeTool(),
         # CV management
         ManageCVTool(),
+        # PC control avanzado (FASE 11)
+        ScreenshotTool(),
+        ClipboardTool(),
+        WindowManagerTool(),
+        BrightnessTool(),
     ]
     _TOOLS = {t.nombre: t for t in herramientas}
 

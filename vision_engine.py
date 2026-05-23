@@ -376,8 +376,8 @@ class VisionEngine:
     - Mantiene context buffer orgánico
     """
 
-    SCAN_INTERVAL_MIN = 30.0   # segundos mínimos entre scans (subido de 10s — menos CPU)
-    SCAN_INTERVAL_MAX = 45.0   # segundos máximos entre scans
+    SCAN_INTERVAL_MIN = 15.0   # segundos mínimos entre scans (spec: 10-15s)
+    SCAN_INTERVAL_MAX = 25.0   # segundos máximos entre scans
     CPU_LIMIT         = 50.0   # % CPU máximo para capturar (subido de 65%)
     MAX_SNAPSHOTS     = 10     # historial máximo (reducido de 20)
 
@@ -525,6 +525,11 @@ class VisionEngine:
         # ── Trabajo activo — mirada de análisis ──────────────────────────────
         elif snapshot.is_work:
             self._gaze.look_at_screen()
+            # Comentario positivo ocasional cuando hay contenido técnico (FASE 13)
+            if snapshot.ocr_text and self._ocr.detect_tech_content(snapshot.ocr_text):
+                import random as _rnd
+                if _rnd.random() < 0.15:   # 15% de chance para no ser invasiva
+                    self._generar_comentario_positivo(snapshot)
             threading.Timer(1.5, self._gaze.return_to_normal).start()
 
         # Notificar callbacks
@@ -535,7 +540,9 @@ class VisionEngine:
                 pass
 
     def _generar_comentario_error(self, snapshot: VisionSnapshot) -> None:
-        """Genera comentario proactivo cuando detecta errores en pantalla."""
+        """Genera comentario proactivo cuando detecta errores en pantalla.
+        Usa Gemini Vision nativo si está disponible para describir la imagen real.
+        """
         def _hablar():
             try:
                 # Throttle: no comentar errores más de 1 vez cada 3 minutos
@@ -548,13 +555,33 @@ class VisionEngine:
                 from brain import get_brain
                 brain = get_brain()
                 errores = ", ".join(snapshot.errors_detected[:2])
-                prompt = (
-                    f"Detectás señales de un problema técnico ({errores}) "
-                    f"en lo que está haciendo Camila. "
-                    f"Hacé un comentario corto y útil en voseo rioplatense, "
-                    f"máx 20 palabras, sin mencionar que ves la pantalla. "
-                    f"Ofrecé ayuda de forma natural."
-                )
+
+                # Intentar descripción nativa con Gemini Vision (imagen real, sin OCR)
+                descripcion_visual = ""
+                try:
+                    from gemini_vision import GeminiVision as _GV
+                    _gv = _GV()
+                    descripcion_visual = _gv.capture_and_analyze() or ""
+                except Exception:
+                    pass
+
+                if descripcion_visual:
+                    prompt = (
+                        f"Ves esto en la pantalla de Camila: '{descripcion_visual}'. "
+                        f"Hay señales de un problema técnico ({errores}). "
+                        f"Hacé un comentario corto y útil en voseo rioplatense, "
+                        f"máx 20 palabras, sin decir que ves la pantalla. "
+                        f"Ofrecé ayuda de forma natural."
+                    )
+                else:
+                    prompt = (
+                        f"Detectás señales de un problema técnico ({errores}) "
+                        f"en lo que está haciendo Camila. "
+                        f"Hacé un comentario corto y útil en voseo rioplatense, "
+                        f"máx 20 palabras, sin mencionar que ves la pantalla. "
+                        f"Ofrecé ayuda de forma natural."
+                    )
+
                 response = brain.process(prompt)
                 comentario = response.content
                 if not comentario:
@@ -624,6 +651,69 @@ class VisionEngine:
                 print(f"[VisionEngine] 🗣 {comentario}")
             except Exception as e:
                 print(f"[VisionEngine] Error comentario: {e}")
+
+        threading.Thread(target=_hablar, daemon=True).start()
+
+    def _generar_comentario_positivo(self, snapshot: VisionSnapshot) -> None:
+        """Genera comentario de apoyo cuando detecta trabajo técnico activo."""
+        def _hablar():
+            try:
+                # Throttle: no comentar positivo más de 1 vez cada 5 minutos
+                now = time.time()
+                if hasattr(self, '_ultimo_comentario_positivo'):
+                    if now - self._ultimo_comentario_positivo < 300:
+                        return
+                self._ultimo_comentario_positivo = now
+
+                from brain import get_brain
+                brain = get_brain()
+
+                # Enriquecer con descripción visual nativa si está disponible
+                descripcion_visual = ""
+                try:
+                    from gemini_vision import GeminiVision as _GV
+                    descripcion_visual = _GV().capture_and_analyze() or ""
+                except Exception:
+                    pass
+
+                if descripcion_visual:
+                    prompt = (
+                        f"Ves que Camila está trabajando: '{descripcion_visual}'. "
+                        f"Hacé un comentario de apoyo muy corto (máx 10 palabras) "
+                        f"en voseo rioplatense, sin mencionar que ves la pantalla."
+                    )
+                else:
+                    prompt = (
+                        f"Camila está trabajando en algo técnico en '{snapshot.window_title[:40]}'. "
+                        f"Hacé un comentario de apoyo muy corto (máx 10 palabras) "
+                        f"en voseo rioplatense, sin mencionar que ves la pantalla."
+                    )
+
+                response = brain.process(prompt)
+                comentario = response.content
+                if not comentario:
+                    return
+
+                from audio_visual_sync import get_audio_visual_sync
+                avs = get_audio_visual_sync()
+                avs.speak(
+                    comentario,
+                    sarcasm_score=0.0,
+                    emotional_state="alegría",
+                    async_mode=True,
+                )
+                try:
+                    from web_app import socketio
+                    socketio.emit("respuesta", {
+                        "texto": comentario,
+                        "estado_emocional": "alegría",
+                        "fuente": "vision",
+                    })
+                except Exception:
+                    pass
+                print(f"[VisionEngine] 💪 Apoyo: {comentario}")
+            except Exception as e:
+                print(f"[VisionEngine] Error comentario positivo: {e}")
 
         threading.Thread(target=_hablar, daemon=True).start()
 
