@@ -1,4 +1,0 @@
-# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\GL\exceptional.py
-# hypothesis_version: 6.151.12
-
-['glBegin', 'glCallLists', 'glColor', 'glDeleteTextures', 'glEnd', 'glMap1d', 'glMap1f', 'glMap2d', 'glMap2f', 'glMaterial', 'glRasterPos', 'glTexParameter', 'glVertex']

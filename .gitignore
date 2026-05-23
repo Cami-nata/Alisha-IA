@@ -21,6 +21,11 @@ app_cache.json
 *.png
 *.mp3
 
+# Logs de debug (runtime, no versionar)
+*.log
+debug.log
+alisha_debug.log
+
 # Modelos RL
 pygame-rl-simulacion/models/*.json
 pygame-rl-simulacion/models/*.pt
@@ -29,3 +34,10 @@ pygame-rl-simulacion/models/*.csv
 # Entorno virtual
 venv/
 .venv/
+
+# Testing — autogenerado por hypothesis, se regenera solo
+.hypothesis/
+
+# Datos de runtime SQLite (WAL mode)
+data/*.db-shm
+data/*.db-wal

@@ -1,4 +1,0 @@
-# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\raw\GL\_types.py
-# hypothesis_version: 6.151.12
-
-[5120, 5121, 5122, 5123, 5124, 5125, 5126, 5130, 5131, 5132, 35778, '.', 'GL_BYTE', 'GL_DOUBLE', 'GL_FALSE', 'GL_FIXED', 'GL_FLOAT', 'GL_HALF_FLOAT_ARB', 'GL_HALF_NV', 'GL_INT', 'GL_SHORT', 'GL_TRUE', 'GL_UNSIGNED_BYTE', 'GL_UNSIGNED_INT', 'GL_UNSIGNED_SHORT', 'GLbitfield', 'GLboolean', 'GLbyte', 'GLclampd', 'GLclampf', 'GLclampx', 'GLdouble', 'GLenum', 'GLfixed', 'GLfloat', 'GLhandle', 'GLhandleARB', 'GLint', 'GLint64', 'GLintptr', 'GLshort', 'GLsizei', 'GLsizeiptr', 'GLsync', 'GLubyte', 'GLuint', 'GLuint64', 'GLulong', 'GLushort', 'from_param']

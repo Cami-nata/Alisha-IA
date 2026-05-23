@@ -1,4 +1,0 @@
-# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\GL\VERSION\GL_2_0.py
-# hypothesis_version: 6.151.12
-
-[b'\x00', 35716, 'GL_INFO_LOG_LENGTH', 'bufSize', 'bufs', 'count', 'glShaderSource', 'infoLog', 'length', 'name', 'params', 'pname', 'pointer', 'shaderObj', 'shaders', 'size', 'source', 'string', 'tobytes', 'tostring', 'type', 'v', 'value', 'vertex-attrib']

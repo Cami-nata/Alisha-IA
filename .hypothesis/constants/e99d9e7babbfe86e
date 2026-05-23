@@ -1,4 +1,0 @@
-# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\OpenGL\GL\VERSION\GL_1_2_images.py
-# hypothesis_version: 6.151.12
-
-['b', 'f', 'glTexImage3D', 'glTexSubImage3D', 'i', 's', 'type', 'ub', 'ui', 'us']

@@ -1,4 +1,0 @@
-# file: C:\Users\User\AppData\Roaming\Python\Python312\site-packages\aiohttp\http_parser.py
-# hypothesis_version: 6.151.12
-
-[b'\n', b'\r', b'\r\n', b' \t', b'...', b':', b': ', b';', b'[0-9a-fA-F]+', 100, 128, 200, 204, 304, 8190, 32768, '\x00', "!#$%&'*+-.^_`|~", '#', '*', ',', '/', '?', 'CONNECT', 'HTTP/(\\d)\\.(\\d)', 'HeadersParser', 'HttpParser', 'HttpRequestParser', 'HttpResponseParser', 'OPTIONS', 'RawRequestMessage', 'RawResponseMessage', '\\d+', '_MsgT', 'ascii', 'br', 'chunked', 'close', 'code', 'content-length', 'content-location', 'content-range', 'content-type', 'deflate', 'etag', 'gzip', 'host', 'keep-alive', 'latin1', 'max-forwards', 'method', 'server', 'surrogateescape', 'tcp', 'transfer-encoding', 'upgrade', 'user-agent', 'utf-8', 'websocket', 'zstd']
