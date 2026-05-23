@@ -105,3 +105,36 @@ def resetear_ventana() -> None:
     global _ultima_ventana
     with _ventana_lock:
         _ultima_ventana = ""
+
+
+# ── Silencio global temporal (usado por SystemStateManager en OVERLOADED) ─────
+_silencio_global_hasta: float = 0.0
+_silencio_lock = threading.Lock()
+
+
+def activar_silencio_global(duracion_segundos: float = 120,
+                             motivo: str = "overload") -> None:
+    """
+    Silencia TODOS los sistemas proactivos durante `duracion_segundos`.
+    Llamado por SystemStateManager cuando CPU/RAM están críticos.
+    """
+    global _silencio_global_hasta
+    with _silencio_lock:
+        _silencio_global_hasta = time.time() + duracion_segundos
+    print(f"[Silencio] 🔇 Silencio global activado por {duracion_segundos}s ({motivo})")
+
+
+def silencio_global_activo() -> bool:
+    """Retorna True si el silencio global está activo."""
+    with _silencio_lock:
+        return time.time() < _silencio_global_hasta
+
+
+# Parchear puede_hablar_proactivo para respetar el silencio global
+_puede_hablar_original = puede_hablar_proactivo
+
+
+def puede_hablar_proactivo(sistema: str = "general") -> bool:  # type: ignore[misc]
+    if silencio_global_activo():
+        return False
+    return _puede_hablar_original(sistema)

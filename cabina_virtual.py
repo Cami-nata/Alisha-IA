@@ -962,7 +962,7 @@ def main():
 
     glfw.set_window_pos(win, win_x, win_y)
     glfw.make_context_current(win)
-    glfw.swap_interval(0)   # sin vsync — control manual de 60fps para evitar micro-pausas
+    glfw.swap_interval(1)   # VSync ON — sincroniza con el monitor, frames uniformes sin sleep
 
     hwnd = glfw.get_win32_window(win)
     setup_window(hwnd)      # WS_EX_TOOLWINDOW aplicado ANTES de mostrar
@@ -1301,6 +1301,8 @@ def main():
                             try: model.SetParameterValue(_pk, _pv)
                             except Exception: pass
                         # Saltar el resto del loop de parámetros
+                        glEnable(GL_BLEND)
+                        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
                         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
                         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)
                         try: live2d.clearBuffer()
@@ -1722,6 +1724,11 @@ def main():
         # StartMotion causa ghosting al mezclarse con el control por parámetros
 
         # ── Render ────────────────────────────────────────────────────────────
+        # Restaurar estado de blending antes de cada draw — Live2D puede
+        # modificar el estado OpenGL internamente (máscaras de recorte, capas).
+        # Sin esto, las capas semitransparentes parpadean o se transparentan mal.
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)
         try: live2d.clearBuffer()

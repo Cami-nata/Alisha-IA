@@ -36,7 +36,7 @@ class SilenceGuard:
     Impide que Alisha hable si ya lo hizo en los últimos VENTANA_MINUTOS minutos.
     """
 
-    VENTANA_MINUTOS: int = 10  # 10 minutos entre notificaciones proactivas
+    VENTANA_MINUTOS: int = 20  # 20 minutos entre notificaciones proactivas
 
     def __init__(self) -> None:
         self._ultima_emision: datetime | None = None
@@ -443,7 +443,7 @@ class ProactiveNotifier:
 
     def __init__(self) -> None:
         self._silence_guard = SilenceGuard()
-        self._anti_rep_guard = AntiRepetitionGuard(ventana=3)
+        self._anti_rep_guard = AntiRepetitionGuard(ventana=5)
         self._ultima_inactividad: datetime | None = None
 
     def evaluar(

@@ -248,7 +248,7 @@ class WebSearchTool(Tool):
             nombre="web_search",
             descripcion="Busca información en internet y retorna un resumen de los resultados",
             parametros={"query": "str — consulta de búsqueda"},
-            critica=False,
+            critica=True,   # requiere confirmación — evita búsquedas autónomas no solicitadas
         )
 
     def ejecutar(self, query: str, **_) -> str:
@@ -309,7 +309,7 @@ class WebReadTool(Tool):
             nombre="web_read",
             descripcion="Lee el contenido de una página web específica",
             parametros={"url": "str — URL de la página a leer"},
-            critica=False,
+            critica=True,   # requiere confirmación — evita navegación autónoma
         )
 
     def ejecutar(self, url: str, **_) -> str:

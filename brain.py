@@ -656,7 +656,7 @@ Cuando uses herramientas internas, NUNCA muestres el nombre tecnico. Solo conta 
             except Exception:
                 pass
 
-            # Estado emocional de Alisha
+            # Estado emocional de Alisha — cualitativo + datos numéricos reales
             if estado_emo is None:
                 estado_emo = EmotionalState()
             if estado_emo.dopamina > 0.8:
@@ -668,12 +668,20 @@ Cuando uses herramientas internas, NUNCA muestres el nombre tecnico. Solo conta 
             else:
                 humor_str = "agotada, sin paciencia para rodeos"
 
+            # Datos numéricos reales para introspección (FASE 5)
+            estado_numerico = (
+                f"dopamina={estado_emo.dopamina:.2f}, "
+                f"humor={estado_emo.humor:.2f}, "
+                f"irritabilidad={estado_emo.irritabilidad:.2f}, "
+                f"flow={estado_emo.flow:.2f}"
+            )
+
             partes = [f"[SNAPSHOT — {hora} ({momento})"]
             if app_activa:
                 partes.append(f"App: {app_activa}")
             if medios:
                 partes.append(f"Medios: {medios}")
-            partes.append(f"Estado de Alisha: {humor_str}]")
+            partes.append(f"Estado de Alisha: {humor_str} | {estado_numerico}]")
 
             snapshot = " | ".join(partes)
 
@@ -887,7 +895,8 @@ class GroqEngine:
     def is_available(self) -> bool:
         return bool(self._api_key) and _GROQ_OK
 
-    def generate(self, messages: List[Dict], timeout: int = 30) -> str:
+    def generate(self, messages: List[Dict], timeout: int = 30,
+                 temperature: float = 0.4, max_tokens: int = 800) -> str:
         if not _GROQ_OK:
             raise RuntimeError("groq no instalado: pip install groq")
         if not self._api_key:
@@ -898,8 +907,8 @@ class GroqEngine:
             model=self.MODEL,
             messages=messages,
             timeout=timeout,
-            temperature=0.4,   # precisa y realista — no inventa
-            max_tokens=800,
+            temperature=temperature,
+            max_tokens=max_tokens,
         )
         return resp.choices[0].message.content.strip()
 
@@ -942,7 +951,8 @@ class MistralEngine:
     def is_available(self) -> bool:
         return bool(self._api_key) and _MISTRAL_OK
 
-    def generate(self, messages: List[Dict], timeout: int = 30) -> str:
+    def generate(self, messages: List[Dict], timeout: int = 30,
+                 temperature: float = 0.4, max_tokens: int = 800) -> str:
         if not _MISTRAL_OK:
             raise RuntimeError("mistralai no instalado: pip install mistralai")
         if not self._api_key:
@@ -952,8 +962,8 @@ class MistralEngine:
         resp = client.chat.complete(
             model=self.MODEL,
             messages=messages,
-            temperature=0.4,   # precisa y realista — no inventa
-            max_tokens=800,
+            temperature=temperature,
+            max_tokens=max_tokens,
         )
         return resp.choices[0].message.content.strip()
 
@@ -1032,6 +1042,13 @@ class HybridIntelligenceCore:
         """
         t_start = time.time()
 
+        # Notificar al SystemStateManager que estamos procesando
+        try:
+            from assistant_state import get_state_manager
+            get_state_manager().set_thinking()
+        except Exception:
+            pass
+
         # 1. Routing
         decision = self.router.analyze(user_input)
         print(f"[Brain] 🔀 Router → {decision.engine} ({decision.reason})")
@@ -1079,6 +1096,16 @@ class HybridIntelligenceCore:
 
         # 6.5. Integrate response generation pipeline with similarity checking and repetitive behavior filtering
         content = self._apply_repetitive_behavior_filters(content, user_input, engine_used)
+
+        # 6.7. Puente Neuronal — digerir la respuesta como experiencia interna
+        try:
+            from neural_bridge import get_neural_bridge
+            bridge = get_neural_bridge()
+            content, experiencia = bridge.digerir(content, user_input, self._emotional)
+            print(f"[Brain] 🧠 Puente neuronal: tono={experiencia.tono_detectado}, "
+                  f"complejidad={experiencia.complejidad:.2f}, novedad={experiencia.novedad:.2f}")
+        except Exception as _nb_err:
+            print(f"[Brain] ⚠ Puente neuronal falló (no crítico): {_nb_err}")
 
         # 7. Actualizar memoria — guardar interacción + contexto de actividad
         self.memory.add_turn("user",      user_input,  engine_used)
@@ -1155,6 +1182,13 @@ class HybridIntelligenceCore:
 
         processing_time = time.time() - t_start
         print(f"[Brain] ✓ Respuesta en {processing_time:.2f}s via {engine_used}")
+
+        # Notificar al SystemStateManager que terminamos
+        try:
+            from assistant_state import get_state_manager
+            get_state_manager().set_idle()
+        except Exception:
+            pass
 
         return AlishaResponse(
             content=content,
@@ -1260,6 +1294,22 @@ class HybridIntelligenceCore:
 
         return resultado_final
 
+    def _params_por_dopamina(self) -> dict:
+        """
+        Mapea el nivel de dopamina a parámetros reales de generación.
+        Dopamina alta → más creativa, más larga, más entusiasta.
+        Dopamina baja → más cortante, más corta, más directa.
+        """
+        d = self._emotional.dopamina
+        if d > 0.8:
+            return {"temperature": 0.8, "max_tokens": 900}   # energética, expresiva
+        elif d > 0.5:
+            return {"temperature": 0.5, "max_tokens": 700}   # normal
+        elif d > 0.3:
+            return {"temperature": 0.3, "max_tokens": 400}   # cortante, directa
+        else:
+            return {"temperature": 0.2, "max_tokens": 200}   # agotada, mínima
+
     def _generate(self, decision: RoutingDecision,
                   messages: List[Dict]) -> tuple[str, str]:
         """
@@ -1305,12 +1355,24 @@ class HybridIntelligenceCore:
             "ollama":  self._ollama,
         }
 
+        # Parámetros de generación basados en dopamina actual
+        gen_params = self._params_por_dopamina()
+
         for eng_name in chain:
             eng = engines_map[eng_name]
             if not eng.is_available():
                 continue
             try:
-                content = eng.generate(messages)
+                # Pasar temperatura y max_tokens si el motor los acepta
+                try:
+                    content = eng.generate(
+                        messages,
+                        temperature=gen_params["temperature"],
+                        max_tokens=gen_params["max_tokens"],
+                    )
+                except TypeError:
+                    # Motor no acepta esos parámetros (ej: Gemini, Ollama) — llamada normal
+                    content = eng.generate(messages)
                 self.router.record_success(eng_name, True)
                 if eng_name != "ollama":
                     self._emotional.dopamina = min(1.0, self._emotional.dopamina + 0.30)

@@ -7,6 +7,9 @@
 #   - pystray: funciona sin admin. El ícono en bandeja no requiere permisos.
 #   - pywin32: requiere ejecutar el instalador post-install:
 #     python Scripts/pywin32_postinstall.py -install
+#   - pywebview: requiere Microsoft Edge WebView2 Runtime instalado.
+#     Descarga: https://developer.microsoft.com/microsoft-edge/webview2/
+#     (ya viene preinstalado en Windows 10/11 actualizados)
 #
 # DEPENDENCIAS OPCIONALES (no bloquean el arranque si faltan):
 #   - whisper / torch: solo para transcripción de audio por voz
@@ -50,6 +53,7 @@ mss>=9.0.1
 # ── Interfaz web ──────────────────────────────────────────────────────────────
 jinja2>=3.1.0
 werkzeug>=3.0.0
+pywebview>=4.4.0          # ventana nativa sin barras de navegador (Alisha_IA.py)
 
 # ── Base de datos ─────────────────────────────────────────────────────────────
 pymongo>=4.6.0

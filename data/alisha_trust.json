@@ -1,7 +1,7 @@
 {
   "nivel": 3,
-  "xp": 321,
-  "tareas_completadas": 30,
+  "xp": 341,
+  "tareas_completadas": 32,
   "tiempo_uso_min": 465,
   "nivel_3_celebrado": true,
   "historial": [
@@ -154,6 +154,16 @@
       "evento": "tarea_completada",
       "delta": 10,
       "ts": "2026-04-20T17:26:49"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-05-21T19:01:48"
+    },
+    {
+      "evento": "tarea_completada",
+      "delta": 10,
+      "ts": "2026-05-21T19:02:05"
     }
   ]
 }

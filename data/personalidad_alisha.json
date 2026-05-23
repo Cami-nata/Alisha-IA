@@ -42,108 +42,6 @@
   },
   "sentimientos_registrados": [
     {
-      "timestamp": "2026-04-20T19:54:29.502957",
-      "actividad": "Alisha observa silenciosamente que: Cami está trabajando en ",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:54:45.279488",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:55:12.618879",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:55:51.468458",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:56:05.422234",
-      "actividad": "Alisha observa silenciosamente que: Cami está investigando s",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:56:19.662578",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:56:53.689922",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:57:31.750373",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:57:41.276585",
-      "actividad": "Alisha observa silenciosamente que: Cami está chequeando el ",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:58:00.031281",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:58:26.965421",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:59:01.227393",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:59:19.112040",
-      "actividad": "Alisha observa silenciosamente que: Cami parece estar inmers",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:59:29.539518",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T19:59:59.363120",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T20:00:33.956333",
-      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
-      "timestamp": "2026-04-20T20:00:54.681818",
-      "actividad": "Alisha observa silenciosamente que: Cami está estudiando los",
-      "emocion": "entusiasmo",
-      "dopamina": 1.0
-    },
-    {
       "timestamp": "2026-04-20T20:01:12.351082",
       "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
       "emocion": "entusiasmo",
@@ -340,9 +238,111 @@
       "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
       "emocion": "neutral",
       "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T18:59:03.418688",
+      "actividad": "Acabás de despertar. Saludá a Cami con 'Buenas tardes' en vo",
+      "emocion": "neutral",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T18:59:31.131513",
+      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T18:59:43.064170",
+      "actividad": "Alisha observa silenciosamente que: Parece que Cami se encue",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:00:04.321973",
+      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:00:35.089019",
+      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:01:08.581589",
+      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:01:15.324461",
+      "actividad": "Alisha observa silenciosamente que: Cami está personalizando",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:01:48.428065",
+      "actividad": "ola\n\n[Contexto de situación: Camila está trabajando en algo ",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:01:50.872399",
+      "actividad": "Generá un título de exactamente 3 palabras en español para e",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:02:05.521057",
+      "actividad": "nose, q ti\n\n[Contexto de medios activos: Música: '(12)Nasha ",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:02:08.053942",
+      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:02:38.283606",
+      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:02:47.791787",
+      "actividad": "Alisha observa silenciosamente que: Parece que Cami se encue",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:03:37.890651",
+      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:04:12.287618",
+      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:04:22.261149",
+      "actividad": "Alisha observa silenciosamente que: Parece que Cami está bus",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
+    },
+    {
+      "timestamp": "2026-05-21T19:04:42.087552",
+      "actividad": "En 1 oración corta, describí qué está haciendo Cami basándot",
+      "emocion": "entusiasmo",
+      "dopamina": 1.0
     }
   ],
   "frases_propias": [],
   "contador_tareas_repetitivas": 0,
-  "ultima_actualizacion": "2026-05-20T11:43:58.424134"
+  "ultima_actualizacion": "2026-05-21T19:04:42.088551"
 }

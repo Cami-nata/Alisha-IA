@@ -114,6 +114,13 @@ class ContextMonitor:
         snapshot = self._construir_snapshot()
         self._buffer.registrar("contexto", snapshot)
 
+        # FASE 4 — Sentidos simulados: actualizar estado emocional con señales del entorno
+        try:
+            from emotion_engine import EmotionEngine
+            EmotionEngine.get_instance().actualizar_desde_contexto(snapshot)
+        except Exception:
+            pass
+
     # ------------------------------------------------------------------
     # Construcción del snapshot
     # ------------------------------------------------------------------

@@ -218,6 +218,36 @@ def _inicializar() -> None:
     except Exception as e:
         print(f"[WebApp] Sugerencias: {e}")
 
+    # Motor de curiosidad autónoma (FASE 2 — JCySharp)
+    try:
+        from alisha_curiosidad import iniciar_curiosidad
+
+        def _callback_curiosidad(texto: str) -> None:
+            """Emite la iniciativa de curiosidad al chat web y por voz."""
+            try:
+                socketio.emit("respuesta", {
+                    "texto": texto,
+                    "estado_emocional": "curiosidad",
+                    "fuente": "curiosidad",
+                })
+            except Exception:
+                pass
+            try:
+                from audio_visual_sync import get_audio_visual_sync
+                get_audio_visual_sync().speak(
+                    texto,
+                    sarcasm_score=0.0,
+                    emotional_state="curiosidad",
+                    async_mode=True,
+                )
+            except Exception:
+                pass
+
+        iniciar_curiosidad(_callback_curiosidad)
+        print("[WebApp] ✓ Motor de curiosidad autónoma iniciado")
+    except Exception as e:
+        print(f"[WebApp] Curiosidad: {e}")
+
 
 # ---------------------------------------------------------------------------
 # Rutas HTTP

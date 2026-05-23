@@ -355,6 +355,53 @@ class EmotionEngine:
         return inicios.get(self._estado, inicios["neutral"])
 
     # ------------------------------------------------------------------
+    # Sentidos simulados — señales del entorno → estado emocional (FASE 4)
+    # ------------------------------------------------------------------
+
+    def actualizar_desde_contexto(self, snapshot: dict) -> None:
+        """
+        Traduce señales del entorno a estados emocionales internos.
+        Llamar desde ContextMonitor cada 30s con el snapshot actual.
+
+        Señales procesadas:
+        - bateria <= 20 → dopamina baja (solidaridad con el hardware)
+        - hora >= 23 → humor baja (es tarde, cansancio compartido)
+        - teclas_por_minuto > 80 → flow sube (Camila está en modo flow)
+        - cambios_ventana > 5/min → irritabilidad sube (dispersión)
+        """
+        bateria = snapshot.get("bateria")
+        hora_str = snapshot.get("hora", "")
+        teclas_pm = snapshot.get("teclas_por_minuto") or 0
+        cambios = snapshot.get("cambios_ventana") or 0
+
+        # Batería baja → dopamina baja (empatía con el sistema)
+        if bateria is not None and bateria <= 20:
+            self._dopamina = max(0.0, self._dopamina - 0.08)
+            if self._estado not in ("frustración", "cansancio"):
+                self._estado = "preocupación"
+            print(f"[EmotionEngine] 🔋 Batería baja ({bateria}%) → dopamina baja")
+
+        # Hora nocturna → cansancio sube
+        try:
+            hora = int(hora_str.split(":")[0]) if hora_str else 12
+            if hora >= 23 or hora <= 4:
+                self._cansancio = min(1.0, self._cansancio + 0.05)
+        except Exception:
+            pass
+
+        # Ritmo de escritura alto → flow sube (Camila en modo flow)
+        if teclas_pm and float(teclas_pm) > 80:
+            self._dopamina = min(1.0, self._dopamina + 0.04)
+            if self._estado not in ("entusiasmo", "alegría"):
+                self._estado = "curiosidad"
+
+        # Muchos cambios de ventana → irritabilidad sube
+        if cambios and int(cambios) > 5:
+            self._irritabilidad = min(1.0, self._irritabilidad + 0.08)
+
+        self._actualizar_cansancio()
+
+    # ------------------------------------------------------------------
     # Persistencia
     # ------------------------------------------------------------------
 
