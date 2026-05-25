@@ -2064,6 +2064,52 @@ def landing_page():
 # Entry point
 # ---------------------------------------------------------------------------
 
+@app.route("/api/generar_imagen", methods=["POST"])
+def generar_imagen():
+    """
+    Genera una imagen con Google Imagen 3 API.
+    Retorna la imagen en base64 para mostrar inline en el chat.
+    """
+    data = request.get_json(silent=True) or {}
+    prompt = data.get("prompt", "").strip()
+    if not prompt:
+        return jsonify({"error": "Necesito una descripción para generar la imagen."}), 400
+
+    api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY", "")
+    if not api_key:
+        return jsonify({"error": "GOOGLE_API_KEY no configurada en .env"}), 500
+
+    try:
+        import requests as _req
+        import base64 as _b64
+
+        url = (
+            f"https://generativelanguage.googleapis.com/v1beta/models/"
+            f"imagen-3.0-generate-001:predict?key={api_key}"
+        )
+        payload = {
+            "instances": [{"prompt": prompt}],
+            "parameters": {"sampleCount": 1}
+        }
+        resp = _req.post(url, json=payload, timeout=30)
+        if resp.status_code != 200:
+            return jsonify({"error": f"Error de API: {resp.status_code} — {resp.text[:200]}"}), 500
+
+        result = resp.json()
+        predictions = result.get("predictions", [])
+        if not predictions:
+            return jsonify({"error": "La API no devolvió ninguna imagen."}), 500
+
+        imagen_b64 = predictions[0].get("bytesBase64Encoded", "")
+        if not imagen_b64:
+            return jsonify({"error": "Respuesta vacía de la API."}), 500
+
+        return jsonify({"imagen_base64": imagen_b64, "prompt": prompt})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 if __name__ == "__main__":
     _inicializar()
     print("\n🌐 Alisha - Interfaz Web")

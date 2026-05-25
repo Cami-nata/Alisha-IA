@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎭 Alisha - Asistente IA</title>
+  <title>Alisha ✦ IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/style.css" />
-  <!-- Socket.IO — local (sin internet) -->
   <script src="/static/js/socket.io.min.js"></script>
-  <!-- Markdown rendering — local -->
   <script src="/static/js/marked.min.js"></script>
-  <!-- KaTeX para ecuaciones matemáticas — local -->
   <link rel="stylesheet" href="/static/css/katex.min.css">
   <script src="/static/js/katex.min.js"></script>
   <script src="/static/js/katex-auto-render.min.js"></script>
-  <!-- highlight.js para código — local -->
   <link rel="stylesheet" href="/static/css/highlight-github-dark.min.css">
   <script src="/static/js/highlight.min.js"></script>
 </head>
@@ -21,120 +20,235 @@
 
 <div class="app-wrapper">
 
-  <!-- ── Sidebar ── -->
+  <!-- ══ SIDEBAR ══ -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <span class="logo">🎭</span>
-      <span class="logo-text">Alisha IA</span>
+      <span class="logo-pixel">Alisha ✦</span>
     </div>
 
     <button class="btn-nuevo-chat" onclick="nuevoChat()">
-      <span>✨</span> Nueva conversación
+      <span class="pixel-icon">+</span> Nueva conversación
     </button>
 
-    <!-- Media Sync — "Escuchando ahora" -->
+    <!-- Media Sync -->
     <div id="media-sync-bar">
-      <span id="media-sync-icon">🎵</span>
-      <span id="media-sync-text">Cargando...</span>
+      <span id="media-sync-icon">♪</span>
+      <span id="media-sync-text">Sin música</span>
     </div>
 
-    <div class="sidebar-section-title">💬 Historial</div>
+    <div class="sidebar-section-title">▸ HISTORIAL</div>
     <div id="historial-lista" class="historial-lista"></div>
 
     <div class="sidebar-footer">
       <div class="perfil-usuario">
+        <span class="pixel-dot"></span>
         <span id="nombre-usuario-sidebar">Cami</span>
       </div>
 
-      <!-- Widget de Confianza -->
-      <div id="trust-widget" style="margin-top:12px; padding:10px; background:rgba(255,255,255,0.04); border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <span id="trust-label" style="font-size:0.78rem; font-weight:600; color:#e8e8f0;">🌱 Aprendiz</span>
-          <span id="trust-xp" style="font-size:0.72rem; color:#8888aa;">XP: 0</span>
+      <!-- Trust Widget -->
+      <div id="trust-widget">
+        <div class="trust-header">
+          <span id="trust-label">🌱 Aprendiz</span>
+          <span id="trust-xp">XP: 0</span>
         </div>
-        <div style="background:rgba(255,255,255,0.06); border-radius:999px; height:5px; overflow:hidden;">
-          <div id="trust-bar" style="height:100%; border-radius:999px; background:linear-gradient(90deg,#ff66a5,#00e5ff); width:0%; transition:width 0.8s ease;"></div>
+        <div class="trust-bar-bg">
+          <div id="trust-bar" class="trust-bar-fill"></div>
         </div>
-        <div id="trust-tasks" style="font-size:0.7rem; color:#555; margin-top:4px;">0 tareas completadas</div>
+        <div id="trust-tasks" class="trust-tasks">0 tareas completadas</div>
       </div>
+
+      <!-- Estado del sistema -->
+      <div id="system-state-badge" class="system-state idle">■ IDLE</div>
     </div>
   </aside>
 
-  <!-- ── Panel principal ── -->
+  <!-- ══ PANEL PRINCIPAL ══ -->
   <main class="main-panel">
 
-    <!-- Header con estado de Alisha -->
+    <!-- Header -->
     <header class="chat-header">
-      <div class="header-info">
-        <div class="ia-nombre-row">
-          <h1 id="nombre-ia" class="ia-nombre">Alisha</h1>
-          <span id="estado-badge" class="estado-badge neutral">IDLE</span>
+      <div class="header-left">
+        <div class="header-avatar">A</div>
+        <div class="header-info">
+          <span id="nombre-ia" class="header-name">Alisha</span>
+          <span class="header-online"><span class="online-dot"></span>online</span>
         </div>
-        <div id="estado-panel" class="estado-panel">
-          <div class="estado-stat">
+      </div>
+      <div class="header-right">
+        <div class="estado-stats">
+          <div class="stat-item">
             <span class="stat-label">ÁNIMO</span>
-            <div class="barra-estado"><div id="barra-dopamina" class="barra-llena"></div></div>
+            <div class="barra-estado"><div id="barra-dopamina" class="barra-llena" style="width:75%"></div></div>
           </div>
-          <div class="estado-stat">
+          <div class="stat-item">
             <span class="stat-label">ENERGÍA</span>
-            <div class="barra-estado"><div id="barra-energia" class="barra-llena"></div></div>
+            <div class="barra-estado"><div id="barra-energia" class="barra-llena" style="width:80%"></div></div>
           </div>
         </div>
+        <span id="estado-badge" class="estado-badge neutral">IDLE</span>
       </div>
     </header>
 
     <!-- Área de mensajes -->
     <div class="mensajes-area" id="mensajes-area">
       <div class="bienvenida" id="bienvenida">
-        <div class="bienvenida-emoji">🌸</div>
-        <h2>¡Hola! Soy Alisha</h2>
-        <p>Tu asistente IA con personalidad. Escribime algo para empezar a conversar.</p>
+        <div class="bienvenida-pixel">✦</div>
+        <h2 class="bienvenida-titulo">Hola, soy Alisha</h2>
+        <p class="bienvenida-sub">Tu asistente IA con personalidad propia.<br>Escribime algo para empezar.</p>
         <div class="sugerencias">
           <button class="sugerencia" onclick="enviarSugerencia('¿Cómo estás hoy?')">¿Cómo estás?</button>
           <button class="sugerencia" onclick="enviarSugerencia('Cuéntame algo interesante')">Cuéntame algo</button>
-          <button class="sugerencia" onclick="enviarSugerencia('¿Qué puedes hacer?')">¿Qué puedes hacer?</button>
+          <button class="sugerencia" onclick="enviarSugerencia('¿Qué podés hacer?')">¿Qué podés hacer?</button>
         </div>
       </div>
     </div>
 
-    <!-- Banner "Despertar a Alisha" — visible si el servidor no responde -->
-    <div id="banner-despertar" style="display:none; background:#1a0a12; border:1px solid #f48fb155;
-         border-radius:12px; padding:16px; margin:12px 28px; text-align:center;">
-      <p style="color:#f9d4e2; margin-bottom:10px">⚠️ Alisha no está corriendo. ¿Querés despertarla?</p>
-      <button onclick="despertarAlisha()" style="background:#c2185b; color:white; border:none;
-              border-radius:8px; padding:10px 24px; cursor:pointer; font-size:0.9em;">
-        🌸 Despertar a Alisha
-      </button>
+    <!-- Banner despertar -->
+    <div id="banner-despertar" style="display:none" class="banner-despertar">
+      <p>⚠ Alisha no está corriendo. ¿Querés despertarla?</p>
+      <button onclick="despertarAlisha()" class="btn-despertar">🌸 Despertar a Alisha</button>
     </div>
 
-    <!-- Archivos adjuntos pendientes -->
+    <!-- Chips de archivos adjuntos -->
     <div id="chips-archivos" class="chips-archivos"></div>
 
     <!-- Barra de entrada -->
     <div class="entrada-wrapper">
       <div class="entrada-bar">
-        <button class="btn-icono" title="Adjuntar archivo" type="button" onclick="document.getElementById('file-input').click()">📎</button>
-        <input type="file" id="file-input" multiple accept=".png,.jpg,.jpeg,.gif,.bmp,.webp,.pdf,.docx,.txt,.md,.csv" style="display:none" onchange="adjuntarArchivos(this)" />
-        <button class="btn-icono" title="Imagen" type="button" onclick="document.getElementById('img-input').click()">🖼️</button>
-        <input type="file" id="img-input" multiple accept=".png,.jpg,.jpeg,.gif,.bmp,.webp" style="display:none" onchange="adjuntarArchivos(this)" />
-        <button id="mic-button" class="btn-icono" type="button" title="Grabar audio" onclick="toggleMic()">🎙️</button>
+
+        <!-- Botón adjuntar con menú flotante -->
+        <div class="attach-container">
+          <button class="btn-icono btn-attach" title="Adjuntar" type="button" onclick="toggleMenuAdjuntos(event)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+            </svg>
+          </button>
+
+          <!-- Menú flotante de adjuntos -->
+          <div id="menu-adjuntos" class="menu-adjuntos" style="display:none">
+            <div class="menu-adjuntos-item" onclick="document.getElementById('file-input').click(); cerrarMenuAdjuntos()">
+              <span class="menu-icon">📷</span>
+              <div>
+                <div class="menu-item-title">Cargar fotos y archivos</div>
+                <div class="menu-item-sub">Imágenes, PDF, DOCX, código</div>
+              </div>
+            </div>
+            <div class="menu-adjuntos-item" onclick="mostrarArchivosRecientes()">
+              <span class="menu-icon">🕐</span>
+              <div>
+                <div class="menu-item-title">Archivos recientes</div>
+                <div class="menu-item-sub">Últimos 5 archivos enviados</div>
+              </div>
+            </div>
+            <div class="menu-adjuntos-item" onclick="abrirGeneradorImagen()">
+              <span class="menu-icon">🎨</span>
+              <div>
+                <div class="menu-item-title">Crear una imagen</div>
+                <div class="menu-item-sub">Generá con Imagen 3 de Google</div>
+              </div>
+            </div>
+            <div class="menu-adjuntos-separator"></div>
+            <div class="menu-adjuntos-item toggle-item" onclick="toggleRazonamiento()">
+              <span class="menu-icon">🧠</span>
+              <div>
+                <div class="menu-item-title">Razonamiento</div>
+                <div class="menu-item-sub">Pensá paso a paso</div>
+              </div>
+              <div id="toggle-razonamiento" class="toggle-pill off">OFF</div>
+            </div>
+            <div class="menu-adjuntos-item toggle-item" onclick="toggleBusquedaWeb()">
+              <span class="menu-icon">🔍</span>
+              <div>
+                <div class="menu-item-title">Búsqueda en Internet</div>
+                <div class="menu-item-sub">Activa web_search</div>
+              </div>
+              <div id="toggle-busqueda" class="toggle-pill off">OFF</div>
+            </div>
+            <div class="menu-adjuntos-item toggle-item" onclick="toggleInvestigacion()">
+              <span class="menu-icon">📊</span>
+              <div>
+                <div class="menu-item-title">Investigación avanzada</div>
+                <div class="menu-item-sub">Deep research + síntesis</div>
+              </div>
+              <div id="toggle-investigacion" class="toggle-pill off">OFF</div>
+            </div>
+            <div class="menu-adjuntos-separator"></div>
+            <div class="menu-adjuntos-item" onclick="mostrarProyectos()">
+              <span class="menu-icon">📁</span>
+              <div>
+                <div class="menu-item-title">Más — Proyectos</div>
+                <div class="menu-item-sub">Contextos guardados</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input de archivos oculto -->
+        <input type="file" id="file-input" multiple
+          accept=".png,.jpg,.jpeg,.gif,.bmp,.webp,.pdf,.docx,.txt,.md,.csv,.py,.js,.ts,.json"
+          style="display:none" onchange="adjuntarArchivos(this)" />
+
+        <!-- Mic -->
+        <button id="mic-button" class="btn-icono" type="button" title="Grabar audio" onclick="toggleMic()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/>
+          </svg>
+        </button>
+
+        <!-- Input de texto -->
         <input
           type="text"
           id="entrada-texto"
           class="entrada-texto"
-          placeholder="Escribe tu mensaje aquí..."
+          placeholder="Hablá con Alisha..."
           autocomplete="off"
-          onkeydown="if(event.key==='Enter')enviar()"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey)enviar()"
         />
-        <button class="btn-enviar" onclick="enviar()">💬</button>
+
+        <!-- Botón enviar -->
+        <button class="btn-enviar" onclick="enviar()" id="btn-enviar-main">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
       </div>
     </div>
 
   </main>
 </div>
 
-<script src="/static/js/app.js"></script>
+<!-- Modal generador de imágenes -->
+<div id="modal-imagen" class="modal-overlay" style="display:none" onclick="if(event.target===this)cerrarModalImagen()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title pixel-font">🎨 Crear imagen</span>
+      <button class="modal-close" onclick="cerrarModalImagen()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="imagen-prompt" class="modal-input"
+        placeholder="Describí la imagen que querés generar..."
+        onkeydown="if(event.key==='Enter')generarImagen()" />
+      <button class="btn-generar-imagen" onclick="generarImagen()">
+        <span id="btn-generar-texto">✦ Generar</span>
+      </button>
+      <div id="imagen-preview" class="imagen-preview" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Toast de bloqueo -->
 <div id="lock-toast"></div>
+
+<!-- Zona de drag & drop overlay -->
+<div id="drag-overlay" class="drag-overlay" style="display:none">
+  <div class="drag-overlay-inner">
+    <div class="drag-icon">📎</div>
+    <div class="drag-text pixel-font">Soltá el archivo acá</div>
+  </div>
+</div>
+
+<script src="/static/js/app.js"></script>
 </body>
 </html>

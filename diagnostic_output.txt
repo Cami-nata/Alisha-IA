@@ -1,0 +1,417 @@
+modelo cargado OK
+
+=== PARAMETROS REALES DE ICEGIRL ===
+GetParamIds count : 246
+GetParameterCount: 246
+
+  [  0] ParamHairFront                           val=  0.00
+  [  1] ParamHairFront2                          val=  0.00
+  [  2] ParamHairFront3                          val=  0.00
+  [  3] ParamHairFront4                          val=  0.00
+  [  4] ParamHairFront5                          val=  0.00
+  [  5] ParamHairFront6                          val=  0.00
+  [  6] ParamHairFront7                          val=  0.00
+  [  7] Param54                                  val=  0.00
+  [  8] Param57                                  val=  0.00
+  [  9] Param56                                  val=  0.00
+  [ 10] Param55                                  val=  0.00
+  [ 11] Param40                                  val=  0.00
+  [ 12] Param41                                  val=  0.00
+  [ 13] Param51                                  val=  0.00
+  [ 14] Param31                                  val=  0.00
+  [ 15] Param32                                  val=  0.00
+  [ 16] Param33                                  val=  0.00
+  [ 17] Param34                                  val=  0.00
+  [ 18] Param35                                  val=  0.00
+  [ 19] Param38                                  val=  0.00
+  [ 20] Param37                                  val=  0.00
+  [ 21] Param36                                  val=  0.00
+  [ 22] Param39                                  val=  0.00
+  [ 23] Param42                                  val=  0.00
+  [ 24] Param44                                  val=  0.00
+  [ 25] Param50                                  val=  0.00
+  [ 26] Param53                                  val=  0.00
+  [ 27] Param59                                  val=  0.00
+  [ 28] ShouBing                                 val=  0.00
+  [ 29] JiaJu                                    val=  0.00
+  [ 30] Param52                                  val=  0.00
+  [ 31] Param60                                  val=  0.00
+  [ 32] Param28                                  val=  0.00
+  [ 33] Param29                                  val=  0.00
+  [ 34] Param27                                  val=  0.00
+  [ 35] Param22                                  val=  0.00
+  [ 36] Param23                                  val=  0.00
+  [ 37] Param26                                  val=  0.00
+  [ 38] Param25                                  val=  0.00
+  [ 39] Param24                                  val=  0.00
+  [ 40] Param43                                  val=  0.00
+  [ 41] Param45                                  val=  0.00
+  [ 42] Param46                                  val=  0.00
+  [ 43] Param47                                  val=  0.00
+  [ 44] Param48                                  val=  0.00
+  [ 45] Param49                                  val=  0.00
+  [ 46] Param19                                  val=  0.00
+  [ 47] Param20                                  val=  0.00
+  [ 48] Param21                                  val=  0.00
+  [ 49] Param2                                   val=  0.00
+  [ 50] Param3                                   val=  0.00
+  [ 51] Param4                                   val=  0.00
+  [ 52] Param5                                   val=  0.00
+  [ 53] Param6                                   val=  0.00
+  [ 54] Param7                                   val=  0.00
+  [ 55] Param8                                   val=  0.00
+  [ 56] Param9                                   val=  0.00
+  [ 57] Param10                                  val=  0.00
+  [ 58] Param11                                  val=  0.00
+  [ 59] Param13                                  val=  0.00
+  [ 60] Param14                                  val=  0.00
+  [ 61] Param15                                  val=  0.00
+  [ 62] Param16                                  val=  0.00
+  [ 63] Param18                                  val=  0.00
+  [ 64] Param17                                  val=  0.00
+  [ 65] Param30                                  val=  0.00
+  [ 66] Param58                                  val=  0.00
+  [ 67] WaiZui                                   val=  0.00
+  [ 68] JingYa                                   val=  0.00
+  [ 69] ParamAngleX                              val=  0.00
+  [ 70] ParamAngleY                              val=  0.00
+  [ 71] ParamAngleZ                              val=  0.00
+  [ 72] ParamEyeLOpen                            val=  1.00
+  [ 73] ParamEyeLSmile                           val=  0.00
+  [ 74] ParamEyeROpen                            val=  1.00
+  [ 75] ParamEyeRSmile                           val=  0.00
+  [ 76] Param                                    val=  0.00
+  [ 77] ParamEyeBallX                            val=  0.00
+  [ 78] ParamEyeBallY                            val=  0.00
+  [ 79] ParamBrowLAngle                          val=  0.00
+  [ 80] ParamBrowRAngle                          val=  0.00
+  [ 81] ParamBrowLForm                           val=  0.00
+  [ 82] ParamBrowRForm                           val=  0.00
+  [ 83] ParamMouthForm                           val=  0.00
+  [ 84] ParamMouthOpenY                          val=  0.00
+  [ 85] Param12                                  val=  0.00
+  [ 86] ParamBreath                              val=  0.00
+  [ 87] Param_Angle_Rotation_1_ArtMesh11         val=  0.00
+  [ 88] Param_Angle_Rotation_2_ArtMesh11         val=  0.00
+  [ 89] Param_Angle_Rotation_3_ArtMesh11         val=  0.00
+  [ 90] Param_Angle_Rotation_4_ArtMesh11         val=  0.00
+  [ 91] Param_Angle_Rotation_5_ArtMesh11         val=  0.00
+  [ 92] Param_Angle_Rotation_6_ArtMesh11         val=  0.00
+  [ 93] Param_Angle_Rotation_7_ArtMesh11         val=  0.00
+  [ 94] Param_Angle_Rotation_1_ArtMesh12         val=  0.00
+  [ 95] Param_Angle_Rotation_2_ArtMesh12         val=  0.00
+  [ 96] Param_Angle_Rotation_3_ArtMesh12         val=  0.00
+  [ 97] Param_Angle_Rotation_4_ArtMesh12         val=  0.00
+  [ 98] Param_Angle_Rotation_5_ArtMesh12         val=  0.00
+  [ 99] Param_Angle_Rotation_6_ArtMesh12         val=  0.00
+  [100] Param_Angle_Rotation_7_ArtMesh12         val=  0.00
+  [101] Param_Angle_Rotation_1_ArtMesh15         val=  0.00
+  [102] Param_Angle_Rotation_2_ArtMesh15         val=  0.00
+  [103] Param_Angle_Rotation_3_ArtMesh15         val=  0.00
+  [104] Param_Angle_Rotation_4_ArtMesh15         val=  0.00
+  [105] Param_Angle_Rotation_5_ArtMesh15         val=  0.00
+  [106] Param_Angle_Rotation_1_ArtMesh16         val=  0.00
+  [107] Param_Angle_Rotation_2_ArtMesh16         val=  0.00
+  [108] Param_Angle_Rotation_3_ArtMesh16         val=  0.00
+  [109] Param_Angle_Rotation_4_ArtMesh16         val=  0.00
+  [110] Param_Angle_Rotation_5_ArtMesh16         val=  0.00
+  [111] Param_Angle_Rotation_1_ArtMesh99         val=  0.00
+  [112] Param_Angle_Rotation_2_ArtMesh99         val=  0.00
+  [113] Param_Angle_Rotation_3_ArtMesh99         val=  0.00
+  [114] Param_Angle_Rotation_4_ArtMesh99         val=  0.00
+  [115] Param_Angle_Rotation_5_ArtMesh99         val=  0.00
+  [116] Param_Angle_Rotation_6_ArtMesh99         val=  0.00
+  [117] Param_Angle_Rotation_7_ArtMesh99         val=  0.00
+  [118] Param_Angle_Rotation_1_ArtMesh98         val=  0.00
+  [119] Param_Angle_Rotation_2_ArtMesh98         val=  0.00
+  [120] Param_Angle_Rotation_3_ArtMesh98         val=  0.00
+  [121] Param_Angle_Rotation_4_ArtMesh98         val=  0.00
+  [122] Param_Angle_Rotation_5_ArtMesh98         val=  0.00
+  [123] Param_Angle_Rotation_6_ArtMesh98         val=  0.00
+  [124] Param_Angle_Rotation_7_ArtMesh98         val=  0.00
+  [125] Param_Angle_Rotation_1_ArtMesh97         val=  0.00
+  [126] Param_Angle_Rotation_2_ArtMesh97         val=  0.00
+  [127] Param_Angle_Rotation_3_ArtMesh97         val=  0.00
+  [128] Param_Angle_Rotation_4_ArtMesh97         val=  0.00
+  [129] Param_Angle_Rotation_5_ArtMesh97         val=  0.00
+  [130] Param_Angle_Rotation_6_ArtMesh97         val=  0.00
+  [131] Param_Angle_Rotation_7_ArtMesh97         val=  0.00
+  [132] Param_Angle_Rotation_1_ArtMesh95         val=  0.00
+  [133] Param_Angle_Rotation_2_ArtMesh95         val=  0.00
+  [134] Param_Angle_Rotation_3_ArtMesh95         val=  0.00
+  [135] Param_Angle_Rotation_4_ArtMesh95         val=  0.00
+  [136] Param_Angle_Rotation_5_ArtMesh95         val=  0.00
+  [137] Param_Angle_Rotation_6_ArtMesh95         val=  0.00
+  [138] Param_Angle_Rotation_7_ArtMesh95         val=  0.00
+  [139] Param_Angle_Rotation_1_ArtMesh96         val=  0.00
+  [140] Param_Angle_Rotation_2_ArtMesh96         val=  0.00
+  [141] Param_Angle_Rotation_3_ArtMesh96         val=  0.00
+  [142] Param_Angle_Rotation_4_ArtMesh96         val=  0.00
+  [143] Param_Angle_Rotation_5_ArtMesh96         val=  0.00
+  [144] Param_Angle_Rotation_6_ArtMesh96         val=  0.00
+  [145] Param_Angle_Rotation_7_ArtMesh96         val=  0.00
+  [146] Param_Angle_Rotation_1_ArtMesh20         val=  0.00
+  [147] Param_Angle_Rotation_2_ArtMesh20         val=  0.00
+  [148] Param_Angle_Rotation_3_ArtMesh20         val=  0.00
+  [149] Param_Angle_Rotation_4_ArtMesh20         val=  0.00
+  [150] Param_Angle_Rotation_5_ArtMesh20         val=  0.00
+  [151] Param_Angle_Rotation_1_ArtMesh21         val=  0.00
+  [152] Param_Angle_Rotation_2_ArtMesh21         val=  0.00
+  [153] Param_Angle_Rotation_3_ArtMesh21         val=  0.00
+  [154] Param_Angle_Rotation_4_ArtMesh21         val=  0.00
+  [155] Param_Angle_Rotation_5_ArtMesh21         val=  0.00
+  [156] Param_Angle_Rotation_1_ArtMesh19         val=  0.00
+  [157] Param_Angle_Rotation_2_ArtMesh19         val=  0.00
+  [158] Param_Angle_Rotation_3_ArtMesh19         val=  0.00
+  [159] Param_Angle_Rotation_4_ArtMesh19         val=  0.00
+  [160] Param_Angle_Rotation_5_ArtMesh19         val=  0.00
+  [161] Param_Angle_Rotation_1_ArtMesh18         val=  0.00
+  [162] Param_Angle_Rotation_2_ArtMesh18         val=  0.00
+  [163] Param_Angle_Rotation_3_ArtMesh18         val=  0.00
+  [164] Param_Angle_Rotation_4_ArtMesh18         val=  0.00
+  [165] Param_Angle_Rotation_5_ArtMesh18         val=  0.00
+  [166] Param_Angle_Rotation_6_ArtMesh18         val=  0.00
+  [167] Param_Angle_Rotation_7_ArtMesh18         val=  0.00
+  [168] Param_Angle_Rotation_1_ArtMesh17         val=  0.00
+  [169] Param_Angle_Rotation_2_ArtMesh17         val=  0.00
+  [170] Param_Angle_Rotation_3_ArtMesh17         val=  0.00
+  [171] Param_Angle_Rotation_4_ArtMesh17         val=  0.00
+  [172] Param_Angle_Rotation_5_ArtMesh17         val=  0.00
+  [173] Param_Angle_Rotation_6_ArtMesh17         val=  0.00
+  [174] Param_Angle_Rotation_7_ArtMesh17         val=  0.00
+  [175] Param_Angle_Rotation_1_ArtMesh22         val=  0.00
+  [176] Param_Angle_Rotation_2_ArtMesh22         val=  0.00
+  [177] Param_Angle_Rotation_3_ArtMesh22         val=  0.00
+  [178] Param_Angle_Rotation_4_ArtMesh22         val=  0.00
+  [179] Param_Angle_Rotation_5_ArtMesh22         val=  0.00
+  [180] Param_Angle_Rotation_6_ArtMesh19         val=  0.00
+  [181] Param_Angle_Rotation_7_ArtMesh19         val=  0.00
+  [182] Param_Angle_Rotation_1_ArtMesh23         val=  0.00
+  [183] Param_Angle_Rotation_2_ArtMesh23         val=  0.00
+  [184] Param_Angle_Rotation_3_ArtMesh23         val=  0.00
+  [185] Param_Angle_Rotation_4_ArtMesh23         val=  0.00
+  [186] Param_Angle_Rotation_5_ArtMesh23         val=  0.00
+  [187] Param_Angle_Rotation_6_ArtMesh20         val=  0.00
+  [188] Param_Angle_Rotation_7_ArtMesh20         val=  0.00
+  [189] Param_Angle_Rotation_1_ArtMesh24         val=  0.00
+  [190] Param_Angle_Rotation_2_ArtMesh24         val=  0.00
+  [191] Param_Angle_Rotation_3_ArtMesh24         val=  0.00
+  [192] Param_Angle_Rotation_4_ArtMesh24         val=  0.00
+  [193] Param_Angle_Rotation_5_ArtMesh24         val=  0.00
+  [194] Param_Angle_Rotation_1_ArtMesh25         val=  0.00
+  [195] Param_Angle_Rotation_2_ArtMesh25         val=  0.00
+  [196] Param_Angle_Rotation_3_ArtMesh25         val=  0.00
+  [197] Param_Angle_Rotation_4_ArtMesh25         val=  0.00
+  [198] Param_Angle_Rotation_5_ArtMesh25         val=  0.00
+  [199] Param_Angle_Rotation_1_ArtMesh26         val=  0.00
+  [200] Param_Angle_Rotation_2_ArtMesh26         val=  0.00
+  [201] Param_Angle_Rotation_3_ArtMesh26         val=  0.00
+  [202] Param_Angle_Rotation_4_ArtMesh26         val=  0.00
+  [203] Param_Angle_Rotation_5_ArtMesh26         val=  0.00
+  [204] Param_Angle_Rotation_1_ArtMesh51         val=  0.00
+  [205] Param_Angle_Rotation_2_ArtMesh51         val=  0.00
+  [206] Param_Angle_Rotation_3_ArtMesh51         val=  0.00
+  [207] Param_Angle_Rotation_1_ArtMesh52         val=  0.00
+  [208] Param_Angle_Rotation_2_ArtMesh52         val=  0.00
+  [209] Param_Angle_Rotation_3_ArtMesh52         val=  0.00
+  [210] Param_Angle_Rotation_1_ArtMesh53         val=  0.00
+  [211] Param_Angle_Rotation_2_ArtMesh53         val=  0.00
+  [212] Param_Angle_Rotation_3_ArtMesh53         val=  0.00
+  [213] Param_Angle_Rotation_4_ArtMesh53         val=  0.00
+  [214] Param_Angle_Rotation_5_ArtMesh53         val=  0.00
+  [215] Param_Angle_Rotation_1_ArtMesh54         val=  0.00
+  [216] Param_Angle_Rotation_2_ArtMesh54         val=  0.00
+  [217] Param_Angle_Rotation_3_ArtMesh54         val=  0.00
+  [218] Param_Angle_Rotation_4_ArtMesh54         val=  0.00
+  [219] Param_Angle_Rotation_5_ArtMesh54         val=  0.00
+  [220] Param_Angle_Rotation_1_ArtMesh60         val=  0.00
+  [221] Param_Angle_Rotation_2_ArtMesh60         val=  0.00
+  [222] Param_Angle_Rotation_3_ArtMesh60         val=  0.00
+  [223] Param_Angle_Rotation_1_ArtMesh59         val=  0.00
+  [224] Param_Angle_Rotation_2_ArtMesh59         val=  0.00
+  [225] Param_Angle_Rotation_3_ArtMesh59         val=  0.00
+  [226] Param_Angle_Rotation_1_ArtMesh62         val=  0.00
+  [227] Param_Angle_Rotation_2_ArtMesh62         val=  0.00
+  [228] Param_Angle_Rotation_3_ArtMesh62         val=  0.00
+  [229] Param_Angle_Rotation_1_ArtMesh61         val=  0.00
+  [230] Param_Angle_Rotation_2_ArtMesh61         val=  0.00
+  [231] Param_Angle_Rotation_3_ArtMesh61         val=  0.00
+  [232] Param_Angle_Rotation_1_ArtMesh327        val=  0.00
+  [233] Param_Angle_Rotation_2_ArtMesh327        val=  0.00
+  [234] Param_Angle_Rotation_3_ArtMesh327        val=  0.00
+  [235] Param_Angle_Rotation_4_ArtMesh327        val=  0.00
+  [236] Param_Angle_Rotation_5_ArtMesh327        val=  0.00
+  [237] Param_Angle_Rotation_6_ArtMesh327        val=  0.00
+  [238] Param_Angle_Rotation_7_ArtMesh327        val=  0.00
+  [239] Param_Angle_Rotation_1_ArtMesh328        val=  0.00
+  [240] Param_Angle_Rotation_2_ArtMesh328        val=  0.00
+  [241] Param_Angle_Rotation_3_ArtMesh328        val=  0.00
+  [242] Param_Angle_Rotation_4_ArtMesh328        val=  0.00
+  [243] Param_Angle_Rotation_5_ArtMesh328        val=  0.00
+  [244] Param_Angle_Rotation_6_ArtMesh328        val=  0.00
+  [245] Param_Angle_Rotation_7_ArtMesh328        val=  0.00
+
+=== PARTES DEL MODELO ===
+Total partes: 137
+  Part108
+  Part107
+  Part106
+  Part105
+  Part104
+  Part103
+  Part99
+  Part97
+  Part92
+  Part91
+  Part88
+  Part86
+  Part85
+  Part84
+  Part82
+  Part80
+  Part79
+  Part78
+  Part77
+  Part73
+  Part72
+  Part62
+  Part61
+  Part60
+  Part58
+  Part56
+  Part36
+  Part
+  ArtMesh327_Skinning2
+  Part94
+  ArtMesh327_Skinning
+  Part93
+  Part101
+  Part98
+  Part87
+  Part83
+  Part81
+  Part76
+  Part71
+  Part59
+  Part57
+  Part2
+  Part18
+  Part21
+  Part22
+  Part23
+  Part26
+  Part27
+  Part28
+  Part75
+  Part29
+  Part32
+  Part33
+  ArtMesh99_Skinning
+  Part41
+  Part34
+  Part35
+  Part102
+  Part7
+  Part6
+  Part9
+  Part11
+  Part96
+  Part10
+  Part19
+  ArtMesh59_Skinning
+  Part68
+  ArtMesh60_Skinning
+  Part67
+  ArtMesh61_Skinning
+  Part70
+  ArtMesh62_Skinning
+  Part69
+  Part24
+  Part100
+  Part30
+  Part31
+  ArtMesh95_Skinning
+  Part44
+  ArtMesh96_Skinning
+  Part45
+  ArtMesh97_Skinning
+  Part43
+  ArtMesh98_Skinning
+  Part42
+  Part8
+  Part3
+  ArtMesh15_Skinning
+  Part39
+  ArtMesh16_Skinning
+  Part40
+  Part12
+  Part13
+  Part14
+  Part15
+  Part16
+  Part17
+  Part95
+  ArtMesh17_Skinning2
+  Part51
+  ArtMesh17_Skinning
+  Part50
+  ArtMesh18_Skinning2
+  Part52
+  ArtMesh18_Skinning
+  Part49
+  ArtMesh19_Skinning2
+  Part53
+  ArtMesh19_Skinning
+  Part48
+  ArtMesh20_Skinning2
+  Part54
+  ArtMesh20_Skinning
+  Part46
+  ArtMesh21_Skinning2
+  Part55
+  ArtMesh21_Skinning
+  Part47
+  Part20
+  Part25
+  Part74
+  ArtMesh11_Skinning
+  Part37
+  ArtMesh12_Skinning
+  Part38
+  Part4
+  Part5
+  Part90
+  ArtMesh51_Skinning
+  Part63
+  ArtMesh52_Skinning
+  Part64
+  ArtMesh53_Skinning
+  Part65
+  ArtMesh54_Skinning
+  Part66
+  Part89
+
+=== EXPRESIONES DISPONIBLES ===
+Total expresiones: 20
+  ←歪嘴
+  惊讶
+  手柄
+  披发
+  星星眼
+  歪嘴→
+  流泪
+  爱心眼
+  猫耳
+  王冠
+  生气
+  疑惑
+  白眼
+  直播套装
+  翅膀
+  脸红
+  脸黑
+  舌头
+  金钱眼
+  马尾
+
+=== FIN OK ===

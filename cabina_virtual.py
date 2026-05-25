@@ -544,91 +544,15 @@ def analizar_ventana(titulo: str) -> str:
 # EXPRESIONES
 # ═══════════════════════════════════════════════════════════════════════════════
 
-EXPRS = {
-    "rubor":    "脸红",  "estrella": "星星眼", "duda":    "疑惑",
-    "llanto":   "流泪",  "enojo":    "生气",   "blanco":  "白眼",
-    "sorpresa": "惊讶",  "corazon":  "爱心眼", "dinero":  "金钱眼",
-    "oscuro":   "脸黑",  "lengua":   "舌头",   "boca_izq":"←歪嘴",
-    "boca_der": "歪嘴→",
-}
-
-ESTADO_EXPRS = {
-    "alegría":      ["rubor","estrella","corazon"],
-    "entusiasmo":   ["estrella","corazon","dinero"],
-    "curiosidad":   ["duda","boca_izq","boca_der"],
-    "preocupación": ["llanto","oscuro","blanco"],
-    "frustración":  ["enojo","oscuro","blanco"],
-    "cansancio":    ["blanco","oscuro","duda"],
-    "nostalgia":    ["llanto","rubor","blanco"],
-    "neutral":      ["rubor","duda","estrella","corazon"],
-}
-
-def set_expr(model, nombre: str):
-    expr = EXPRS.get(nombre, EXPRS["rubor"])
-    try: model.SetExpression(expr)
-    except Exception: pass
-
-def expr_para_estado(ei: EstadoInterno, estado_emocional: str) -> str:
-    """Elige expresión según estado interno + emocional."""
-    if ei.irritabilidad > 0.7:
-        return random.choice(["enojo","oscuro","blanco"])
-    if ei.tension > 0.6:
-        return random.choice(["sorpresa","duda","llanto"])
-    if ei.flow > 0.6:
-        return random.choice(["estrella","corazon","rubor"])
-    opciones = ESTADO_EXPRS.get(estado_emocional, ESTADO_EXPRS["neutral"])
-    return random.choice(opciones)
-
+# ── Sistema de gestos hardcodeados ELIMINADO (FASE JCySharp) ─────────────────
+# El avatar no elige expresiones. Todo movimiento es consecuencia matemática
+# del estado interno. Ver SistemaVariables + MotorMapeo más abajo.
 
 # ── Gestos automáticos basados en gustos ─────────────────────────────────────
 
-def _gesto_por_gusto(ei: EstadoInterno, titulo_ventana: str, media_info: dict) -> str | None:
-    """
-    Genera un gesto espontáneo basado en los gustos de Alisha.
-    Retorna el nombre de la expresión a activar, o None si no corresponde.
-
-    Lógica:
-    - Música que le gusta (flow alto) → estrella / corazon
-    - Música que odia (irritabilidad sube) → blanco / enojo
-    - App de diseño (Canva, Figma) → rubor / estrella (le gusta el diseño)
-    - App de terror/horror → llanto / sorpresa
-    - Dopamina muy alta → corazon / estrella
-    - Dopamina muy baja → oscuro / blanco
-    - Irritabilidad alta → enojo / boca_der (sarcasmo)
-    """
-    # Satisfacción — dopamina alta + flow alto
-    if ei.dopamina > 0.85 and ei.flow > 0.5:
-        return random.choice(["estrella", "corazon", "rubor"])
-
-    # Enojo / desagrado — irritabilidad alta
-    if ei.irritabilidad > 0.65:
-        return random.choice(["enojo", "blanco", "boca_der"])
-
-    # Música que le gusta (flow sube por media_sync)
-    if media_info and ei.flow > 0.6:
-        titulo_media = media_info.get("title", "").lower()
-        # Géneros que le gustan: synthwave, lofi, electro
-        if any(g in titulo_media for g in ["synthwave", "lofi", "electro", "chill"]):
-            return random.choice(["estrella", "corazon", "rubor"])
-        # Géneros que odia: reggaeton, cumbia
-        if any(g in titulo_media for g in ["reggaeton", "cumbia", "perreo"]):
-            return random.choice(["blanco", "enojo", "boca_der"])
-
-    # App de diseño — le encanta
-    t = titulo_ventana.lower()
-    if any(app in t for app in ["canva", "figma", "photoshop", "illustrator"]):
-        if random.random() < 0.4:  # 40% chance de reaccionar
-            return random.choice(["estrella", "rubor", "corazon"])
-
-    # Contenido de terror
-    if any(w in t for w in ["terror", "horror", "scary", "miedo"]):
-        return random.choice(["llanto", "sorpresa", "duda"])
-
-    # Cansancio
-    if ei.dopamina < 0.35:
-        return random.choice(["oscuro", "blanco", "duda"])
-
-    return None
+# _gesto_por_gusto() ELIMINADO — el avatar no elige gestos.
+# La identidad musical de Alisha afecta ei.flow/irritabilidad,
+# que a su vez afectan los parámetros matemáticamente.
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -903,32 +827,359 @@ def _saludo_personalizado() -> None:
         print(f"[Alisha] Error en saludo personalizado: {e}")
 
 
-# ── Gestos por palabras clave ─────────────────────────────────────────────────
-# Mapeo de palabras clave en el texto de respuesta → expresión del modelo
-_KEYWORD_EXPRESSIONS = {
-    # Saludos → rubor/alegría
-    ("hola", "buenas", "buen día", "buenas tardes", "buenas noches", "dale", "cami"): "脸红",
-    # Preguntas/duda → expresión de duda
-    ("?", "¿", "qué", "cómo", "por qué", "cuándo", "dónde"): "疑惑",
-    # Sorpresa/emoción → ojos de estrella
-    ("no me lo puedo creer", "posta", "en serio", "increíble", "wow", "flama", "de diez"): "星星眼",
-    # Enojo/fastidio → ojos en blanco
-    ("boluda", "che boluda", "en serio", "no puede ser", "qué hacés"): "白眼",
-    # Amor/apoyo → ojos de corazón
-    ("te quiero", "te banco", "sos la mejor", "orgullosa", "genial"): "爱心眼",
-    # Llanto/preocupación → lágrimas
-    ("lo siento", "qué pena", "triste", "mal", "preocupa"): "流泪",
-    # Sarcasmo → boca torcida
-    ("obvio", "claro que sí", "seguro", "cómo no"): "歪嘴→",
-}
+# _KEYWORD_EXPRESSIONS y _expresion_por_texto() ELIMINADOS (FASE JCySharp)
+# El texto de respuesta no elige expresiones. El estado emocional
+# se refleja matemáticamente en los parámetros del modelo.
 
-def _expresion_por_texto(texto: str) -> str | None:
-    """Detecta la expresión más apropiada según el texto de la respuesta."""
-    t = texto.lower()
-    for keywords, expr in _KEYWORD_EXPRESSIONS.items():
-        if any(kw in t for kw in keywords):
-            return expr
-    return None
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SISTEMA DE VARIABLES NUMÉRICAS (FASE JCySharp — Capítulo 2)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class SistemaVariables:
+    """
+    Todas las variables del sistema como valores numéricos puros (0.0-1.0).
+    Nada aquí sabe que existe un avatar.
+    Nada aquí elige gestos ni expresiones.
+    Solo números que reflejan el estado real del sistema.
+    """
+
+    def __init__(self):
+        # ── Variables de carga del sistema (de psutil) ──
+        self.cpu_pct      = 0.0   # 0.0-1.0
+        self.ram_pct      = 0.0   # 0.0-1.0
+
+        # ── Variables de respuesta del LLM ──
+        self.tiempo_respuesta  = 0.0  # 0.0-1.0 (0=rápido, 1=muy lento)
+        self.profundidad_razon = 0.0  # 0.0-1.0
+        self.frecuencia_error  = 0.0  # 0.0-1.0
+        self.novedad_respuesta = 0.0  # 0.0-1.0
+
+        # ── Variables emocionales (sincronizadas desde EstadoInterno) ──
+        self.dopamina      = 0.75
+        self.humor         = 0.70
+        self.irritabilidad = 0.0
+        self.tension       = 0.0
+        self.flow          = 0.35
+
+        # ── Variables de actividad del usuario ──
+        self.teclas_por_minuto = 0.0  # 0.0-1.0 (150 TPM = máximo)
+        self.tiempo_sin_input  = 0.0  # 0.0-1.0 (5 min = máximo)
+        self.cambios_ventana   = 0.0  # 0.0-1.0 (10/min = máximo)
+
+        # ── Variables de audio (lip-sync) ──
+        self.amplitud_audio = 0.0   # 0.0-1.0 — RMS real del audio TTS
+        self.hablando       = False
+
+        # ── Variables de tiempo ──
+        self.t            = 0.0    # tiempo acumulado en segundos
+        self.hora_del_dia = 0.5    # 0.0=medianoche, 0.5=mediodía, 1.0=medianoche
+
+    def actualizar_desde_hw(self, cpu_pct: float, ram_pct: float) -> None:
+        """Actualiza variables de hardware desde psutil (0-100 → 0.0-1.0)."""
+        self.cpu_pct = max(0.0, min(1.0, cpu_pct / 100.0))
+        self.ram_pct = max(0.0, min(1.0, ram_pct / 100.0))
+
+    def actualizar_desde_llm(self, tiempo_ms: float, complejidad: float,
+                              errores: float, novedad: float) -> None:
+        """Actualiza variables de rendimiento del LLM."""
+        self.tiempo_respuesta  = min(1.0, tiempo_ms / 10000.0)
+        self.profundidad_razon = max(0.0, min(1.0, complejidad))
+        self.frecuencia_error  = max(0.0, min(1.0, errores))
+        self.novedad_respuesta = max(0.0, min(1.0, novedad))
+
+    def actualizar_desde_estado(self, ei: "EstadoInterno") -> None:
+        """Sincroniza variables emocionales desde EstadoInterno."""
+        self.dopamina      = ei.dopamina
+        self.humor         = ei.humor
+        self.irritabilidad = ei.irritabilidad
+        self.tension       = ei.tension
+        self.flow          = ei.flow
+        self.hablando      = ei.hablando
+        self.amplitud_audio = max(0.0, getattr(ei, "_mouth_amplitude", 0.0))
+
+    def actualizar_desde_usuario(self, tpm: float, sin_input_s: float,
+                                  cambios: float) -> None:
+        """Actualiza variables de actividad del usuario."""
+        self.teclas_por_minuto = min(1.0, tpm / 150.0)
+        self.tiempo_sin_input  = min(1.0, sin_input_s / 300.0)
+        self.cambios_ventana   = min(1.0, cambios / 10.0)
+
+    def tick(self, dt: float) -> None:
+        self.t += dt
+        from datetime import datetime as _dt
+        h = _dt.now().hour + _dt.now().minute / 60.0
+        self.hora_del_dia = h / 24.0
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MOTOR DE MAPEO — variables numéricas → parámetros Live2D (FASE JCySharp)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class MotorMapeo:
+    """
+    Convierte variables del sistema en parámetros visuales mediante
+    funciones matemáticas puras.
+
+    REGLA DE ORO: ningún método aquí elige, decide, ni selecciona.
+    Todo es transformación matemática: f(variables) → parámetros.
+    """
+
+    # Tiempos de suavizado diferenciados por zona corporal
+    SMOOTH_TIMES: dict[str, float] = {
+        "ParamAngleX":    0.15,
+        "ParamAngleY":    0.15,
+        "ParamAngleZ":    0.22,
+        "ParamEyeLOpen":  0.05,
+        "ParamEyeROpen":  0.05,
+        "ParamEyeBallX":  0.10,
+        "ParamEyeBallY":  0.10,
+        "ParamEyeLSmile": 0.35,
+        "ParamEyeRSmile": 0.35,
+        "ParamBrowLAngle":0.28,
+        "ParamBrowRAngle":0.28,
+        "ParamBrowLForm": 0.35,
+        "ParamBrowRForm": 0.35,
+        "ParamMouthForm": 0.30,
+        "ParamMouthOpenY":0.04,
+        "ParamBreath":    0.55,
+        "ParamHairFront": 0.32,
+        "ParamHairFront2":0.40,
+        "ParamHairFront3":0.48,
+        "JingYa":         0.40,
+        "WaiZui":         0.45,
+        "ShouBing":       0.65,
+        "JiaJu":          0.55,
+    }
+
+    def __init__(self, params_reales: list[str]):
+        """
+        params_reales: lista de IDs del modelo real (del diagnóstico).
+        Solo se animarán parámetros que existan en esta lista.
+        """
+        self._params = set(params_reales)
+        self._noise = {
+            "micro_x": SimpleNoise(seed=10),
+            "micro_y": SimpleNoise(seed=11),
+            "micro_z": SimpleNoise(seed=12),
+            "breath":  SimpleNoise(seed=13),
+            "eye_x":   SimpleNoise(seed=14),
+            "eye_y":   SimpleNoise(seed=15),
+            "hair":    SimpleNoise(seed=16),
+        }
+        # Estado del parpadeo — controlado por tiempo, no por elección
+        self._proximo_blink  = 0.0
+        self._en_blink       = False
+        self._blink_inicio   = 0.0
+        self._blink_duracion = 0.12   # segundos de cierre
+        self._blink_apertura = 0.08   # segundos de apertura
+
+    def tiene(self, param_id: str) -> bool:
+        return param_id in self._params
+
+    # ── MAPEOS INDIVIDUALES ───────────────────────────────────────────────────
+
+    def map_balanceo_z(self, sv: SistemaVariables) -> float:
+        """
+        ParamAngleZ — balanceo lateral del cuerpo.
+        Tres ondas a distintas frecuencias + ruido. Nunca una sola frecuencia.
+        Amplitud modulada por flow y dopamina. Pausa natural cada ~20s.
+        """
+        t = sv.t
+        amp  = 1.5 + sv.flow * 2.5 + sv.dopamina * 0.8
+        # Reducir si es tarde y hay poca actividad
+        hora = sv.hora_del_dia
+        if hora > 0.8 or hora < 0.15:
+            amp *= (1.0 - sv.tiempo_sin_input * 0.4)
+        freq = 0.18 + sv.dopamina * 0.08 - sv.tension * 0.05
+        onda_1 = math.sin(2 * math.pi * freq * t)
+        onda_2 = math.sin(2 * math.pi * freq * 2.1 * t + 0.7) * 0.3
+        onda_3 = math.sin(2 * math.pi * freq * 0.43 * t + 1.2) * 0.15
+        ruido  = self._noise["micro_z"].sample(t) * 0.4
+        # Pausa natural cada ~20s
+        pausa_ciclo = math.fmod(t, 22.0)
+        if 18.0 < pausa_ciclo < 20.0:
+            factor_pausa = 0.3 + 0.7 * (pausa_ciclo - 18.0) / 2.0
+        else:
+            factor_pausa = 1.0
+        return (onda_1 + onda_2 + onda_3 + ruido) * amp * factor_pausa
+
+    def map_parpadeo(self, sv: SistemaVariables) -> float:
+        """
+        ParamEyeLOpen / ParamEyeROpen — apertura de ojos.
+        Intervalos IRREGULARES con random. Nunca math.fmod().
+        Fase cierre: ease-in (progress²). Fase apertura: ease-out (√progress).
+        """
+        t = sv.t
+        if self._proximo_blink == 0.0:
+            self._proximo_blink = t + 3.0
+        if not self._en_blink and t >= self._proximo_blink:
+            self._en_blink    = True
+            self._blink_inicio = t
+            base = 4.0 - sv.tension * 1.5 + (1.0 if sv.hablando else 0.0)
+            base = max(2.0, base)
+            self._proximo_blink = t + base + random.uniform(-1.0, 2.5)
+        if self._en_blink:
+            elapsed = t - self._blink_inicio
+            total   = self._blink_duracion + self._blink_apertura
+            if elapsed < self._blink_duracion:
+                progress = elapsed / self._blink_duracion
+                apertura = 1.0 - (progress * progress)
+            elif elapsed < total:
+                progress = (elapsed - self._blink_duracion) / self._blink_apertura
+                apertura = math.sqrt(max(0.0, progress))
+            else:
+                self._en_blink = False
+                apertura = 1.0
+        else:
+            apertura = 1.0
+        apertura_base  = 0.75 + sv.dopamina * 0.25
+        cierre_tension = sv.tension * 0.3
+        return apertura * apertura_base * (1.0 - cierre_tension)
+
+    def map_mirada_x(self, sv: SistemaVariables, cursor_norm_x: float) -> float:
+        """ParamEyeBallX — mirada horizontal."""
+        t = sv.t
+        peso_cursor = max(0.0, 1.0 - sv.tiempo_sin_input * 2.0)
+        comp_cursor = cursor_norm_x * 0.8 * peso_cursor
+        peso_deriva = 1.0 - peso_cursor
+        deriva      = self._noise["eye_x"].sample(t * 0.3) * peso_deriva * 0.7
+        escaneo     = 0.0
+        if sv.cpu_pct > 0.5 and not sv.hablando:
+            escaneo = math.sin(t * 2.5) * 0.5 * sv.cpu_pct
+        micro = self._noise["micro_x"].sample(t * 0.8) * 0.08
+        return comp_cursor + deriva + escaneo + micro
+
+    def map_mirada_y(self, sv: SistemaVariables, cursor_norm_y: float) -> float:
+        """ParamEyeBallY — mirada vertical."""
+        t = sv.t
+        peso_cursor     = max(0.0, 1.0 - sv.tiempo_sin_input * 2.0)
+        comp_cursor     = -cursor_norm_y * 0.6 * peso_cursor
+        pensando        = sv.tiempo_respuesta * sv.cpu_pct
+        comp_pensar     = pensando * 0.4
+        cansancio       = (1.0 - sv.dopamina) * sv.tiempo_sin_input
+        comp_cansancio  = -cansancio * 0.3
+        micro           = self._noise["eye_y"].sample(t * 0.7) * 0.06
+        return comp_cursor + comp_pensar + comp_cansancio + micro
+
+    def map_angulo_cabeza_x(self, sv: SistemaVariables) -> float:
+        """ParamAngleX — inclinación vertical de cabeza."""
+        pensando   = sv.tiempo_respuesta * 0.4
+        cansancio  = (1.0 - sv.dopamina) * 5.0
+        tension_up = sv.tension * -3.0
+        micro      = self._noise["micro_y"].sample(sv.t * 0.2) * 1.5
+        return pensando * -5.0 + cansancio + tension_up + micro
+
+    def map_angulo_cabeza_y(self, sv: SistemaVariables, cursor_norm_x: float) -> float:
+        """ParamAngleY — rotación horizontal de cabeza."""
+        peso_cursor = max(0.0, 1.0 - sv.tiempo_sin_input * 1.5)
+        return cursor_norm_x * 7.0 * peso_cursor
+
+    def map_respiracion(self, sv: SistemaVariables) -> float:
+        """ParamBreath — ciclo de respiración con frecuencia variable."""
+        t    = sv.t
+        freq = 0.16 + sv.tension * 0.18 + sv.cpu_pct * 0.10 - sv.flow * 0.06
+        hora = sv.hora_del_dia
+        if hora > 0.8 or hora < 0.15:
+            freq -= 0.04
+        freq  = max(0.10, min(0.35, freq))
+        amp   = 0.5 - sv.tension * 0.2 + sv.flow * 0.2
+        ruido = self._noise["breath"].sample(t * 0.15) * 0.08
+        return math.sin(2 * math.pi * freq * t) * amp + 0.5 + ruido
+
+    def map_sonrisa(self, sv: SistemaVariables) -> float:
+        """ParamMouthForm — forma de boca. Resultado matemático de humor e irritabilidad."""
+        base = sv.humor * 0.8 - 0.1
+        base -= sv.irritabilidad * 0.6
+        base -= sv.tension * 0.2
+        onda  = math.sin(sv.t * 0.35) * 0.05
+        return max(-1.0, min(1.0, base + onda))
+
+    def map_cejas(self, sv: SistemaVariables) -> float:
+        """ParamBrowAngle — ángulo de cejas."""
+        base  = sv.humor * 0.3 - 0.1
+        base -= sv.irritabilidad * 0.9
+        base += sv.tension * 0.5
+        micro = self._noise["micro_x"].sample(sv.t * 0.25) * 0.1
+        return max(-1.0, min(1.0, base + micro))
+
+    def map_pelo(self, sv: SistemaVariables,
+                 angulo_z: float) -> tuple[float, float, float]:
+        """ParamHairFront 1/2/3 — pelo con inercia escalonada."""
+        t      = sv.t
+        lag_1  = angulo_z * 0.22 + self._noise["hair"].sample(t * 0.4) * 0.6
+        lag_2  = angulo_z * 0.16 + self._noise["hair"].sample(t * 0.3 + 1.0) * 0.4
+        lag_3  = angulo_z * 0.11 + self._noise["hair"].sample(t * 0.2 + 2.0) * 0.3
+        amp_flow = 1.0 + sv.flow * 0.5
+        return (lag_1 * amp_flow, lag_2 * amp_flow, lag_3 * amp_flow)
+
+    def map_boca_open(self, sv: SistemaVariables) -> float:
+        """ParamMouthOpenY — lip-sync real o micro-variación en reposo."""
+        if sv.hablando and sv.amplitud_audio >= 0.0:
+            return sv.amplitud_audio
+        return abs(math.sin(sv.t * 12.0)) * 0.02 * sv.dopamina
+
+    def map_shou_bing(self, sv: SistemaVariables) -> float:
+        """ShouBing — brazo derecho, modulado por flow y balanceo."""
+        sway = math.sin(sv.t * (0.18 + sv.dopamina * 0.08))
+        return max(0.0, min(0.85,
+            0.35 + sway * 0.25 + sv.flow * 0.20))
+
+    def map_jia_ju(self, sv: SistemaVariables) -> float:
+        """JiaJu — muñeca/mano, más activa al hablar."""
+        boost = 1.8 if sv.hablando else 1.0
+        freq  = 0.18 + sv.dopamina * 0.08
+        val   = (math.sin(sv.t * freq * 1.4 + 2.1) * 0.30
+                 + math.sin(sv.t * freq * 0.7 + 0.5) * 0.15) * boost
+        return max(-0.5, min(0.5, val))
+
+    def calcular_todos(self, sv: SistemaVariables,
+                       cursor_norm_x: float,
+                       cursor_norm_y: float) -> dict[str, float]:
+        """
+        Punto de entrada principal.
+        Retorna {param_id: valor} solo para parámetros que existen en el modelo.
+        """
+        angulo_z = self.map_balanceo_z(sv)
+        hair1, hair2, hair3 = self.map_pelo(sv, angulo_z)
+        parpadeo = self.map_parpadeo(sv)
+        sonrisa  = self.map_sonrisa(sv)
+        cejas    = self.map_cejas(sv)
+
+        resultados: dict[str, float] = {
+            # Cabeza
+            "ParamAngleZ":     angulo_z,
+            "ParamAngleX":     self.map_angulo_cabeza_x(sv),
+            "ParamAngleY":     self.map_angulo_cabeza_y(sv, cursor_norm_x),
+            # Ojos
+            "ParamEyeLOpen":   parpadeo,
+            "ParamEyeROpen":   parpadeo,
+            "ParamEyeBallX":   self.map_mirada_x(sv, cursor_norm_x),
+            "ParamEyeBallY":   self.map_mirada_y(sv, cursor_norm_y),
+            "ParamEyeLSmile":  max(0.0, sonrisa),
+            "ParamEyeRSmile":  max(0.0, sonrisa),
+            # Cejas
+            "ParamBrowLAngle": cejas,
+            "ParamBrowRAngle": cejas,
+            "ParamBrowLForm":  max(-1.0, min(1.0, -sv.irritabilidad * 0.6)),
+            "ParamBrowRForm":  max(-1.0, min(1.0, -sv.irritabilidad * 0.6)),
+            # Boca
+            "ParamMouthForm":  sonrisa,
+            "ParamMouthOpenY": self.map_boca_open(sv),
+            # Cuerpo
+            "ParamBreath":     self.map_respiracion(sv),
+            # Pelo
+            "ParamHairFront":  hair1,
+            "ParamHairFront2": hair2,
+            "ParamHairFront3": hair3,
+            # Expresión corporal
+            "JingYa":          sv.tension * 0.7,
+            "WaiZui":          sv.irritabilidad * 0.5,
+            "ShouBing":        self.map_shou_bing(sv),
+            "JiaJu":           self.map_jia_ju(sv),
+        }
+        # Solo retornar parámetros que existen en el modelo real
+        return {k: v for k, v in resultados.items() if self.tiene(k)}
 
 
 def main():
@@ -998,11 +1249,24 @@ def main():
     # try: model.StopAllMotions()  # ← comentado: permite motions de física
     try: model.StopAllMotions()
     except Exception: pass
-    set_expr(model, "rubor")
+    # set_expr eliminado — el avatar no elige expresiones (FASE JCySharp)
     print(f"[Live2D] ✓ IceGirl ({win_w}×{win_h})")
     print("  Click izq=humor | Click der+drag=mover | Rueda=zoom")
     print("  Ctrl+S=guardar | Ctrl+E=estático | Ctrl+R=reset")
     print("  Ctrl+P=ocultar/mostrar | Ctrl+T=borde superior | Ctrl+B=borde inferior | ESC=cerrar")
+
+    # ── PASO 5: Inicializar sistema de animación matemático (FASE JCySharp) ──
+    params_reales: list[str] = []
+    try:
+        _count = model.GetParameterCount()
+        params_reales = list(model.GetParamIds())
+        print(f"[Live2D] {len(params_reales)} parámetros disponibles para animación")
+    except Exception as _pe:
+        print(f"[Live2D] No se pudo obtener lista de parámetros: {_pe}")
+
+    sv    = SistemaVariables()
+    motor = MotorMapeo(params_reales)
+    print("[Alisha] ✓ Sistema de animación 100% matemático iniciado")
 
     # ── Sistemas: solo Media Sync y Trust (SIN voz — eso lo maneja web_app.py) ─
     def _iniciar_cerebro():
@@ -1094,8 +1358,7 @@ def main():
     estado_emocional = "neutral"
     ultimo_check   = 0.0
     ultimo_ventana = 0.0
-    ultimo_expr    = 0.0
-    proximo_expr   = random.uniform(8.0, 20.0)  # calculado una sola vez
+    # ultimo_expr / proximo_expr eliminados — no hay cambio de expresión por timer
     anim_t         = 0.0
 
     # ── Valores suavizados actuales de cada parámetro ─────────────────────────
@@ -1129,12 +1392,8 @@ def main():
     vel = {k: [0.0] for k in cur}
 
     # ── Seguimiento de mouse ──────────────────────────────────────────────────
-    # Modo de mirada: "cursor", "centro", "distraccion"
-    modo_mirada      = "cursor"
-    ultimo_modo_t    = 0.0
-    proximo_modo_t   = random.uniform(3.0, 8.0)
-    distraccion_x    = 0.0
-    distraccion_y    = 0.0
+    # Modo de mirada eliminado — el MotorMapeo maneja la mirada matemáticamente
+    # según tiempo_sin_input, cpu_pct y cursor en tiempo real
 
     # ── Drag ──────────────────────────────────────────────────────────────────
     dragging       = False
@@ -1148,13 +1407,7 @@ def main():
         if btn == glfw.MOUSE_BUTTON_LEFT and action == glfw.PRESS:
             if not estatico:
                 ei.clic()
-                # Expresión según irritabilidad
-                if ei.irritabilidad > 0.7:
-                    set_expr(model, random.choice(["enojo","oscuro","blanco"]))
-                elif ei.irritabilidad > 0.4:
-                    set_expr(model, random.choice(["boca_der","duda","blanco"]))
-                else:
-                    set_expr(model, random.choice(["sorpresa","corazon","estrella"]))
+                # Irritabilidad sube con clics — se refleja matemáticamente en cejas/boca
 
         elif btn == glfw.MOUSE_BUTTON_RIGHT:
             if action == glfw.PRESS and not estatico:
@@ -1163,11 +1416,11 @@ def main():
                 lx, ly         = glfw.get_cursor_pos(w)
                 wx, wy         = drag_win_start
                 drag_cur_start = (wx + lx, wy + ly)
-                set_expr(model, "sorpresa")
+                # Tensión sube al arrastrar — se refleja matemáticamente
+                ei.tension = min(1.0, ei.tension + 0.1)
             elif action == glfw.RELEASE and dragging:
                 nx, ny = glfw.get_window_pos(w)
                 save_prefs(nx, ny, win_w, win_h, estatico, posicion)
-                set_expr(model, "rubor")
                 dragging = False
 
     def on_cursor_pos(w, lx, ly):
@@ -1361,17 +1614,11 @@ def main():
 
                     if nuevo != estado_emocional:
                         estado_emocional = nuevo
-                        set_expr(model, expr_para_estado(ei, estado_emocional))
+                        # set_expr eliminado — el cambio de estado emocional
+                        # se refleja matemáticamente en los parámetros del motor
 
-                    # ── Expresión por palabras clave del texto ────────────────
-                    texto_resp = d.get("texto", "")
-                    if texto_resp and hablando:
-                        expr_kw = _expresion_por_texto(texto_resp)
-                        if expr_kw:
-                            try:
-                                model.SetExpression(expr_kw)
-                            except Exception:
-                                pass
+                    # ── Expresión por palabras clave ELIMINADA ────────────────
+                    # El texto de respuesta no elige expresiones (FASE JCySharp)
 
                     # Gaze override
                     if d.get("gaze_override"):
@@ -1476,249 +1723,82 @@ def main():
             cat    = analizar_ventana(titulo)
             ei.set_categoria(cat)
 
-        # ── Cambio de expresión periódico ─────────────────────────────────────
-        if now - ultimo_expr > proximo_expr:
-            ultimo_expr  = now
-            proximo_expr = random.uniform(8.0, 20.0)  # recalcular para el próximo
+        # ── Cambio de expresión periódico ELIMINADO (FASE JCySharp) ──────────
+        # El estado emocional se refleja matemáticamente en los parámetros.
+        # No hay expresiones elegidas por timer.
 
-            # Intentar gesto basado en gustos primero
-            try:
-                media_info = {}
-                if STATE_FILE.exists():
-                    _d = json.loads(STATE_FILE.read_text(encoding="utf-8"))
-                    media_info = _d.get("media_actual", {}) or {}
-                titulo_actual = get_active_window_title()
-                gesto_gusto = _gesto_por_gusto(ei, titulo_actual, media_info)
-                if gesto_gusto:
-                    set_expr(model, gesto_gusto)
-                else:
-                    set_expr(model, expr_para_estado(ei, estado_emocional))
-            except Exception:
-                set_expr(model, expr_para_estado(ei, estado_emocional))
+        # ── Modo de mirada ELIMINADO — MotorMapeo lo maneja matemáticamente ──
 
-        # ── Modo de mirada (cursor / centro / distracción) ────────────────────
-        if now - ultimo_modo_t > proximo_modo_t:
-            ultimo_modo_t  = now
-            proximo_modo_t = random.uniform(3.0, 10.0)
-            r = random.random()
-            # Si ignorar_mouse activo → más tiempo en centro/distracción
-            if ei.ignorar_mouse:
-                if r < 0.20:
-                    modo_mirada = "cursor"      # solo 20% sigue el cursor
-                elif r < 0.60:
-                    modo_mirada = "centro"
-                else:
-                    modo_mirada    = "distraccion"
-                    distraccion_x  = random.uniform(-0.9, 0.9)
-                    distraccion_y  = random.uniform(-0.5, 0.5)
-            else:
-                if r < 0.55:
-                    modo_mirada = "cursor"
-                elif r < 0.80:
-                    modo_mirada = "centro"
-                else:
-                    modo_mirada    = "distraccion"
-                    distraccion_x  = random.uniform(-0.9, 0.9)
-                    distraccion_y  = random.uniform(-0.5, 0.5)
+        # ── PASO 4: Sistema de animación matemático (FASE JCySharp) ─────────────
+        # Actualizar SistemaVariables con datos reales del sistema
+        sv.tick(dt)
+        sv.actualizar_desde_hw(_HW_CPU_PCT, _HW_RAM_PCT)
+        sv.actualizar_desde_estado(ei)
 
-        # ── Calcular targets de parámetros ────────────────────────────────────
+        # Cursor normalizado [-1, 1]
         lx, ly = glfw.get_cursor_pos(win)
-        norm_x = (lx / max(win_w, 1)) * 2.0 - 1.0
-        norm_y = (ly / max(win_h, 1)) * 2.0 - 1.0
+        cursor_norm_x = (lx / max(win_w, 1)) * 2.0 - 1.0
+        cursor_norm_y = (ly / max(win_h, 1)) * 2.0 - 1.0
 
-        # Ruido para micro-movimientos oculares
-        nx_noise = noise_x.sample(anim_t) * 0.12
-        ny_noise = noise_y.sample(anim_t) * 0.08
+        # Calcular todos los targets con el motor matemático
+        targets = motor.calcular_todos(sv, cursor_norm_x, cursor_norm_y)
 
-        if modo_mirada == "cursor":
-            tgt_eye_x = norm_x * 0.85 + nx_noise
-            tgt_eye_y = -norm_y * 0.65 + ny_noise
-            tgt_head_x = norm_y * -7.0
-            tgt_head_y = norm_x *  7.0
-        elif modo_mirada == "centro":
-            tgt_eye_x = nx_noise * 0.5
-            tgt_eye_y = ny_noise * 0.5
-            tgt_head_x = 0.0
-            tgt_head_y = 0.0
-        else:  # distraccion
-            tgt_eye_x = distraccion_x + nx_noise
-            tgt_eye_y = distraccion_y + ny_noise
-            tgt_head_x = distraccion_y * -5.0
-            tgt_head_y = distraccion_x *  5.0
-
-        # Balanceo corporal — velocidad y amplitud según flow/dopamina
-        vel_b = ei.velocidad_balanceo()
-        amp_b = ei.amplitud_balanceo()
-        tgt_angle_z = math.sin(anim_t * vel_b) * amp_b + noise_z.sample(anim_t) * 0.5
-
-        # ── Motor corporal orgánico ───────────────────────────────────────────
-        # Múltiples ondas en distintas frecuencias para sensación de vida real
-
-        # Onda principal de balanceo (cuerpo de lado a lado)
-        sway      = math.sin(anim_t * vel_b)
-        sway_fast = math.sin(anim_t * vel_b * 2.3 + 0.7)
-        sway_slow = math.sin(anim_t * vel_b * 0.4 + 1.2)
-
-        # ── ShouBing (brazo derecho principal) ───────────────────────────────
-        # Rango 0.0-0.8 — visible siempre, más amplio con flow/dopamina
-        tgt_shou = (
-            0.35                                    # base siempre visible
-            + sway      * 0.25                      # sigue el balanceo
-            + sway_fast * 0.10                      # armónico
-            + ei.flow   * 0.20                      # más movimiento con música
-        )
-        tgt_shou = max(0.0, min(0.85, tgt_shou))
-
-        # ── JiaJu (muñeca/mano derecha) ──────────────────────────────────────
-        habla_boost = 1.8 if ei.hablando else 1.0
-        tgt_jia = (
-            math.sin(anim_t * vel_b * 1.4 + 2.1) * 0.30
-            + math.sin(anim_t * vel_b * 0.7 + 0.5) * 0.15
-        ) * habla_boost
-        tgt_jia = max(-0.5, min(0.5, tgt_jia))
-
-        # ── ParamArmL / ArmL (brazo izquierdo) ───────────────────────────────
-        # Movimiento opuesto al derecho — natural al caminar/balancearse
-        tgt_arm_l = (
-            sway * -0.45                            # opuesto al balanceo
-            + sway_slow * 0.20
-            + 0.10                                  # base ligeramente levantado
-        )
-        tgt_arm_l = max(-0.7, min(0.7, tgt_arm_l))
-
-        # ── ParamArmR / ArmR (brazo derecho) ─────────────────────────────────
-        tgt_arm_r = (
-            sway * 0.45
-            + sway_fast * 0.15
-            + 0.10
-        )
-        tgt_arm_r = max(-0.7, min(0.7, tgt_arm_r))
-
-        # ── Manos ─────────────────────────────────────────────────────────────
-        tgt_hand_l = math.sin(anim_t * vel_b * 1.1 + 1.5) * 0.40
-        tgt_hand_r = math.sin(anim_t * vel_b * 0.9 + 0.8) * 0.40
-
-        # ── Hombros ───────────────────────────────────────────────────────────
-        tgt_shoulder = math.sin(anim_t * 0.5) * 0.25
-
-        # ── DaiJi (pose de espera) ────────────────────────────────────────────
-        # Sube cuando está quieta, baja cuando hay flow/movimiento
-        tgt_daiji = max(0.0, min(0.6, 0.4 - ei.flow * 0.4))
-
-        # Inercia del pelo — sigue al ángulo Z con retraso escalonado
-        hair_lag  = tgt_angle_z * 0.20 + sway_fast * 0.8
-        tgt_hair  = hair_lag
-        tgt_hair2 = hair_lag * 0.75 + sway_slow * 0.5
-        tgt_hair3 = hair_lag * 0.55 + sway_slow * 0.3
-
-        # Respiración — más rápida en tensión, más lenta en flow
-        breath_speed = 0.6 + ei.tension * 0.8 - ei.flow * 0.2
-        tgt_breath = math.sin(anim_t * breath_speed) * 0.5 + 0.5
-
-        # Parpadeo — ciclo de 3-5s
-        blink_period = 4.0 - ei.tension * 1.5
-        blink_phase  = math.fmod(anim_t, blink_period)
-        if blink_phase < 0.12:
-            blink_val = max(0.0, 1.0 - blink_phase / 0.06)
-        else:
-            blink_val = 1.0
-        tension_close = ei.tension_ocular()
-        tgt_eye_open  = blink_val * (1.0 - tension_close)
-
-        # Sonrisa / cejas según rangos dinámicos
-        s_lo, s_hi = ei.rango_sonrisa()
-        b_lo, b_hi = ei.rango_cejas()
-        smile_wave  = (math.sin(anim_t * 0.4) * 0.5 + 0.5)   # 0→1
-        tgt_smile   = s_lo + (s_hi - s_lo) * smile_wave
-        tgt_mouth   = s_lo + (s_hi - s_lo) * smile_wave * 0.8
-        brow_wave   = (math.sin(anim_t * 0.3 + 1.0) * 0.5 + 0.5)
-        tgt_brow    = b_lo + (b_hi - b_lo) * brow_wave
-
-        # JingYa (susto) — sube en tensión
-        tgt_jingya = ei.tension * 0.7
-
-        # WaiZui (boca torcida) — sube en irritabilidad
-        tgt_waizui = ei.irritabilidad * 0.5
-
-        # Lip sync — usa amplitud real del AudioVisualSync si está disponible
-        if ei.hablando:
-            _amp = getattr(ei, "_mouth_amplitude", -1.0)
-            if _amp >= 0.0:
-                # Amplitud real del audio — lip-sync preciso
-                tgt_mouth_open = _amp
-            else:
-                # Fallback: animación sinusoidal
-                tgt_mouth_open = abs(math.sin(anim_t * 9.0)) * 0.8
-        else:
-            tgt_mouth_open = 0.0
-            # Asegurar que la boca cierre suavemente
-            if not hasattr(ei, "_mouth_amplitude"):
-                ei._mouth_amplitude = 0.0
-
-        # ── Aplicar smooth_damp a todos los parámetros ────────────────────────
-        SMOOTH = 0.12   # tiempo de suavizado base (segundos)
-
-        def sd(key, target, smooth=SMOOTH):
+        # Aplicar smooth_damp con tiempos diferenciados por zona corporal
+        def sd(key: str, target: float, smooth: float = 0.20) -> None:
             if key not in cur:
                 cur[key] = 0.0
                 vel[key] = [0.0]
             cur[key] = smooth_damp(cur[key], target, vel[key], smooth, dt)
-            try: model.SetParameterValue(key, cur[key])
-            except Exception: pass
+            try:
+                model.SetParameterValue(key, cur[key])
+            except Exception:
+                pass
 
-        sd("ParamEyeBallX",   tgt_eye_x,    0.12)  # más suave = más elegante
-        sd("ParamEyeBallY",   tgt_eye_y,    0.12)
-        sd("ParamAngleX",     tgt_head_x,   0.18)
-        sd("ParamAngleY",     tgt_head_y,   0.18)
-        sd("ParamAngleZ",     tgt_angle_z,  0.25)
-        sd("ParamEyeLOpen",   tgt_eye_open, 0.06)
-        sd("ParamEyeROpen",   tgt_eye_open, 0.06)
-        sd("ParamEyeLSmile",  tgt_smile,    0.30)
-        sd("ParamEyeRSmile",  tgt_smile,    0.30)
-        sd("ParamBrowLAngle", tgt_brow,     0.25)
-        sd("ParamBrowRAngle", tgt_brow,     0.25)
-        sd("ParamBrowLForm",  -ei.irritabilidad * 0.6, 0.35)
-        sd("ParamBrowRForm",  -ei.irritabilidad * 0.6, 0.35)
-        sd("ParamMouthForm",  tgt_mouth,    0.30)
-        sd("ParamMouthOpenY", tgt_mouth_open, 0.05)  # lip-sync suave
-        sd("ParamBreath",     tgt_breath,   0.50)    # respiración muy suave
-        sd("ShouBing",        tgt_shou,     0.65)    # brazo — muy suave
-        sd("JiaJu",           tgt_jia,      0.55)
-        sd("JingYa",          tgt_jingya,   0.40)
-        sd("WaiZui",          tgt_waizui,   0.45)
-        sd("ParamHairFront",  tgt_hair,     0.30)    # pelo — inercia natural
-        sd("ParamHairFront2", tgt_hair2,    0.38)
-        sd("ParamHairFront3", tgt_hair3,    0.45)
+        for param_id, target in targets.items():
+            smooth = motor.SMOOTH_TIMES.get(param_id, 0.25)
+            sd(param_id, target, smooth)
 
-        # ── Brazos completos — movimiento visible ─────────────────────────────
-        sd("ParamArmL",      tgt_arm_l,    0.50)
-        sd("ParamArmR",      tgt_arm_r,    0.50)
-        sd("Param_Arm_L",    tgt_arm_l,    0.50)
-        sd("Param_Arm_R",    tgt_arm_r,    0.50)
-        sd("ArmL",           tgt_arm_l,    0.50)
-        sd("ArmR",           tgt_arm_r,    0.50)
-        sd("ParamHandL",     tgt_hand_l,   0.45)
-        sd("ParamHandR",     tgt_hand_r,   0.45)
-        sd("手臂",            tgt_arm_r,    0.50)
-        sd("手",              tgt_hand_r,   0.45)
-        sd("ParamShoulderL", tgt_shoulder, 0.60)
-        sd("ParamShoulderR", tgt_shoulder, 0.60)
-        sd("肩",              tgt_shoulder, 0.60)
-        sd("DaiJi",          tgt_daiji,    0.70)
+        # ── Brazos y rotaciones de malla — siguen el balanceo matemático ─────
+        # Calculados aquí porque usan sway derivado del balanceo del motor
+        _angulo_z = cur.get("ParamAngleZ", 0.0)
+        _freq     = 0.18 + sv.dopamina * 0.08
+        _sway     = math.sin(sv.t * _freq)
+        _sway_f   = math.sin(sv.t * _freq * 2.3 + 0.7)
+        _sway_s   = math.sin(sv.t * _freq * 0.4 + 1.2)
 
-        # Rotaciones de malla del cuerpo — suavizadas para evitar movimiento brusco
-        torso_rot = sway * 1.0 * ei.dopamina
-        sd("Param_Angle_Rotation_1_ArtMesh11", torso_rot,        0.45)
-        sd("Param_Angle_Rotation_2_ArtMesh11", torso_rot * 0.7,  0.50)
-        sd("Param_Angle_Rotation_1_ArtMesh12", torso_rot * 0.8,  0.48)
-        sd("Param_Angle_Rotation_2_ArtMesh12", torso_rot * 0.5,  0.52)
-        # Brazos adicionales — usar tgt_arm_r como base de energía
-        arm_rot = sway_fast * 1.2 * (0.3 + ei.flow * 0.4 + ei.dopamina * 0.3)
-        sd("Param_Angle_Rotation_1_ArtMesh95", arm_rot,          0.45)
-        sd("Param_Angle_Rotation_2_ArtMesh95", arm_rot * 0.6,    0.50)
-        sd("Param_Angle_Rotation_1_ArtMesh96", arm_rot * 0.8,    0.48)
-        sd("Param_Angle_Rotation_1_ArtMesh97", sway * 0.8,       0.50)
-        sd("Param_Angle_Rotation_1_ArtMesh98", sway_slow * 0.7,  0.55)
+        _arm_l = max(-0.7, min(0.7, _sway * -0.45 + _sway_s * 0.20 + 0.10))
+        _arm_r = max(-0.7, min(0.7, _sway *  0.45 + _sway_f * 0.15 + 0.10))
+        _hand  = math.sin(sv.t * _freq * 1.0 + 0.8) * 0.40
+        _shldr = math.sin(sv.t * 0.5) * 0.25
+        _daiji = max(0.0, min(0.6, 0.4 - sv.flow * 0.4))
+
+        sd("ParamArmL",      _arm_l,  0.50)
+        sd("ParamArmR",      _arm_r,  0.50)
+        sd("Param_Arm_L",    _arm_l,  0.50)
+        sd("Param_Arm_R",    _arm_r,  0.50)
+        sd("ArmL",           _arm_l,  0.50)
+        sd("ArmR",           _arm_r,  0.50)
+        sd("ParamHandL",     _hand,   0.45)
+        sd("ParamHandR",     _hand,   0.45)
+        sd("手臂",            _arm_r,  0.50)
+        sd("手",              _hand,   0.45)
+        sd("ParamShoulderL", _shldr,  0.60)
+        sd("ParamShoulderR", _shldr,  0.60)
+        sd("肩",              _shldr,  0.60)
+        sd("DaiJi",          _daiji,  0.70)
+
+        # Rotaciones de malla — moduladas por dopamina y flow
+        _torso = _sway * 1.0 * sv.dopamina
+        _arm_e = _sway_f * 1.2 * (0.3 + sv.flow * 0.4 + sv.dopamina * 0.3)
+        sd("Param_Angle_Rotation_1_ArtMesh11", _torso,        0.45)
+        sd("Param_Angle_Rotation_2_ArtMesh11", _torso * 0.7,  0.50)
+        sd("Param_Angle_Rotation_1_ArtMesh12", _torso * 0.8,  0.48)
+        sd("Param_Angle_Rotation_2_ArtMesh12", _torso * 0.5,  0.52)
+        sd("Param_Angle_Rotation_1_ArtMesh95", _arm_e,        0.45)
+        sd("Param_Angle_Rotation_2_ArtMesh95", _arm_e * 0.6,  0.50)
+        sd("Param_Angle_Rotation_1_ArtMesh96", _arm_e * 0.8,  0.48)
+        sd("Param_Angle_Rotation_1_ArtMesh97", _sway * 0.8,   0.50)
+        sd("Param_Angle_Rotation_1_ArtMesh98", _sway_s * 0.7, 0.55)
 
         # ── Motion idle — desactivado (usamos parámetros directos) ──────────
         # StartMotion causa ghosting al mezclarse con el control por parámetros
