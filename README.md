@@ -240,7 +240,3 @@ python -c "from alisha_health import get_uso_recursos; print(get_uso_recursos())
 - Cerebro: Groq (llama-3.3-70b) + Mistral + Ollama
 - Voz: edge-tts (Microsoft Neural TTS)
 - Interfaz: Flask + SocketIO + PixiJS
-
----
-
-*Hecho con 💜 — Alisha es tuya, Cami.*
