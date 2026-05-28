@@ -1,0 +1,15 @@
+{
+  "owner": "Ana",
+  "trusted_numbers": [
+    {
+      "number": "+51949103873",
+      "label": "celular principal",
+      "can_send_commands": true
+    },
+    {
+      "number": "+51916853655",
+      "label": "celular secundario",
+      "can_send_commands": true
+    }
+  ]
+}
