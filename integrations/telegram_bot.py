@@ -109,10 +109,11 @@ class TelegramBot:
             return
         await update.message.reply_text(
             "Comandos disponibles:\n"
-            "/start - iniciar\n"
-            "/estado - comprobar conexion\n"
-            "/ayuda - ver comandos\n\n"
-            "Tambien podes escribirme texto normal."
+            "/start — iniciar\n"
+            "/estado — ver estado de Alisha\n"
+            "/parar — abortar acciones en curso\n"
+            "/ayuda — ver comandos\n\n"
+            "También podés escribirme texto normal."
         )
 
     async def status_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -122,10 +123,29 @@ class TelegramBot:
         try:
             brain = self._get_brain()
             engine = getattr(getattr(brain, "router", None), "last_engine", "hybrid")
-            await update.message.reply_text(f"Alisha esta activa. Motor: {engine}.")
+            await update.message.reply_text(f"Alisha está activa. Motor: {engine}.")
         except Exception as exc:
             logger.exception("No se pudo obtener estado: %s", exc)
             await update.message.reply_text("Estoy conectada, pero no pude leer el estado interno.")
+
+    async def parar_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Aborta todas las acciones en curso."""
+        if not self._is_allowed(update):
+            await self._reply_denied(update)
+            return
+        try:
+            from tools.pc_controller import abort_all_actions
+            abort_all_actions()
+            abortado = True
+        except Exception:
+            abortado = False
+        try:
+            from autonomous_agent import get_task_manager
+            get_task_manager().cancelar_todas()
+        except Exception:
+            pass
+        msg = "⏹ Acciones abortadas." if abortado else "⏹ Parado (no había acciones activas)."
+        await update.message.reply_text(msg)
 
     async def text_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if not self._is_allowed(update):
@@ -170,16 +190,42 @@ class TelegramBot:
         self.application.add_handler(CommandHandler("ayuda", self.help_handler))
         self.application.add_handler(CommandHandler("help", self.help_handler))
         self.application.add_handler(CommandHandler("estado", self.status_handler))
+        self.application.add_handler(CommandHandler("parar", self.parar_handler))
+        self.application.add_handler(CommandHandler("stop", self.parar_handler))
         self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.text_handler))
 
         logger.info("Iniciando canal Telegram de Alisha...")
         self.application.run_polling(close_loop=False)
 
     def stop(self) -> None:
-        """Detiene el bot si fue iniciado por el ciclo de vida principal."""
+        """
+        Detiene el bot limpiamente.
+        run_polling() maneja su propio loop, así que stop() solo se usa
+        cuando el bot fue iniciado en un thread externo via asyncio.
+        Para detención limpia desde main.py, usar stop_async().
+        """
         if self.application:
             logger.info("Deteniendo canal Telegram...")
-            self.application.stop()
+            # stop() en python-telegram-bot >= 20 es una coroutine.
+            # Si hay un loop corriendo, programar la coroutine en él.
+            try:
+                loop = asyncio.get_event_loop()
+                if loop.is_running():
+                    loop.create_task(self.application.stop())
+                else:
+                    loop.run_until_complete(self.application.stop())
+            except Exception:
+                pass  # fail-silent: si el loop ya cerró, no importa
+
+    async def stop_async(self) -> None:
+        """Detiene el bot desde un contexto async (para uso en main.py)."""
+        if self.application:
+            logger.info("Deteniendo canal Telegram (async)...")
+            try:
+                await self.application.stop()
+                await self.application.shutdown()
+            except Exception as exc:
+                logger.warning("Error al detener Telegram: %s", exc)
 
 
 def main() -> None:
