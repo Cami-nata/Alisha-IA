@@ -1,31 +1,52 @@
 # Alisha IA
 
-Una IA de escritorio con personalidad propia, cuerpo animado en Live2D, voz y visión de pantalla. Hecha para Camila. Habla en voseo rioplatense. Tiene sus propios gustos. No es un chatbot genérico.
+**Una IA de escritorio tipo JARVIS, pero más humana.**
 
----
+Alisha combina:
+- 🎭 **Avatar Live2D** independiente con movimiento motriz natural
+- 🧠 **Cerebro híbrido** con múltiples motores (Groq, Mistral, Gemini, Ollama)
+- 👁️ **Visión de pantalla** que ve lo que hacés y comenta proactivamente
+- 🗣️ **Voz neural** sincronizada con el avatar
+- 💬 **Canales múltiples**: Web, Telegram (WhatsApp próximamente)
+- 🎨 **UI estilo JARVIS** con orbes funcionales (en desarrollo)
+- 🇦🇷 **Personalidad argentina**: voseo, sarcasmo, gustos propios
 
-## ¿Qué es esto?
-
-Alisha nació de una idea simple: ¿qué pasaría si tu asistente de IA viviera en tu pantalla, te viera trabajar, y tuviera carácter propio?
-
-El resultado es un sistema que combina un modelo Live2D animado (IceGirl) que flota en una esquina de tu pantalla, un cerebro de IA con múltiples motores y failover automático (Groq, Mistral, Ollama), visión de pantalla que le permite ver lo que estás haciendo y comentarlo sin que se lo pidas, y una personalidad argentina concreta: voseo, sarcasmo, gustos propios, memoria entre sesiones.
-
-No es una Alexa con skin anime. Tiene un sistema de confianza gradual que empieza tratándote como usuaria y puede llegar a ser tu partner real.
+No es un chatbot genérico. Tiene memoria, evoluciona, y puede llegar a ser tu partner de trabajo real.
 
 ---
 
 ## Arranque rápido
 
 ```bash
+# 1. Instalar dependencias
 pip install -r requirements.txt
-cp .env.example .env          # completar con tus API keys
-python Alisha_IA.py           # lanza todo: modelo 2D + servidor + IA
+
+# 2. Configurar
+cp .env.example .env
+# Editar .env y agregar al menos una API key (Groq o Mistral son gratis)
+
+# 3. Iniciar Alisha
+python main.py
+# O usar el shim de compatibilidad:
+python Alisha_IA.py
 ```
 
-La interfaz web queda en `http://localhost:5000`. Si no querés el modelo 2D por ahora:
+Esto inicia:
+- ✅ Servidor web en `http://localhost:5000`
+- ✅ Avatar Live2D en ventana separada
+- ✅ Tray icon para control rápido
+
+### Telegram (opcional)
 
 ```bash
-python iniciar_web.py
+# 1. Crear bot con @BotFather en Telegram
+# 2. Agregar a .env:
+TELEGRAM_ENABLED=true
+TELEGRAM_BOT_TOKEN=tu_token
+TELEGRAM_ALLOWED_USER_IDS=tu_user_id
+
+# 3. Reiniciar Alisha
+python main.py
 ```
 
 ---

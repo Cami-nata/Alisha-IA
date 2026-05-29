@@ -1,0 +1,16 @@
+{
+  "name": "alisha-desktop",
+  "version": "1.0.0",
+  "description": "Alisha IA - Desktop App estilo JARVIS",
+  "main": "main.js",
+  "scripts": {
+    "dev": "echo 'Desktop app en desarrollo. Por ahora usar: python main.py'",
+    "build": "echo 'Build pendiente'",
+    "package": "echo 'Packaging pendiente'"
+  },
+  "keywords": ["alisha", "ia", "jarvis", "desktop"],
+  "author": "Alisha Team",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}

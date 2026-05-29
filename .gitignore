@@ -18,8 +18,6 @@ productividad.json
 cradle_state.json
 chibi_state.json
 app_cache.json
-*.png
-*.mp3
 
 # Logs de debug (runtime, no versionar)
 *.log
@@ -41,3 +39,22 @@ venv/
 # Datos de runtime SQLite (WAL mode)
 data/*.db-shm
 data/*.db-wal
+
+# Carpetas de desarrollo (movidas a docs/dev-history)
+.kiro/
+.claude/
+.pytest_cache/
+
+# Screenshots y capturas temporales
+data/screenshots/
+data/telegram/
+tmp/
+
+# Node modules de integraciones
+integrations/whatsapp_bridge/node_modules/
+integrations/whatsapp_bridge/session/
+integrations/whatsapp_bridge/.wwebjs_cache/
+
+# Archivos de sesión y caché
+*.db-wal
+*.db-shm
